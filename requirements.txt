@@ -1,0 +1,5 @@
+streamlit
+matplotlib
+pyserial
+markdown
+xhtml2pdf
