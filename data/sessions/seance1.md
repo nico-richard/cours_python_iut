@@ -181,6 +181,17 @@ Ainsi, un calcul comme `0.1 + 0.2` peut produire une valeur très légèrement d
 
 Pour un premier cours, retenez surtout :
 **un `float` est une approximation numérique, pas un nombre réel mathématique exact.**
+
+:::support
+De nombreux nombres décimaux ne peuvent pas être représentés exactement avec
+un nombre fini de chiffres binaires. Pour comparer deux résultats calculés,
+on utilise donc parfois une tolérance plutôt qu'une égalité stricte.
+:::
+
+:::retenir
+L'affichage d'un écart minuscule ne signifie pas nécessairement que Python a
+effectué une mauvaise opération.
+:::
 ---
 ## Entrées / sorties simples
 

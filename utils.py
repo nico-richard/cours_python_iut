@@ -23,6 +23,15 @@ _TYPES_MIME = {
 
 _MOTIF_IMAGE_MARKDOWN = re.compile(r"!\[([^\]]*)\]\(([^)\s]+)\)")
 _MOTIF_DEBUT_LISTE = re.compile(r"^(\s*)([-*+]\s+|\d+\.\s+)")
+_MOTIF_BLOC_PEDAGOGIQUE = re.compile(
+    r"(?ms)^:::(support|attention|retenir)\s*\n(.*?)^:::\s*$"
+)
+
+_LIBELLES_BLOCS = {
+    "support": "📖 Complément pour le support étudiant",
+    "attention": "⚠️ Attention",
+    "retenir": "✅ À retenir",
+}
 
 
 def corriger_espacement_listes(texte: str) -> str:
@@ -44,6 +53,31 @@ def corriger_espacement_listes(texte: str) -> str:
                 resultat.append("")
         resultat.append(ligne)
     return "\n".join(resultat)
+
+
+def traiter_blocs_pedagogiques(texte: str, inclure_support: bool = True) -> str:
+    """Convertit les blocs pédagogiques en Markdown standard.
+
+    Syntaxe reconnue::
+
+        :::support
+        Explication destinée au polycopié et au mode Lecture.
+        :::
+
+    ``support`` est masqué en mode projection. Les blocs ``attention`` et
+    ``retenir`` restent visibles dans tous les modes. Le résultat utilise une
+    citation Markdown, comprise à la fois par Streamlit et l'export PDF.
+    """
+
+    def remplacer(match: re.Match) -> str:
+        nature, contenu = match.group(1), match.group(2).strip()
+        if nature == "support" and not inclure_support:
+            return ""
+        lignes = [f"> **{_LIBELLES_BLOCS[nature]}**", ">"]
+        lignes.extend(f"> {ligne}" if ligne else ">" for ligne in contenu.splitlines())
+        return "\n".join(lignes)
+
+    return _MOTIF_BLOC_PEDAGOGIQUE.sub(remplacer, texte)
 
 
 def _en_data_uri(chemin_image: Path) -> str | None:
@@ -79,6 +113,18 @@ def _integrer_images_locales(texte_markdown: str, dossier_base: Path) -> str:
     return _MOTIF_IMAGE_MARKDOWN.sub(remplacer, texte_markdown)
 
 
+def charger_document(chemin_fichier: str, inclure_support: bool = True) -> str:
+    """Charge et prépare un document Markdown pour son affichage."""
+    chemin = Path(chemin_fichier)
+    if not chemin.exists():
+        return "*(Contenu à venir pour cette séance)*"
+
+    texte = chemin.read_text(encoding="utf-8")
+    texte = traiter_blocs_pedagogiques(texte, inclure_support=inclure_support)
+    texte = corriger_espacement_listes(texte)
+    return _integrer_images_locales(texte, chemin.parent)
+
+
 def charger_slides(chemin_fichier: str) -> list[str]:
     """Charge un fichier Markdown et le découpe en diapositives.
 
@@ -93,13 +139,7 @@ def charger_slides(chemin_fichier: str) -> list[str]:
     Returns:
         Liste des diapositives (chaque élément = texte Markdown d'une slide).
     """
-    chemin = Path(chemin_fichier)
-    if not chemin.exists():
-        return ["*(Contenu à venir pour cette séance)*"]
-
-    texte = chemin.read_text(encoding="utf-8")
-    texte = corriger_espacement_listes(texte)
-    texte = _integrer_images_locales(texte, chemin.parent)
+    texte = charger_document(chemin_fichier, inclure_support=False)
     diapositives = [bloc.strip() for bloc in texte.split("\n---\n") if bloc.strip()]
     return diapositives
 

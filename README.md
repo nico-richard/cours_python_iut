@@ -31,6 +31,28 @@ Pour modifier le contenu d'un cours ou des exercices, il suffit d'éditer les
 fichiers Markdown dans `data/` — aucune modification du code n'est nécessaire.
 Les diapositives sont séparées par une ligne `---`.
 
+La page Cours propose deux affichages :
+- **Diaporama** : une diapositive à la fois pour la projection ;
+- **Lecture** : séance complète avec les compléments destinés aux étudiants.
+
+## Blocs pédagogiques
+Trois blocs facultatifs permettent d'adapter un contenu au support :
+```markdown
+:::support
+Complément masqué dans le diaporama, mais visible en mode Lecture et dans le PDF.
+:::
+
+:::attention
+Erreur fréquente ou précaution importante, visible partout.
+:::
+
+:::retenir
+Idée essentielle à mémoriser, visible partout.
+:::
+```
+
+Les fichiers existants restent valides sans utiliser ces blocs.
+
 ## Ajouter des images dans les diapositives
 Placez vos images dans `data/sessions/images/`, puis référencez-les dans le
 Markdown avec un chemin **relatif au fichier de la séance** :

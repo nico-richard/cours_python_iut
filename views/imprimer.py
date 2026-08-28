@@ -2,48 +2,70 @@
 
 import streamlit as st
 from utils import liste_seances, liste_exercices
-from pdf_export import generer_pdf_seance, generer_pdf_complet
+from pdf_export import (
+    generer_pdf_complet,
+    generer_pdf_exercices_seance,
+    generer_pdf_seance,
+)
 
 
 def page_imprimer() -> None:
     st.sidebar.subheader("🖨️ Version imprimable")
     st.title("🖨️ Version imprimable")
     st.write(
-        "Génère un PDF (cours + exercices) à partir du contenu actuel des séances, "
-        "à distribuer aux étudiants ou à imprimer."
+        "Les PDF sont générés depuis les mêmes fichiers Markdown que le diaporama. "
+        "Les compléments `:::support` y sont automatiquement intégrés."
     )
 
     seances = liste_seances()
     exercices = liste_exercices()
     noms_seances = list(seances.keys())
 
-    st.subheader("Par séance")
-    for nom in noms_seances:
-        numero = noms_seances.index(nom) + 1
-        col_nom, col_bouton = st.columns([3, 1])
-        col_nom.write(nom)
-        cle_exercices = f"Séance {numero}"
-        if col_bouton.button("Générer", key=f"gen_{numero}"):
-            with st.spinner("Génération du PDF..."):
-                pdf_bytes = generer_pdf_seance(
-                    nom, seances[nom], exercices[cle_exercices]
-                )
-            st.session_state[f"pdf_{numero}"] = pdf_bytes
+    st.subheader("Document par séance")
+    nom = st.selectbox("Séance à exporter", noms_seances)
+    numero = noms_seances.index(nom) + 1
+    cle_exercices = f"Séance {numero}"
+    format_document = st.radio(
+        "Contenu du document",
+        ["Support de cours", "Fascicule de TP", "Cours + TP"],
+        horizontal=True,
+    )
 
-        if f"pdf_{numero}" in st.session_state:
-            col_bouton.download_button(
-                "📥 Télécharger",
-                data=st.session_state[f"pdf_{numero}"],
-                file_name=f"seance{numero}_python_iut.pdf",
-                mime="application/pdf",
-                key=f"dl_{numero}",
-            )
+    if st.button("Générer le document", type="primary"):
+        with st.spinner("Génération du PDF..."):
+            if format_document == "Fascicule de TP":
+                pdf_bytes = generer_pdf_exercices_seance(
+                    nom, exercices[cle_exercices]
+                )
+                suffixe = "tp"
+            else:
+                inclure_tp = format_document == "Cours + TP"
+                pdf_bytes = generer_pdf_seance(
+                    nom,
+                    seances[nom],
+                    exercices[cle_exercices],
+                    inclure_exercices=inclure_tp,
+                )
+                suffixe = "cours_tp" if inclure_tp else "cours"
+        st.session_state["pdf_seance"] = (pdf_bytes, numero, suffixe)
+
+    if "pdf_seance" in st.session_state:
+        pdf_bytes, numero_pdf, suffixe = st.session_state["pdf_seance"]
+        st.download_button(
+            "📥 Télécharger le document",
+            data=pdf_bytes,
+            file_name=f"seance{numero_pdf}_{suffixe}.pdf",
+            mime="application/pdf",
+        )
 
     st.divider()
     st.subheader("Polycopié complet")
+    inclure_tp_complet = st.checkbox("Inclure les exercices", value=True)
     if st.button("Générer le PDF complet (4 séances)"):
         with st.spinner("Génération du PDF complet..."):
-            pdf_bytes = generer_pdf_complet(seances, exercices)
+            pdf_bytes = generer_pdf_complet(
+                seances, exercices, inclure_exercices=inclure_tp_complet
+            )
         st.session_state["pdf_complet"] = pdf_bytes
 
     if "pdf_complet" in st.session_state:

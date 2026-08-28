@@ -1,0 +1,42 @@
+# Python : bytecode et caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+ENV/
+
+# Configuration locale et secrets
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Tests, couverture et outils d'analyse
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Paquets et fichiers de construction
+build/
+dist/
+*.egg-info/
+
+# PDF générés par l'application
+pdf_pregeneres/*.pdf
+
+# Éditeurs et système d'exploitation
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
