@@ -6,8 +6,10 @@ Nous savons maintenant programmer les traitements de base.
 L'étape suivante consiste à travailler avec de vraies données scientifiques : des fichiers de mesures, des séries de températures et de grandes quantités de valeurs.
 
 Nous allons introduire les bibliothèques Python, les fichiers et surtout **NumPy**, qui permettra de réaliser efficacement des calculs scientifiques.
+
+À la fin de la séance, vous devez être capables de lire un fichier de mesures, de convertir ses données et de réaliser des calculs simples avec NumPy.
 ---
-## Pourquoi des bibliothèques ?
+## Rôle des bibliothèques
 
 Python possède déjà de nombreuses fonctionnalités, mais un langage généraliste ne peut pas fournir toutes les fonctions nécessaires à tous les domaines.
 
@@ -30,6 +32,14 @@ Quelques bibliothèques standard : `math`, `random`, `csv`, `os`.
 Parmi les bibliothèques externes que nous utiliserons : `numpy`, `matplotlib` et `pyserial`.
 
 L'intérêt est de ne pas réinventer des outils déjà disponibles.
+
+Une bibliothèque externe doit être installée dans l'environnement Python utilisé par le projet, par exemple :
+
+```text
+python -m pip install numpy
+```
+
+L'installation n'est effectuée qu'une fois ; l'import est écrit dans chaque programme qui utilise la bibliothèque.
 ---
 ## Importer un module
 
@@ -56,7 +66,7 @@ import numpy as np
 
 `np` devient alors un raccourci utilisé dans le reste du programme.
 ---
-## Les fichiers : pourquoi en avons-nous besoin ?
+## Conserver les données dans des fichiers
 
 Une variable ne suffit pas pour conserver durablement les résultats d'une expérience.
 
@@ -68,13 +78,13 @@ Dans ce cours, nous nous intéresserons surtout aux fichiers texte et aux fichie
 ---
 ## Fichiers texte, binaires et chemins
 
-Un fichier texte contient des caractères que nous pouvons interpréter comme du texte : `.txt`, `.csv`, `.json`...
+Un fichier texte contient des caractères que nous pouvons lire directement, par exemple aux formats `.txt`, `.csv` ou `.json`.
 
 Un fichier binaire contient des données organisées selon un format spécifique : image, tableur, etc.
 
 Pour accéder à un fichier, Python doit connaître son **chemin**.
 
-Un chemin peut être relatif au programme ou absolu sur l'ordinateur.
+Un chemin peut être relatif au dossier de travail courant ou absolu sur l'ordinateur.
 
 Comprendre les chemins est essentiel lorsque le programme doit retrouver automatiquement ses fichiers de données.
 ---
@@ -136,12 +146,15 @@ Python fournit le module `csv` pour faciliter cette lecture.
 import csv
 
 with open("mesures.csv", newline="", encoding="utf-8") as f:
-    lecteur = csv.reader(f)
+    lecteur = csv.reader(f, delimiter=";")
+    next(lecteur)  # ignorer l'en-tête
+
     for ligne in lecteur:
-        ...
+        temps = float(ligne[0])
+        temperature = float(ligne[1])
 ```
 
-Le programme peut ensuite séparer les colonnes, ignorer l'en-tête et convertir les valeurs numériques.
+Le séparateur doit correspondre au fichier. Ici, `delimiter=";"` est nécessaire car les colonnes sont séparées par des points-virgules.
 
 Cette étape constitue le passage entre :
 **un fichier contenant des caractères** et **des données utilisables pour un calcul scientifique**.
@@ -152,14 +165,14 @@ La même logique permet de sauvegarder des résultats.
 
 ```python
 with open("resultats.txt", "w", encoding="utf-8") as f:
-    f.write("...")
+    f.write("Moyenne : 20.4 °C\n")
 ```
 
 L'écriture est utile pour conserver les résultats d'une analyse ou produire un fichier destiné à un autre logiciel.
 
 Attention au mode `w` : il remplace le contenu existant du fichier.
 ---
-## Qu'est-ce que NumPy ?
+## NumPy et le calcul scientifique
 
 Nous pourrions stocker une série de mesures dans une liste Python.
 
@@ -238,7 +251,7 @@ L'un des intérêts majeurs de NumPy est de pouvoir appliquer une opération à 
 temperatures_k = temperatures_c + 273.15
 ```
 
-Python comprend que l'opération doit être appliquée à chaque élément.
+NumPy applique l'opération à chaque élément du tableau.
 
 On parle d'**opération vectorisée**.
 
@@ -256,20 +269,23 @@ mesures.max()
 mesures.sum()
 ```
 
-La moyenne résume le niveau central de la série. L'écart-type renseigne sur la dispersion des valeurs autour de cette moyenne.
+La moyenne résume le niveau central de la série. L'écart-type calculé ici décrit la dispersion des valeurs autour de cette moyenne.
 
 Dans un contexte expérimental, ces indicateurs permettent de passer d'une longue liste de mesures à quelques informations synthétiques.
 ---
-## Attention aux axes
+## Calculs suivant un axe
 
-Pour un tableau multidimensionnel, il faut préciser ce que l'on souhaite calculer.
+Pour un tableau multidimensionnel, l'argument `axis` indique la dimension supprimée par le calcul.
 
 ```python
-tableau.mean(axis=0)
-tableau.mean(axis=1)
+tableau = np.array([[1, 2, 3],
+                    [4, 5, 6]])
+
+tableau.mean(axis=0)  # [2.5, 3.5, 4.5] : une valeur par colonne
+tableau.mean(axis=1)  # [2.0, 5.0]      : une valeur par ligne
 ```
 
-L'argument `axis` indique la direction selon laquelle le calcul est effectué.
+Si les lignes représentent des capteurs et les colonnes des instants, `axis=1` calcule donc une moyenne par capteur et `axis=0` une moyenne par instant.
 
 Cette notion devient importante dès que les données représentent plusieurs variables, plusieurs capteurs ou plusieurs expériences.
 ---
@@ -289,7 +305,3 @@ Nous avons vu :
 - moyenne, écart-type et autres statistiques.
 
 La prochaine étape est de rendre ces résultats compréhensibles visuellement.
----
-## À vous de jouer
-
-Direction les exercices de la séance 3 →

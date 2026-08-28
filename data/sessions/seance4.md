@@ -6,8 +6,10 @@ Nous savons maintenant récupérer et analyser des données.
 Mais une série de nombres n'est pas toujours facile à interpréter. La visualisation permet de repérer rapidement des tendances, des variations, des anomalies ou des relations entre grandeurs.
 
 Nous allons ensuite aller plus loin : au lieu de lire des données depuis un fichier, nous verrons comment un programme Python peut communiquer directement avec un instrument ou une carte Arduino.
+
+À la fin de la séance, vous devez être capables de produire un graphique scientifique lisible et d'expliquer les étapes d'une acquisition par liaison série.
 ---
-## Pourquoi visualiser des données ?
+## Rôle de la visualisation
 
 Une analyse scientifique ne consiste pas uniquement à calculer une moyenne ou un écart-type.
 
@@ -17,7 +19,7 @@ Un graphique peut révéler rapidement une tendance, une variation périodique, 
 
 La visualisation est donc une étape de l'analyse, pas simplement une décoration du résultat.
 ---
-## Qu'est-ce que Matplotlib ?
+## La bibliothèque Matplotlib
 
 **Matplotlib** est une bibliothèque Python permettant de produire des graphiques.
 
@@ -35,7 +37,7 @@ L'idée générale est simple :
 Le graphique en courbes est particulièrement adapté lorsqu'une grandeur évolue selon une autre, par exemple une température en fonction du temps.
 
 ```python
-plt.plot(temps, temperature)
+plt.plot(temps, temperature, label="Température")
 plt.show()
 ```
 
@@ -76,12 +78,13 @@ Il faut notamment indiquer :
 plt.xlabel("Temps (s)")
 plt.ylabel("Température (°C)")
 plt.title("Évolution de la température")
+plt.grid()
 plt.legend()
 ```
 
 La personnalisation a pour objectif de **rendre l'information lisible et interprétable**.
 ---
-## Figures, axes et sous-figures
+## Figures, axes et sous-graphiques
 
 Lorsqu'un programme produit plusieurs graphiques, il devient utile de les organiser.
 
@@ -90,6 +93,12 @@ Matplotlib distingue notamment :
 - les **axes** : les zones dans lesquelles sont tracés les graphiques.
 
 Avec `plt.subplots()`, on peut créer plusieurs zones de tracé dans une même figure.
+
+```python
+fig, axes = plt.subplots(1, 2)
+axes[0].plot(temps, temperature)
+axes[1].hist(temperature)
+```
 
 Cette organisation devient pratique pour comparer plusieurs grandeurs ou plusieurs représentations d'un même jeu de données.
 ---
@@ -102,10 +111,10 @@ Un résultat peut devoir être intégré dans un rapport, envoyé à un collègu
 Matplotlib permet de sauvegarder une figure :
 
 ```python
-plt.savefig("courbe_temperature.png")
+plt.savefig("courbe_temperature.png", dpi=300, bbox_inches="tight")
 ```
 
-Il faut donc distinguer **afficher une figure** et **produire un fichier graphique**.
+La sauvegarde est généralement effectuée avant `plt.show()`. Il faut distinguer **afficher une figure** et **produire un fichier graphique**.
 ---
 ## Notions d'instrumentation
 
@@ -121,7 +130,7 @@ Un instrument peut mesurer une grandeur, convertir cette mesure en données num�
 
 Python peut alors automatiser l'acquisition, le traitement et la visualisation.
 ---
-## Communication matériel ↔ logiciel
+## Communication entre matériel et logiciel
 
 Pour qu'un ordinateur dialogue avec un instrument, il faut un moyen de communication et des règles communes.
 
@@ -140,6 +149,13 @@ C'est cette interface entre le monde matériel et le programme qui permet l'auto
 De nombreux instruments de laboratoire utilisent **SCPI** (*Standard Commands for Programmable Instruments*).
 
 SCPI définit un ensemble de commandes textuelles permettant notamment d'identifier un instrument ou de lui demander une mesure.
+
+```text
+*IDN?
+MEASure:VOLTage:DC?
+```
+
+Le point d'interrogation signale généralement une requête à laquelle l'instrument doit répondre.
 
 L'intérêt d'un protocole standardisé est de donner au logiciel une façon structurée de dialoguer avec différents instruments.
 
@@ -174,26 +190,24 @@ Le principe général est :
 ```python
 import serial
 
-port = serial.Serial("COM3", baudrate=9600, timeout=1)
+with serial.Serial("COM3", baudrate=9600, timeout=1) as port:
+    ligne = port.readline()
+    texte = ligne.decode("utf-8").strip()
+    mesure = float(texte)
 ```
 
-Une fois le port ouvert, Python peut communiquer avec l'appareil comme avec un flux de données.
+Le bloc `with` assure la fermeture du port, y compris si une erreur survient pendant la lecture.
 ---
 ## Utiliser pyserial (2/2)
 
-Les données reçues peuvent être des octets :
+Pour envoyer une commande, le texte doit être encodé en octets :
 
 ```python
-ligne = port.readline()
+with serial.Serial("COM3", baudrate=9600, timeout=1) as port:
+    commande = "*IDN?\n".encode("utf-8")
+    port.write(commande)
+    reponse = port.readline().decode("utf-8").strip()
 ```
-
-Il faut alors éventuellement les décoder :
-
-```python
-texte = ligne.decode("utf-8").strip()
-```
-
-À l'inverse, une commande envoyée peut être représentée sous forme de `bytes`.
 
 Cette succession est importante :
 
@@ -253,7 +267,3 @@ Vous devez maintenant comprendre les grandes étapes d'un programme scientifique
 - éventuellement communiquer directement avec un instrument.
 
 Les bibliothèques Python permettent d'ajouter progressivement ces capacités sans devoir tout programmer soi-même.
----
-## À vous de jouer
-
-Direction les exercices de la séance 4 →

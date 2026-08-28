@@ -10,8 +10,10 @@ Mais un vrai programme devient rapidement plus complexe :
 - nous devons répéter des traitements.
 
 Cette séance introduit les structures qui permettent d'organiser ces programmes.
+
+À la fin de la séance, vous devez être capables de définir une fonction, de regrouper des valeurs dans une séquence et de répéter un traitement avec une boucle.
 ---
-## Pourquoi des fonctions ?
+## Rôle des fonctions
 
 Imaginez que le même calcul apparaisse à plusieurs endroits dans un programme.
 
@@ -36,8 +38,9 @@ Les paramètres rendent une fonction générale.
 Plutôt que d'écrire une fonction pour une seule température, nous pouvons lui transmettre la valeur à traiter.
 
 ```python
-def convertir(valeur, unite="celsius"):
-    ...
+def convertir_c_en_k(temperature_c, precision=2):
+    temperature_k = temperature_c + 273.15
+    return round(temperature_k, precision)
 ```
 
 Un **paramètre** est une information fournie à la fonction.
@@ -46,13 +49,13 @@ Une **valeur par défaut** est utilisée lorsque l'appelant ne fournit pas cette
 
 Cela permet d'avoir des fonctions faciles à utiliser tout en conservant une certaine flexibilité.
 ---
-## Fonctions avec / sans valeur de retour
+## Fonctions avec et sans valeur de retour
 
 Certaines fonctions calculent un résultat que le reste du programme doit pouvoir réutiliser :
 
 ```python
-def calculer_moyenne(liste):
-    return sum(liste) / len(liste)
+def calculer_moyenne(mesures):
+    return sum(mesures) / len(mesures)
 ```
 
 D'autres réalisent principalement une action, par exemple afficher une alerte.
@@ -82,7 +85,7 @@ Ici, les deux `x` correspondent à des variables différentes.
 
 En pratique, on cherche généralement à limiter les variables globales et à faire circuler les informations par les paramètres et les valeurs de retour.
 ---
-## Listes : pourquoi en avons-nous besoin ?
+## Regrouper des valeurs avec une liste
 
 Jusqu'ici, une variable contenait généralement une seule valeur.
 
@@ -113,7 +116,7 @@ Il est donc adapté à des ensembles de valeurs qui représentent une informatio
 Le dépaquetage permet de récupérer directement ses éléments :
 
 ```python
-x, y = point
+latitude, longitude = point
 ```
 
 Pour ce cours, retenez surtout la différence :
@@ -135,7 +138,7 @@ liste[-1]
 
 L'index négatif permet de partir de la fin.
 
-Cette convention `0, 1, 2, ...` est fondamentale et sera également utilisée avec NumPy.
+Cette numérotation à partir de zéro est fondamentale et sera également utilisée avec NumPy.
 ---
 ## Indexage et découpage (2/2)
 
@@ -158,11 +161,11 @@ Cette façon de sélectionner des données deviendra particulièrement utile ave
 Python fournit déjà de nombreuses fonctions permettant d'analyser une séquence :
 
 ```python
-len(...)
-sum(...)
-max(...)
-min(...)
-sorted(...)
+len(mesures)
+sum(mesures)
+max(mesures)
+min(mesures)
+sorted(mesures)
 ```
 
 Il existe également le test d'appartenance avec `in`.
@@ -178,6 +181,15 @@ Une chaîne de caractères (`str`) est elle-même une séquence de caractères.
 On peut donc l'indexer et la découper comme une liste.
 
 On peut aussi concaténer, rechercher, remplacer, séparer et reconstruire du texte.
+
+Certains caractères sont représentés par une séquence d'échappement :
+
+```python
+message = "Mesure 1\nMesure 2"
+tableau = "temps\ttempérature"
+```
+
+`\n` représente un retour à la ligne et `\t` une tabulation.
 
 Ces opérations sont particulièrement utiles pour traiter des données provenant de fichiers, car les valeurs lues dans un fichier sont souvent initialement du texte.
 ---
@@ -201,10 +213,11 @@ Il faut distinguer la **valeur utilisée pour les calculs** de sa **représentat
 Les chaînes possèdent de nombreuses méthodes utiles :
 
 ```python
-texte.strip()
-texte.replace(...)
-texte.find(...)
-texte.split(...)
+texte = " température;20,5 "
+texte = texte.strip()
+texte = texte.replace(",", ".")
+morceaux = texte.split(";")
+texte_reconstruit = ";".join(morceaux)
 ```
 
 `split()` est particulièrement important pour les données textuelles : il permet de transformer une ligne contenant plusieurs valeurs séparées en une liste.
@@ -213,7 +226,7 @@ texte.split(...)
 
 Ces opérations prépareront directement la lecture de fichiers structurés comme les CSV.
 ---
-## Pourquoi les boucles ?
+## Rôle des boucles
 
 Nous savons maintenant stocker plusieurs valeurs dans une liste.
 
@@ -238,18 +251,28 @@ On peut également utiliser `range()` lorsque l'on travaille avec une suite d'in
 
 ```python
 for i in range(5):
-    ...
+    print(i)
 ```
 
 Le bloc indenté est exécuté à chaque tour de boucle.
+
+Une variable peut accumuler progressivement un résultat :
+
+```python
+total = 0
+for mesure in mesures:
+    total += mesure
+```
 ---
 ## Boucle `while`
 
 La boucle `while` répète un traitement **tant qu'une condition est vraie**.
 
 ```python
-while condition:
-    ...
+tentatives = 0
+while tentatives < 3:
+    print(f"Tentative {tentatives + 1}")
+    tentatives += 1
 ```
 
 Elle est utile lorsque le nombre de répétitions dépend d'une condition plutôt que d'une séquence connue.
@@ -277,7 +300,3 @@ Nous savons maintenant :
 - parcourir et répéter des traitements avec des **boucles**.
 
 Nous avons donc les bases nécessaires pour commencer à traiter de vraies données.
----
-## À vous de jouer
-
-Direction les exercices de la séance 2 →

@@ -17,7 +17,7 @@ Un ordinateur est composé de plusieurs éléments qui collaborent :
 - **CPU (processeur)** : exécute les instructions ;
 - **RAM** : mémoire de travail, rapide mais volatile ;
 - **Stockage** : conserve les fichiers même lorsque l'ordinateur est éteint ;
-- **Périphériques** : clavier, écran, capteurs, ports USB, liaison série...
+- **Périphériques** : clavier, écran, capteurs, ports USB et liaison série.
 
 Quand un programme travaille sur des données, celles-ci sont généralement chargées depuis le stockage vers la RAM, puis traitées par le processeur.
 
@@ -27,19 +27,19 @@ Cette distinction deviendra importante lorsque nous travaillerons avec des fichi
 
 Le matériel seul ne sait pas quoi faire : il a besoin de logiciels qui lui donnent des instructions.
 
-Le **système d'exploitation** (Windows, Linux, macOS...) fait le lien entre le matériel et les applications. Il gère notamment la mémoire, les fichiers, les périphériques et l'exécution des programmes.
+Le **système d'exploitation** (Windows, Linux ou macOS) fait le lien entre le matériel et les applications. Il gère notamment la mémoire, les fichiers, les périphériques et l'exécution des programmes.
 
-Un programme peut être :
+Deux modes d'exécution sont couramment distingués :
 
-- **compilé** : traduit avant son exécution en instructions adaptées à la machine ;
-- **interprété** : exécuté par l'intermédiaire d'un interpréteur.
+- **compilation préalable** : le programme est traduit avant son exécution ;
+- **exécution par un interpréteur** : un autre programme prend en charge son exécution.
 
-Python appartient à cette deuxième famille dans son usage classique : le code est exécuté par l'environnement Python.
+Dans son usage courant, un programme Python est lancé par l'interpréteur Python. En pratique, Python réalise aussi des étapes internes de traduction ; l'opposition « compilé ou interprété » est donc un modèle simplifié.
 
 L'idée importante pour nous est donc :
 **notre fichier Python contient des instructions, et Python se charge de les faire exécuter par l'ordinateur.**
 ---
-## Installer et lancer Python
+## Installation et exécution de Python
 
 Avant de programmer, il faut disposer d'un environnement permettant d'écrire et d'exécuter du code.
 
@@ -52,9 +52,9 @@ La console est utile pour expérimenter. Le fichier `.py` devient rapidement ind
 
 L'objectif n'est pas seulement de savoir lancer Python : il faut comprendre que **le code que nous écrivons est un fichier que Python va ensuite exécuter**.
 ---
-## Variables : pourquoi en avons-nous besoin ?
+## Mémoriser une valeur
 
-Un programme manipule des informations : températures, distances, résultats de mesures, noms, états d'un système...
+Un programme manipule des informations : températures, distances, résultats de mesures, noms ou états d'un système.
 
 Si une information doit être réutilisée, il faut pouvoir la conserver et lui donner un nom.
 
@@ -79,13 +79,20 @@ Une température peut être un nombre réel, un âge un entier, le nom d'un étu
 Python distingue notamment :
 
 - `int` : nombre entier ;
-- `float` : nombre réel ;
+- `float` : nombre à virgule flottante ;
 - `str` : chaîne de caractères ;
 - `bool` : valeur logique `True` ou `False`.
 
 Python détermine automatiquement le type d'une valeur.
 
 Le **type** est important car il indique à Python comment cette valeur peut être utilisée.
+
+La fonction `type()` permet de l'observer :
+
+```python
+temperature = 20.5
+print(type(temperature))  # <class 'float'>
+```
 ---
 ## Conversions explicites
 
@@ -103,7 +110,7 @@ str(42)
 
 Certaines conversions sont impossibles. Il faut donc distinguer **une donnée qui ressemble à un nombre** d'une donnée réellement stockée comme nombre.
 ---
-## Les opérateurs (1/2)
+## Opérateurs arithmétiques
 
 Une fois les données stockées, un programme doit pouvoir effectuer des opérations dessus.
 
@@ -122,13 +129,13 @@ Les opérateurs arithmétiques permettent de réaliser les calculs courants :
 Quelques points importants :
 
 - `/` réalise une division réelle ;
-- `//` réalise une division entière ;
+- `//` calcule le quotient arrondi vers le bas ;
 - `%` donne le reste d'une division ;
 - `**` représente une puissance.
 
 Ces opérateurs sont la base des calculs que nous effectuerons ensuite sur des mesures.
 ---
-## Les opérateurs (2/2)
+## Comparaisons et affectations
 
 Python propose également des opérateurs pour comparer des valeurs :
 
@@ -157,7 +164,7 @@ Il faut surtout distinguer `=` et `==` :
 
 Ces comparaisons vont nous permettre de faire prendre des décisions au programme.
 ---
-## Le type influence le résultat !
+## Influence du type sur le résultat
 
 Le type d'une donnée influence les opérations que Python réalise.
 
@@ -193,7 +200,7 @@ L'affichage d'un écart minuscule ne signifie pas nécessairement que Python a
 effectué une mauvaise opération.
 :::
 ---
-## Entrées / sorties simples
+## Entrées et sorties simples
 
 Jusqu'ici, les valeurs étaient écrites directement dans le programme.
 
@@ -213,6 +220,12 @@ temperature = float(valeur)
 À l'inverse, `print()` permet d'afficher une information.
 
 Les f-strings permettent de construire facilement un texte contenant des valeurs.
+
+```python
+print(f"Température mesurée : {temperature:.1f} °C")
+```
+
+Le format `.1f` modifie l'affichage, pas la valeur utilisée dans les calculs.
 ---
 ## Tests logiques
 
@@ -224,16 +237,26 @@ On utilise pour cela `if`, `elif` et `else`.
 
 ```python
 if temperature < 0:
-    ...
+    print("Risque de gel")
 elif temperature < 30:
-    ...
+    print("Température dans la plage prévue")
 else:
-    ...
+    print("Seuil supérieur dépassé")
 ```
 
 Les opérateurs `and`, `or` et `not` permettent de combiner ou modifier des conditions.
 
 L'**indentation** est essentielle en Python : elle indique quelles instructions appartiennent au bloc conditionnel.
+---
+## Comprendre les erreurs
+
+Une erreur fait partie du travail de programmation. Il faut identifier sa nature avant de la corriger.
+
+- **erreur de syntaxe** : le code ne respecte pas la grammaire de Python ;
+- **erreur d'exécution** : une instruction valide échoue, par exemple `float("abc")` ;
+- **erreur de logique** : le programme s'exécute mais produit un résultat incorrect.
+
+Le message d'erreur indique généralement le fichier, la ligne concernée et le type d'erreur. Il doit être lu en commençant par sa dernière ligne.
 ---
 ## Bilan de la séance
 
@@ -249,7 +272,3 @@ Nous avons construit les premières briques d'un programme :
 
 La prochaine étape consiste à gérer des programmes plus longs :
 **comment éviter de répéter du code et comment traiter plusieurs données ?**
----
-## À vous de jouer
-
-Direction les exercices de la séance 1 →
