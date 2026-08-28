@@ -1,4 +1,4 @@
-# Exercices — Séance 1 : Machine, logiciel et bases de Python
+# Exercices — Séance 1 : Premiers programmes Python
 
 **Ex. 1 — Premier script**
 Créer un fichier `bonjour.py` qui affiche votre nom et votre filière, puis l'exécuter depuis un terminal.

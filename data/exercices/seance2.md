@@ -1,4 +1,4 @@
-# Exercices — Séance 2 : Structures
+# Exercices — Séance 2 : Organiser et répéter les traitements
 
 **Ex. 1 — Fonction sans `max()`**
 Écrire une fonction `maximum(liste)` qui renvoie le plus grand élément, sans utiliser `max()`, à l'aide d'une boucle.

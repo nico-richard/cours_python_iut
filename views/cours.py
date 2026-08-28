@@ -1,12 +1,11 @@
-"""Page "Cours" : diapositives d'une séance, avec un mode d'affichage
-grand format pensé pour la projection en salle ("mode Tableau")."""
+"""Page "Cours" : diaporama de projection et support de lecture d'une séance."""
 
 import re
 
 import streamlit as st
 from utils import charger_document, charger_slides, liste_seances
 
-CSS_MODE_TABLEAU = """
+CSS_DIAPORAMA = """
 <style>
 [data-testid="stMarkdownContainer"] h1 { font-size: 3.2rem !important; }
 [data-testid="stMarkdownContainer"] h2 { font-size: 2.5rem !important; }
@@ -23,6 +22,11 @@ CSS_MODE_TABLEAU = """
     font-size: 1.35rem !important;
     line-height: 1.5 !important;
 }
+[data-testid="stMarkdownContainer"] th,
+[data-testid="stMarkdownContainer"] td {
+    font-size: 1.35rem !important;
+    line-height: 1.45 !important;
+}
 div.stButton > button {
     font-size: 1.6rem !important;
     padding: 0.6rem 1.6rem !important;
@@ -30,6 +34,51 @@ div.stButton > button {
 .block-container {
     max-width: 1100px;
     padding-top: 2rem;
+}
+</style>
+"""
+
+CSS_DIAGRAMMES = """
+<style>
+.diagram-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin: 1.2rem 0;
+}
+table.diagram-flow {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0.7rem;
+    table-layout: fixed;
+}
+table.diagram-flow td.diagram-node {
+    border: 2px solid #2a6f9e !important;
+    border-radius: 10px;
+    background: #eef5fb;
+    color: #17324d;
+    padding: 0.85rem 1rem;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 600;
+}
+table.diagram-flow td.diagram-arrow {
+    border: none !important;
+    background: transparent;
+    width: 2rem;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    color: #2a6f9e;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+table.diagram-flow-vertical {
+    width: min(100%, 650px);
+    margin: 0 auto;
+}
+table.diagram-flow-vertical td.diagram-arrow-vertical {
+    width: auto;
+    height: 1.8rem;
 }
 </style>
 """
@@ -55,7 +104,7 @@ def _afficher_diaporama(chemin_seance: str) -> None:
 
     st.session_state["index_slide"] = index
     st.divider()
-    st.markdown(slides[index])
+    st.markdown(slides[index], unsafe_allow_html=True)
 
 
 def _afficher_lecture(chemin_seance: str) -> None:
@@ -72,10 +121,11 @@ def _afficher_lecture(chemin_seance: str) -> None:
     for numero, section in enumerate(sections):
         if numero:
             st.divider()
-        st.markdown(section)
+        st.markdown(section, unsafe_allow_html=True)
 
 
 def page_cours() -> None:
+    st.markdown(CSS_DIAGRAMMES, unsafe_allow_html=True)
     st.sidebar.subheader("📘 Cours")
     seances = liste_seances()
     nom_seance = st.sidebar.selectbox("Séance", list(seances.keys()))
@@ -91,16 +141,8 @@ def page_cours() -> None:
         st.session_state["seance_courante"] = nom_seance
         st.session_state["index_slide"] = 0
 
-    mode_tableau = False
     if mode_affichage == "Diaporama":
-        mode_tableau = st.sidebar.toggle(
-            "🖥️ Mode Tableau (grand affichage)",
-            value=st.session_state.get("mode_tableau", False),
-            help="Agrandit le texte pour une lecture confortable en fond de salle.",
-        )
-    st.session_state["mode_tableau"] = mode_tableau
-    if mode_tableau:
-        st.markdown(CSS_MODE_TABLEAU, unsafe_allow_html=True)
+        st.markdown(CSS_DIAPORAMA, unsafe_allow_html=True)
 
     if mode_affichage == "Diaporama":
         _afficher_diaporama(seances[nom_seance])

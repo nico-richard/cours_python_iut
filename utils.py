@@ -11,6 +11,7 @@ import io
 import re
 import base64
 import contextlib
+import html
 
 _TYPES_MIME = {
     ".png": "image/png",
@@ -24,7 +25,10 @@ _TYPES_MIME = {
 _MOTIF_IMAGE_MARKDOWN = re.compile(r"!\[([^\]]*)\]\(([^)\s]+)\)")
 _MOTIF_DEBUT_LISTE = re.compile(r"^(\s*)([-*+]\s+|\d+\.\s+)")
 _MOTIF_BLOC_PEDAGOGIQUE = re.compile(
-    r"(?ms)^:::(support|attention|retenir)\s*\n(.*?)^:::\s*$"
+    r"(?ms)^:::(support|attention|retenir)[ \t]*\r?\n(.*?)^:::[ \t]*$"
+)
+_MOTIF_DIAGRAMME = re.compile(
+    r"(?ms)^:::diagram(?:[ \t]+(vertical))?[ \t]*\r?\n(.*?)^:::[ \t]*$"
 )
 
 _LIBELLES_BLOCS = {
@@ -73,11 +77,68 @@ def traiter_blocs_pedagogiques(texte: str, inclure_support: bool = True) -> str:
         nature, contenu = match.group(1), match.group(2).strip()
         if nature == "support" and not inclure_support:
             return ""
-        lignes = [f"> **{_LIBELLES_BLOCS[nature]}**", ">"]
+        if nature == "support":
+            lignes = []
+        else:
+            lignes = [f"> **{_LIBELLES_BLOCS[nature]}**", ">"]
         lignes.extend(f"> {ligne}" if ligne else ">" for ligne in contenu.splitlines())
         return "\n".join(lignes)
 
     return _MOTIF_BLOC_PEDAGOGIQUE.sub(remplacer, texte)
+
+
+def _formater_noeud_diagramme(texte: str) -> str:
+    """Échappe un libellé de diagramme et conserve un formatage inline minimal."""
+    texte = html.escape(texte.strip())
+    texte = re.sub(r"`([^`]+)`", r"<code>\1</code>", texte)
+    texte = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", texte)
+    return texte
+
+
+def traiter_diagrammes(texte: str) -> str:
+    """Transforme un bloc ``:::diagram`` en diagramme HTML accessible.
+
+    Chaque ligne non vide devient un bloc encadré. Par défaut les blocs sont
+    disposés horizontalement ; ``:::diagram vertical`` produit une chaîne
+    verticale adaptée aux séquences longues.
+    """
+
+    def remplacer(match: re.Match) -> str:
+        vertical = bool(match.group(1))
+        noeuds = [
+            _formater_noeud_diagramme(ligne)
+            for ligne in match.group(2).splitlines()
+            if ligne.strip()
+        ]
+        if not noeuds:
+            return ""
+
+        if vertical:
+            lignes = []
+            for index, noeud in enumerate(noeuds):
+                if index:
+                    lignes.append(
+                        '<tr><td class="diagram-arrow diagram-arrow-vertical">↓</td></tr>'
+                    )
+                lignes.append(f'<tr><td class="diagram-node">{noeud}</td></tr>')
+            contenu = "".join(lignes)
+            classe = "diagram-flow diagram-flow-vertical"
+        else:
+            cellules = []
+            for index, noeud in enumerate(noeuds):
+                if index:
+                    cellules.append('<td class="diagram-arrow">→</td>')
+                cellules.append(f'<td class="diagram-node">{noeud}</td>')
+            contenu = f"<tr>{''.join(cellules)}</tr>"
+            classe = "diagram-flow"
+
+        return (
+            '\n\n<div class="diagram-wrapper">'
+            f'<table class="{classe}" role="presentation">{contenu}</table>'
+            "</div>\n\n"
+        )
+
+    return _MOTIF_DIAGRAMME.sub(remplacer, texte)
 
 
 def _en_data_uri(chemin_image: Path) -> str | None:
@@ -121,6 +182,7 @@ def charger_document(chemin_fichier: str, inclure_support: bool = True) -> str:
 
     texte = chemin.read_text(encoding="utf-8")
     texte = traiter_blocs_pedagogiques(texte, inclure_support=inclure_support)
+    texte = traiter_diagrammes(texte)
     texte = corriger_espacement_listes(texte)
     return _integrer_images_locales(texte, chemin.parent)
 
@@ -171,10 +233,10 @@ def liste_seances() -> dict[str, str]:
     """Associe le nom affiché de chaque séance à son fichier de contenu."""
     base = Path(__file__).parent / "data" / "sessions"
     return {
-        "Séance 1 — Machine, logiciel et bases de Python": str(base / "seance1.md"),
-        "Séance 2 — Structures": str(base / "seance2.md"),
-        "Séance 3 — Calcul scientifique": str(base / "seance3.md"),
-        "Séance 4 — Visualisation et instrumentation": str(base / "seance4.md"),
+        "Séance 1 — Premiers programmes Python": str(base / "seance1.md"),
+        "Séance 2 — Organiser et répéter les traitements": str(base / "seance2.md"),
+        "Séance 3 — Exploiter des données scientifiques": str(base / "seance3.md"),
+        "Séance 4 — Visualiser et acquérir des mesures": str(base / "seance4.md"),
     }
 
 

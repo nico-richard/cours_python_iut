@@ -15,6 +15,7 @@ from utils import (
     _integrer_images_locales,
     corriger_espacement_listes,
     traiter_blocs_pedagogiques,
+    traiter_diagrammes,
 )
 
 CSS_IMPRESSION = """
@@ -47,6 +48,17 @@ CSS_IMPRESSION = """
         border-left: 4px solid #2a6f9e; color: #1f3444;
     }
     blockquote p { margin: 3px 0; text-align: left; }
+    .diagram-wrapper { width: 100%; margin: 12px 0; }
+    table.diagram-flow { width: 100%; border-spacing: 6px; }
+    table.diagram-flow td.diagram-node {
+        border: 1.5px solid #2a6f9e; background-color: #eef5fb;
+        color: #17324d; padding: 8px; text-align: center; font-weight: bold;
+    }
+    table.diagram-flow td.diagram-arrow {
+        border: none; width: 18px; padding: 2px; text-align: center;
+        vertical-align: middle; color: #2a6f9e; font-weight: bold;
+    }
+    table.diagram-flow-vertical { width: 70%; margin-left: 15%; }
     hr { border: none; border-top: 1px solid #ccc; margin: 14px 0; }
     img { max-width: 90%; margin: 8px 0; }
     .page-break { page-break-before: always; }
@@ -63,6 +75,7 @@ def _markdown_vers_html(chemin_fichier: Path) -> str:
         return "<p><em>(Contenu non disponible)</em></p>"
     texte = chemin_fichier.read_text(encoding="utf-8")
     texte = traiter_blocs_pedagogiques(texte, inclure_support=True)
+    texte = traiter_diagrammes(texte)
     texte = corriger_espacement_listes(texte)
     # Les séparateurs de diapositives structurent l'écran mais ne doivent pas
     # devenir une succession de traits horizontaux dans le polycopié.

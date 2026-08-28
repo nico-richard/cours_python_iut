@@ -1,260 +1,287 @@
 # Séance 2
-## Structures
+## Organiser et répéter les traitements
 
-Dans la séance précédente, nous avons écrit des programmes capables de manipuler des valeurs et de prendre des décisions.
+### Fonctions, séquences, textes et boucles
 
-Mais un vrai programme devient rapidement plus complexe :
-- certaines instructions doivent être réutilisées ;
-- nous devons stocker plusieurs valeurs ;
-- nous devons parcourir des données ;
-- nous devons répéter des traitements.
+Un programme devient rapidement difficile à maintenir lorsqu'il répète du code ou manipule de nombreuses valeurs séparément.
 
-Cette séance introduit les structures qui permettent d'organiser ces programmes.
+À la fin de la séance, vous devez être capables de découper un programme en fonctions, de regrouper des données et de répéter automatiquement un traitement.
 
-À la fin de la séance, vous devez être capables de définir une fonction, de regrouper des valeurs dans une séquence et de répéter un traitement avec une boucle.
+:::support
+Cette séance fait passer du petit programme linéaire à un programme structuré.
+Les fonctions organisent les traitements, les séquences regroupent les données et
+les boucles permettent d'appliquer une même opération à plusieurs valeurs.
+:::
 ---
-## Rôle des fonctions
+## Organiser le code avec des fonctions
 
-Imaginez que le même calcul apparaisse à plusieurs endroits dans un programme.
+Copier-coller un même calcul à plusieurs endroits augmente le risque d'erreur et rend les modifications difficiles.
 
-Copier-coller les mêmes instructions fonctionne au début, mais rend le programme difficile à modifier et augmente le risque d'erreur.
+Une fonction regroupe un traitement sous un nom :
 
-Une **fonction** permet de regrouper un traitement sous un nom et de le réutiliser.
+```python
+def convertir_c_en_k(temperature_c):
+    return temperature_c + 273.15
+
+temperature_k = convertir_c_en_k(20.0)
+```
+
+:::diagram
+Données d'entrée
+Fonction
+Résultat
+:::
+
+:::support
+La définition avec `def` enregistre le traitement mais ne l'exécute pas encore.
+L'appel de la fonction déclenche son exécution. Un nom de fonction commence
+généralement par un verbe qui décrit l'action réalisée.
+:::
+---
+## Paramètres et arguments
+
+Un **paramètre** est un nom utilisé dans la définition. Un **argument** est la valeur transmise lors de l'appel.
+
+```python
+def convertir_c_en_k(temperature_c):  # paramètre
+    return temperature_c + 273.15
+
+resultat = convertir_c_en_k(20.0)     # argument
+```
+
+Le paramètre permet d'utiliser le même traitement avec des valeurs différentes.
+---
+## Valeurs par défaut
+
+Un paramètre peut recevoir une valeur utilisée lorsque l'appel ne fournit pas l'argument correspondant :
+
+```python
+def afficher_mesure(valeur, unite="°C"):
+    print(f"Mesure : {valeur} {unite}")
+
+afficher_mesure(20.5)
+afficher_mesure(293.65, "K")
+```
+
+Les paramètres obligatoires sont placés avant ceux qui possèdent une valeur par défaut.
+
+:::support
+Une valeur par défaut convient à un cas fréquent, mais l'appelant peut la remplacer.
+Les paramètres rendent une fonction générale sans l'obliger à lire directement
+des variables globales ou à demander elle-même les données à l'utilisateur.
+:::
+---
+## Retourner ou afficher
+
+`return` fournit un résultat au reste du programme ; `print()` produit seulement un affichage.
+
+```python
+def calculer_moyenne(mesures):
+    return sum(mesures) / len(mesures)
+
+moyenne = calculer_moyenne([18.2, 19.1, 20.0])
+print(f"Moyenne : {moyenne:.1f} °C")
+```
+
+Le résultat retourné peut être mémorisé, comparé ou utilisé dans un autre calcul.
+
+:::support
+Une fonction sans `return` explicite renvoie la valeur spéciale `None`. `return`
+interrompt également l'exécution de la fonction. Séparer le calcul de l'affichage
+rend généralement la fonction plus facile à réutiliser et à tester.
+:::
+---
+## Portée des variables
+
+Une variable créée dans une fonction est **locale** : elle n'est accessible que pendant l'exécution de cette fonction.
 
 ```python
 def convertir_c_en_k(temperature_c):
     resultat = temperature_c + 273.15
     return resultat
+
+temperature = 20.0
 ```
 
-Une fonction peut recevoir des données en entrée et produire une donnée en sortie.
+`resultat` est locale à la fonction ; `temperature` est définie dans le programme principal.
 
-Elle permet donc de transformer un programme long en plusieurs petits traitements compréhensibles.
----
-## Paramètres et valeurs par défaut
-
-Les paramètres rendent une fonction générale.
-
-Plutôt que d'écrire une fonction pour une seule température, nous pouvons lui transmettre la valeur à traiter.
-
-```python
-def convertir_c_en_k(temperature_c, precision=2):
-    temperature_k = temperature_c + 273.15
-    return round(temperature_k, precision)
-```
-
-Un **paramètre** est une information fournie à la fonction.
-
-Une **valeur par défaut** est utilisée lorsque l'appelant ne fournit pas cette information.
-
-Cela permet d'avoir des fonctions faciles à utiliser tout en conservant une certaine flexibilité.
----
-## Fonctions avec et sans valeur de retour
-
-Certaines fonctions calculent un résultat que le reste du programme doit pouvoir réutiliser :
-
-```python
-def calculer_moyenne(mesures):
-    return sum(mesures) / len(mesures)
-```
-
-D'autres réalisent principalement une action, par exemple afficher une alerte.
-
-La distinction importante est :
-
-- **retourner une valeur** permet de réutiliser le résultat ;
-- **produire un effet** modifie quelque chose à l'extérieur de la fonction, par exemple l'affichage.
-
-`return` termine également l'exécution de la fonction et renvoie la valeur indiquée.
----
-## Portée des variables
-
-Une fonction peut créer ses propres variables.
-
-Ces variables sont dites **locales** : elles appartiennent au contexte d'exécution de la fonction et ne sont pas directement accessibles depuis l'extérieur.
-
-```python
-def f():
-    x = 1
-    return x
-
-x = 5
-```
-
-Ici, les deux `x` correspondent à des variables différentes.
-
-En pratique, on cherche généralement à limiter les variables globales et à faire circuler les informations par les paramètres et les valeurs de retour.
+:::support
+Une fonction peut lire certaines variables définies à l'extérieur, mais cette
+dépendance est souvent difficile à repérer. Il est préférable de transmettre les
+données par les paramètres et de récupérer les résultats avec `return`. L'emploi
+de variables globales doit rester limité et justifié.
+:::
 ---
 ## Regrouper des valeurs avec une liste
 
-Jusqu'ici, une variable contenait généralement une seule valeur.
-
-Mais une série de mesures contient potentiellement des dizaines, des centaines ou des milliers de valeurs.
-
-Il faut donc pouvoir regrouper plusieurs valeurs dans une même structure.
-
-Une **liste** est une séquence ordonnée et modifiable :
+Une série de mesures ne doit pas être stockée dans une succession de variables indépendantes.
 
 ```python
-mesures = [12.3, 14.1, 13.8]
+mesures = [18.2, 19.1, 20.0, 19.7]
 ```
 
-On peut ajouter, modifier ou supprimer des éléments.
-
-Les listes sont très pratiques pour commencer à manipuler des séries de données.
----
-## Tuples
-
-Le **tuple** ressemble à une liste, mais il est immuable : une fois créé, son contenu ne peut pas être modifié.
+Une liste est une séquence **ordonnée** et **modifiable** :
 
 ```python
-point = (48.85, 2.35)
+mesures[0] = 18.4
+mesures.append(20.2)
 ```
 
-Il est donc adapté à des ensembles de valeurs qui représentent une information fixe.
+Elle peut contenir un nombre variable d'éléments.
 
-Le dépaquetage permet de récupérer directement ses éléments :
+:::support
+Les éléments d'une liste sont placés entre crochets et séparés par des virgules.
+Python autorise le mélange de types, mais une série scientifique reste généralement
+homogène. `append()` ajoute un élément à la fin de la liste.
+:::
+---
+## Tuples et dépaquetage
+
+Un tuple est une séquence ordonnée qui ne peut pas être modifiée après sa création.
 
 ```python
-latitude, longitude = point
+position = (48.85, 2.35)
+latitude, longitude = position
 ```
 
-Pour ce cours, retenez surtout la différence :
-**liste = modifiable ; tuple = non modifiable.**
+| Liste | Tuple |
+|---|---|
+| `[18.2, 19.1]` | `(48.85, 2.35)` |
+| modifiable | non modifiable |
+| série évolutive | ensemble de valeurs associé |
+
+:::support
+L'impossibilité de modifier un tuple est appelée immutabilité. Le dépaquetage
+affecte chaque élément à une variable ; le nombre de variables doit correspondre
+au nombre d'éléments. Les tuples sont courants pour représenter des coordonnées ou
+retourner plusieurs résultats.
+:::
 ---
-## Indexage et découpage (1/2)
+## Indexer une séquence
 
-Une séquence contient plusieurs éléments, chacun possédant une position appelée **index**.
+Chaque élément possède une position appelée **index**. Le premier index vaut zéro.
 
-En Python, le premier élément possède l'index `0`.
-
-```python
-liste = [10, 20, 30, 40, 50]
-
-liste[0]
-liste[1]
-liste[-1]
+```text
+valeur   10   20   30   40
+index     0    1    2    3
+négatif  -4   -3   -2   -1
 ```
 
-L'index négatif permet de partir de la fin.
-
-Cette numérotation à partir de zéro est fondamentale et sera également utilisée avec NumPy.
----
-## Indexage et découpage (2/2)
-
-On peut également récupérer une partie d'une séquence : c'est le **slicing**.
-
 ```python
-liste[1:3]
-liste[:2]
-liste[::2]
+valeurs = [10, 20, 30, 40]
+premiere = valeurs[0]
+derniere = valeurs[-1]
 ```
 
-La borne de début est incluse et la borne de fin est exclue.
-
-Le découpage fonctionne sur les listes, les tuples et les chaînes de caractères.
-
-Cette façon de sélectionner des données deviendra particulièrement utile avec les tableaux NumPy.
+Un index inexistant provoque une `IndexError`.
 ---
-## Fonctions Python utiles sur les séquences
+## Extraire une partie de séquence
 
-Python fournit déjà de nombreuses fonctions permettant d'analyser une séquence :
+Le **slicing** sélectionne une portion sans modifier la séquence d'origine :
 
 ```python
-len(mesures)
-sum(mesures)
-max(mesures)
-min(mesures)
-sorted(mesures)
+valeurs = [10, 20, 30, 40, 50]
+
+valeurs[1:4]  # [20, 30, 40]
+valeurs[:2]   # [10, 20]
+valeurs[::2]  # [10, 30, 50]
 ```
 
-Il existe également le test d'appartenance avec `in`.
+Dans `[debut:fin]`, la borne de début est incluse et celle de fin est exclue.
 
-Avant de créer nous-mêmes une fonction, il est donc intéressant de vérifier si Python fournit déjà l'opération recherchée.
-
-Cette idée deviendra encore plus importante lorsque nous utiliserons des bibliothèques spécialisées.
+:::support
+Le troisième nombre éventuel indique le pas. Une borne omise signifie le début
+ou la fin de la séquence. Les mêmes principes s'appliquent aux listes, aux tuples,
+aux chaînes de caractères et, plus tard, aux tableaux NumPy.
+:::
 ---
-## Manipulation de texte
+## Fonctions utiles sur les séquences
 
-Une chaîne de caractères (`str`) est elle-même une séquence de caractères.
-
-On peut donc l'indexer et la découper comme une liste.
-
-On peut aussi concaténer, rechercher, remplacer, séparer et reconstruire du texte.
-
-Certains caractères sont représentés par une séquence d'échappement :
+Python fournit des opérations courantes qui évitent de réécrire une boucle :
 
 ```python
-message = "Mesure 1\nMesure 2"
-tableau = "temps\ttempérature"
+mesures = [18.2, 19.1, 20.0]
+
+len(mesures)     # nombre d'éléments
+sum(mesures)     # somme
+min(mesures)     # minimum
+max(mesures)     # maximum
+sorted(mesures)  # nouvelle liste triée
 ```
 
-`\n` représente un retour à la ligne et `\t` une tabulation.
+Le test `19.1 in mesures` indique si une valeur appartient à la séquence.
 
-Ces opérations sont particulièrement utiles pour traiter des données provenant de fichiers, car les valeurs lues dans un fichier sont souvent initialement du texte.
+:::support
+`sorted()` produit une nouvelle liste et ne modifie pas la séquence fournie.
+À l'inverse, la méthode `list.sort()` modifie directement une liste. `sum()`,
+`min()` et `max()` supposent que les éléments concernés sont compatibles entre eux.
+:::
 ---
-## Formatage de texte (f-strings)
+## Chaînes de caractères
 
-Un programme doit souvent produire des messages lisibles contenant des valeurs calculées.
-
-Les **f-strings** permettent d'insérer directement des expressions dans un texte.
+Une chaîne `str` est une séquence de caractères. Elle peut être indexée et découpée :
 
 ```python
-valeur = 3.14159
-print(f"Valeur : {valeur:.2f}")
+capteur = "TEMP-01"
+
+capteur[0]    # "T"
+capteur[:4]   # "TEMP"
 ```
 
-Le formatage permet notamment de contrôler le nombre de chiffres affichés.
+Quelques caractères possèdent une écriture spéciale : `\n` représente un retour à la ligne et `\t` une tabulation.
 
-Il faut distinguer la **valeur utilisée pour les calculs** de sa **représentation affichée**.
+Les chaînes sont non modifiables : une transformation produit une nouvelle chaîne.
 ---
-## Chercher, remplacer, séparer, joindre
+## Nettoyer et découper du texte
 
-Les chaînes possèdent de nombreuses méthodes utiles :
+Les méthodes de chaînes préparent notamment les données lues dans un fichier :
 
 ```python
-texte = " température;20,5 "
-texte = texte.strip()
-texte = texte.replace(",", ".")
-morceaux = texte.split(";")
-texte_reconstruit = ";".join(morceaux)
+ligne = "  temperature;20,5  "
+ligne = ligne.strip()
+ligne = ligne.replace(",", ".")
+morceaux = ligne.split(";")
+
+nom = morceaux[0]
+valeur = float(morceaux[1])
 ```
 
-`split()` est particulièrement important pour les données textuelles : il permet de transformer une ligne contenant plusieurs valeurs séparées en une liste.
+`join()` effectue l'opération inverse en réunissant plusieurs chaînes avec un séparateur.
 
-À l'inverse, `join()` permet de reconstruire une chaîne à partir de plusieurs morceaux.
-
-Ces opérations prépareront directement la lecture de fichiers structurés comme les CSV.
+:::support
+`strip()` retire les espaces et fins de ligne aux extrémités. `replace()` remplace
+toutes les occurrences recherchées. `split()` découpe et renvoie une liste.
+La méthode `find()` recherche une sous-chaîne et renvoie son index, ou `-1` si elle
+est absente.
+:::
 ---
-## Rôle des boucles
+## Répéter un traitement avec `for`
 
-Nous savons maintenant stocker plusieurs valeurs dans une liste.
-
-Mais comment appliquer le même traitement à chacune d'elles ?
-
-Écrire une instruction différente pour chaque élément serait impossible dès que le nombre de données augmente.
-
-Une **boucle** permet de demander à Python de répéter automatiquement un traitement.
-
-C'est une idée centrale en programmation scientifique : une même opération peut devoir être appliquée à une longue série de mesures.
----
-## Boucle `for`
-
-La boucle `for` est adaptée lorsque l'on souhaite parcourir une séquence ou répéter un traitement pour un ensemble d'éléments.
+Une boucle `for` parcourt successivement les éléments d'une séquence :
 
 ```python
+mesures = [18.2, 19.1, 20.0]
+
 for mesure in mesures:
-    print(mesure)
+    print(f"{mesure:.1f} °C")
 ```
 
-On peut également utiliser `range()` lorsque l'on travaille avec une suite d'indices ou un nombre connu de répétitions.
+À chaque tour, `mesure` reçoit l'élément suivant. Le bloc indenté est exécuté une fois par élément.
+
+:::support
+Il n'est pas nécessaire de gérer manuellement l'index lorsque seule la valeur est
+utile. Le nom de la variable de boucle doit décrire l'élément parcouru. Une chaîne,
+un tuple et de nombreuses autres structures peuvent également être parcourus.
+:::
+---
+## Compter et accumuler
+
+`range()` produit une suite d'entiers, notamment pour répéter une opération un nombre connu de fois :
 
 ```python
-for i in range(5):
-    print(i)
+for numero in range(5):
+    print(numero)  # de 0 à 4
 ```
-
-Le bloc indenté est exécuté à chaque tour de boucle.
 
 Une variable peut accumuler progressivement un résultat :
 
@@ -263,40 +290,61 @@ total = 0
 for mesure in mesures:
     total += mesure
 ```
----
-## Boucle `while`
 
-La boucle `while` répète un traitement **tant qu'une condition est vraie**.
+`range(debut, fin, pas)` exclut la borne de fin, comme le slicing.
+---
+## Répéter avec `while`
+
+Une boucle `while` répète un bloc tant que sa condition reste vraie :
 
 ```python
 tentatives = 0
+
 while tentatives < 3:
     print(f"Tentative {tentatives + 1}")
     tentatives += 1
 ```
 
-Elle est utile lorsque le nombre de répétitions dépend d'une condition plutôt que d'une séquence connue.
-
-Il faut cependant faire attention à ce que la condition puisse devenir fausse : sinon, le programme peut rester bloqué dans une **boucle infinie**.
+Elle convient lorsque le nombre de répétitions dépend d'une condition. La condition doit pouvoir devenir fausse pour éviter une boucle infinie.
 ---
-## `break` et `continue`
+## Modifier le parcours d'une boucle
 
-Deux instructions permettent de modifier le comportement d'une boucle.
+Deux instructions permettent de modifier ponctuellement le déroulement :
 
-- `break` arrête complètement la boucle ;
-- `continue` abandonne le tour courant et passe au suivant.
+- `break` arrête immédiatement la boucle ;
+- `continue` passe directement au tour suivant.
 
-Ces instructions sont utiles dans certaines situations, mais il faut éviter d'en abuser : une boucle dont le fonctionnement est simple est plus facile à lire et à maintenir.
+```python
+for mesure in mesures:
+    if mesure < 0:
+        continue
+    if mesure > 30:
+        break
+    print(mesure)
+```
+
+Elles restent utiles lorsque leur rôle est simple et clairement identifiable.
 ---
-## Bilan de la séance
+## Synthèse de la séance
 
-Nous savons maintenant :
+Nous disposons maintenant de trois outils complémentaires :
 
-- organiser un programme avec des **fonctions** ;
-- transmettre des données avec des paramètres et récupérer un résultat avec `return` ;
-- stocker plusieurs valeurs avec des **listes** et des tuples ;
-- sélectionner des éléments avec l'indexage et le slicing ;
-- manipuler du texte ;
-- parcourir et répéter des traitements avec des **boucles**.
+```text
+organiser un traitement  → fonction
+regrouper des données    → liste, tuple, str
+répéter une opération    → boucle for ou while
+```
 
-Nous avons donc les bases nécessaires pour commencer à traiter de vraies données.
+:::diagram
+Données
+Fonction
+Parcours
+Résultat
+:::
+
+:::support
+Les paramètres font entrer les données dans une fonction et `return` en fait
+sortir le résultat. Les séquences regroupent plusieurs valeurs et les boucles les
+parcourent. Ces outils permettront, à la séance suivante, de lire et d'analyser
+des données conservées dans des fichiers.
+:::

@@ -1,191 +1,268 @@
 # Séance 4
-## Visualisation et instrumentation
+## Visualiser et acquérir des mesures
 
-Nous savons maintenant récupérer et analyser des données.
+### Matplotlib, instrumentation et liaison série
 
-Mais une série de nombres n'est pas toujours facile à interpréter. La visualisation permet de repérer rapidement des tendances, des variations, des anomalies ou des relations entre grandeurs.
-
-Nous allons ensuite aller plus loin : au lieu de lire des données depuis un fichier, nous verrons comment un programme Python peut communiquer directement avec un instrument ou une carte Arduino.
+Une série de nombres devient plus facile à interpréter lorsqu'elle est représentée graphiquement. Python peut aussi recevoir directement les mesures d'un instrument.
 
 À la fin de la séance, vous devez être capables de produire un graphique scientifique lisible et d'expliquer les étapes d'une acquisition par liaison série.
+
+:::support
+Cette séance termine la chaîne commencée avec les fichiers et NumPy. Matplotlib
+transforme les données en représentations visuelles ; l'instrumentation et la
+liaison série montrent comment ces données peuvent provenir du monde physique.
+:::
 ---
 ## Rôle de la visualisation
 
-Une analyse scientifique ne consiste pas uniquement à calculer une moyenne ou un écart-type.
+Un indicateur résume les données ; un graphique montre leur organisation.
 
-On cherche aussi à comprendre **comment les données évoluent**.
+Une représentation peut révéler :
 
-Un graphique peut révéler rapidement une tendance, une variation périodique, une valeur aberrante, un changement brutal ou un dépassement de seuil.
+- une tendance ou une évolution temporelle ;
+- une relation entre deux grandeurs ;
+- une dispersion ou une valeur aberrante ;
+- un changement brutal ou un dépassement de seuil.
 
-La visualisation est donc une étape de l'analyse, pas simplement une décoration du résultat.
+Le graphique doit être choisi en fonction de la question scientifique, pas seulement pour son apparence.
 ---
-## La bibliothèque Matplotlib
+## Choisir une représentation
 
-**Matplotlib** est une bibliothèque Python permettant de produire des graphiques.
+| Question | Représentation adaptée |
+|---|---|
+| Comment une grandeur évolue-t-elle ? | courbe |
+| Deux variables sont-elles liées ? | nuage de points |
+| Comment les valeurs sont-elles réparties ? | histogramme |
 
-Elle fonctionne naturellement avec les listes Python et les tableaux NumPy.
+Une même série peut être représentée de plusieurs manières, mais chaque graphique met en évidence une information différente.
+
+:::support
+Relier des points par une courbe suggère un ordre, souvent temporel. Un nuage de
+points ne suppose pas cette continuité et sert à étudier une relation. Un histogramme
+regroupe les valeurs par intervalles ; il ne doit pas être confondu avec un diagramme
+en barres représentant des catégories.
+:::
+---
+## Construire un graphique avec Matplotlib
 
 ```python
 import matplotlib.pyplot as plt
-```
 
-L'idée générale est simple :
-**préparer les données → choisir une représentation → tracer → annoter → afficher ou sauvegarder.**
----
-## Graphique en courbes
-
-Le graphique en courbes est particulièrement adapté lorsqu'une grandeur évolue selon une autre, par exemple une température en fonction du temps.
-
-```python
-plt.plot(temps, temperature, label="Température")
+plt.plot(temps, temperatures)
+plt.xlabel("Temps (s)")
+plt.ylabel("Température (°C)")
+plt.title("Évolution de la température")
 plt.show()
 ```
 
-Il faut fournir une série de valeurs pour l'axe horizontal et une série correspondante pour l'axe vertical.
+:::diagram
+Données
+Représentation
+Annotations
+Affichage
+:::
 
-Dans le cas d'une mesure temporelle, on place généralement le temps sur l'axe `x` et la grandeur mesurée sur l'axe `y`.
+:::support
+Le module `matplotlib.pyplot`, généralement importé sous l'alias `plt`, fournit une
+interface simple pour construire une figure. Les deux séries transmises à `plot`
+doivent avoir le même nombre d'éléments : chaque abscisse correspond à une ordonnée.
+:::
+---
+## Représenter une évolution
+
+```python
+plt.plot(
+    temps,
+    temperatures,
+    color="tab:blue",
+    marker="o",
+    label="Température",
+)
+```
+
+| Argument | Rôle |
+|---|---|
+| `color` | couleur de la courbe |
+| `marker` | symbole placé sur les mesures |
+| `label` | nom utilisé dans la légende |
+
+Une ligne est pertinente lorsque l'ordre des points possède un sens.
 ---
 ## Nuage de points et histogramme
 
-Tous les graphiques ne répondent pas au même besoin.
-
-Le **nuage de points** permet notamment d'étudier la relation entre deux variables.
-
 ```python
-plt.scatter(x, y)
+plt.scatter(tension, courant)
 ```
 
-L'**histogramme** permet d'étudier la répartition d'une série de valeurs.
+Le nuage de points montre la relation entre deux variables mesurées sur les mêmes observations.
 
 ```python
-plt.hist(mesures, bins=5)
+plt.hist(temperatures, bins=10)
 ```
 
-Le choix du graphique doit donc dépendre de la question que l'on cherche à résoudre.
+L'histogramme découpe l'étendue des valeurs en intervalles et compte les observations dans chacun d'eux. Le choix de `bins` influence la lecture de la distribution.
 ---
-## Personnaliser un graphique
+## Annoter un graphique scientifique
 
-Un graphique scientifique doit être compréhensible sans explication orale.
-
-Il faut notamment indiquer :
-- le nom des grandeurs ;
-- les unités ;
-- le titre ;
-- les différentes séries si nécessaire ;
-- éventuellement une grille.
+Un graphique doit pouvoir être compris sans l'explication orale qui l'accompagne.
 
 ```python
 plt.xlabel("Temps (s)")
 plt.ylabel("Température (°C)")
 plt.title("Évolution de la température")
-plt.grid()
+plt.grid(alpha=0.3)
 plt.legend()
 ```
 
-La personnalisation a pour objectif de **rendre l'information lisible et interprétable**.
+Les axes indiquent la grandeur et son unité. Une légende est nécessaire lorsque plusieurs séries sont tracées ou lorsqu'un `label` doit être identifié.
+
+:::support
+Un titre décrit la situation représentée sans répéter simplement les axes. Une
+grille légère facilite la lecture des valeurs mais ne doit pas dominer les données.
+`legend()` utilise les textes fournis avec l'argument `label` des tracés.
+:::
 ---
-## Figures, axes et sous-graphiques
+## Figure, axes et sous-graphiques
 
-Lorsqu'un programme produit plusieurs graphiques, il devient utile de les organiser.
-
-Matplotlib distingue notamment :
-- la **figure** : l'ensemble du document graphique ;
-- les **axes** : les zones dans lesquelles sont tracés les graphiques.
-
-Avec `plt.subplots()`, on peut créer plusieurs zones de tracé dans une même figure.
+Matplotlib distingue la **figure**, qui contient l'ensemble du document, et les **axes**, qui sont les zones de tracé.
 
 ```python
-fig, axes = plt.subplots(1, 2)
-axes[0].plot(temps, temperature)
-axes[1].hist(temperature)
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+
+axes[0].plot(temps, temperatures)
+axes[1].hist(temperatures, bins=10)
+
+fig.tight_layout()
 ```
 
-Cette organisation devient pratique pour comparer plusieurs grandeurs ou plusieurs représentations d'un même jeu de données.
+Les sous-graphiques permettent de comparer plusieurs représentations sans les superposer.
+
+:::support
+Malgré son nom, un objet `Axes` représente une zone complète de tracé avec ses
+deux axes gradués. L'interface orientée objet (`fig`, `axes`) devient plus claire
+que `plt` dès que la figure contient plusieurs graphiques.
+:::
 ---
-## Exporter et sauvegarder
+## Exporter une figure
 
-Afficher un graphique à l'écran ne suffit pas toujours.
-
-Un résultat peut devoir être intégré dans un rapport, envoyé à un collègue ou conservé pour une analyse ultérieure.
-
-Matplotlib permet de sauvegarder une figure :
+Une figure peut être enregistrée pour être intégrée dans un rapport :
 
 ```python
-plt.savefig("courbe_temperature.png", dpi=300, bbox_inches="tight")
+fig.savefig(
+    "temperature.png",
+    dpi=300,
+    bbox_inches="tight",
+)
 ```
 
-La sauvegarde est généralement effectuée avant `plt.show()`. Il faut distinguer **afficher une figure** et **produire un fichier graphique**.
+`dpi` contrôle la résolution d'une image matricielle ; `bbox_inches="tight"` limite les marges inutiles.
+
+La sauvegarde est généralement effectuée avant `plt.show()`.
+
+:::support
+Le format PNG convient aux documents courants. Les formats vectoriels comme SVG
+ou PDF restent nets lors d'un agrandissement. Avec l'interface `pyplot`, la fonction
+équivalente est `plt.savefig()`.
+:::
 ---
-## Notions d'instrumentation
+## Chaîne d'instrumentation
 
-Jusqu'ici, nos données provenaient d'un fichier.
+Une mesure numérique résulte de plusieurs transformations :
 
-Dans une chaîne expérimentale réelle, les données peuvent provenir directement d'un instrument.
+:::diagram vertical
+Grandeur physique
+Capteur
+Électronique d'acquisition
+Communication
+Ordinateur et programme Python
+Analyse et représentation
+:::
 
-On peut représenter la chaîne ainsi :
+Python intervient après la conversion de la grandeur physique en données transmissibles.
 
-**grandeur physique → capteur → électronique → communication → ordinateur → programme Python → analyse**
-
-Un instrument peut mesurer une grandeur, convertir cette mesure en données numériques et communiquer ces données au logiciel.
-
-Python peut alors automatiser l'acquisition, le traitement et la visualisation.
+:::support
+Le capteur réagit à une grandeur telle qu'une température ou une tension.
+L'électronique conditionne et numérise le signal. Le système communique ensuite
+les valeurs à l'ordinateur, où Python peut automatiser leur stockage, leur analyse
+et leur représentation.
+:::
 ---
-## Communication entre matériel et logiciel
+## Support de communication et protocole
 
-Pour qu'un ordinateur dialogue avec un instrument, il faut un moyen de communication et des règles communes.
+Deux éléments sont nécessaires pour dialoguer avec un instrument :
 
-Les communications peuvent passer par différents supports :
-- USB ;
-- liaison série ;
-- réseau ;
-- autres interfaces spécialisées.
+| Élément | Question associée | Exemples |
+|---|---|---|
+| **support/interface** | par où circulent les données ? | USB, série, réseau |
+| **protocole** | quelles règles sont utilisées ? | SCPI, protocole constructeur |
 
-Le logiciel doit connaître la manière dont l'instrument attend de recevoir les commandes et la manière dont il transmet ses réponses.
+Une connexion USB n'indique pas à elle seule la forme des commandes ou des réponses échangées.
 
-C'est cette interface entre le monde matériel et le programme qui permet l'automatisation des mesures.
+:::support
+Une interface décrit le moyen de transport et ses caractéristiques. Un protocole
+définit la structure, l'ordre et la signification des messages. Plusieurs protocoles
+peuvent utiliser un même support, et un même protocole peut parfois être transporté
+par plusieurs interfaces.
+:::
 ---
-## Le protocole SCPI
+## Commandes SCPI
 
-De nombreux instruments de laboratoire utilisent **SCPI** (*Standard Commands for Programmable Instruments*).
-
-SCPI définit un ensemble de commandes textuelles permettant notamment d'identifier un instrument ou de lui demander une mesure.
+SCPI (*Standard Commands for Programmable Instruments*) définit une syntaxe textuelle utilisée par de nombreux instruments de laboratoire.
 
 ```text
 *IDN?
 MEASure:VOLTage:DC?
 ```
 
-Le point d'interrogation signale généralement une requête à laquelle l'instrument doit répondre.
+- `*IDN?` demande l'identification de l'instrument ;
+- `MEASure:VOLTage:DC?` demande une mesure de tension continue ;
+- le point d'interrogation signale une requête qui attend une réponse.
 
-L'intérêt d'un protocole standardisé est de donner au logiciel une façon structurée de dialoguer avec différents instruments.
-
-Il faut distinguer :
-- le **support de communication** : par exemple une liaison série ou USB ;
-- le **protocole** : les règles et commandes échangées.
+:::support
+SCPI standardise une partie du vocabulaire, mais les commandes réellement prises
+en charge dépendent de l'instrument. Sa documentation reste la référence. Les
+commandes sont généralement terminées par un caractère de fin de ligne.
+:::
 ---
-## Port série sur un PC et encodage
+## Paramètres d'une liaison série
 
-Une liaison série transmet les données sous forme d'une suite d'octets.
+Une liaison série transmet une suite d'octets. Les deux équipements doivent utiliser des paramètres compatibles.
 
-Le PC et l'instrument doivent notamment être configurés avec des paramètres compatibles, comme la vitesse de transmission.
+| Paramètre | Rôle |
+|---|---|
+| port | identifier l'interface, par exemple `COM3` |
+| `baudrate` | fixer la vitesse de transmission |
+| `timeout` | limiter la durée d'attente d'une lecture |
+| fin de ligne | délimiter les messages |
 
-Sous Windows, les ports peuvent apparaître sous la forme `COM3`, `COM4`, etc. Sous Linux, on rencontre notamment `/dev/ttyUSB0` ou `/dev/ttyACM0`.
-
-Les données reçues peuvent être des **bytes**. Pour obtenir du texte exploitable par Python, il faut alors les décoder.
-
-Cette distinction entre **octets** et **texte** est importante lorsqu'on communique avec un appareil.
+Sous Linux, un port peut notamment apparaître sous la forme `/dev/ttyUSB0` ou `/dev/ttyACM0`.
 ---
-## Utiliser pyserial (1/2)
+## Octets, texte et nombre
 
-`pyserial` est une bibliothèque Python permettant d'utiliser les ports série.
+Le port série échange des `bytes`, alors que le programme veut généralement manipuler du texte puis un nombre.
 
-Le principe général est :
+:::diagram
+Octets `b'20.5\r\n'`
+Décodage UTF-8
+Texte `"20.5"`
+Conversion avec `float()`
+Nombre `20.5`
+:::
 
-1. ouvrir le port ;
-2. configurer la communication ;
-3. envoyer ou recevoir des données ;
-4. convertir les données reçues si nécessaire ;
-5. fermer le port.
+```python
+texte = ligne.decode("utf-8").strip()
+mesure = float(texte)
+```
+
+L'encodage doit être identique du côté de l'émetteur et du récepteur.
+
+:::support
+Un octet est une valeur numérique comprise entre 0 et 255. Un encodage comme UTF-8
+définit comment une suite d'octets représente des caractères. `strip()` retire ici
+les caractères de fin de ligne avant la conversion numérique.
+:::
+---
+## Lire avec pyserial
 
 ```python
 import serial
@@ -196,74 +273,80 @@ with serial.Serial("COM3", baudrate=9600, timeout=1) as port:
     mesure = float(texte)
 ```
 
-Le bloc `with` assure la fermeture du port, y compris si une erreur survient pendant la lecture.
----
-## Utiliser pyserial (2/2)
+Le bloc `with` ferme automatiquement le port. `readline()` lit jusqu'à une fin de ligne ou jusqu'à l'expiration du délai.
 
-Pour envoyer une commande, le texte doit être encodé en octets :
+:::support
+L'ouverture peut échouer si le port n'existe pas, est déjà utilisé ou si les droits
+sont insuffisants. Une lecture peut être vide après un timeout et une réponse peut
+être invalide. Une application réelle doit donc vérifier les données reçues avant
+leur conversion.
+:::
+---
+## Envoyer une commande
+
+Une commande textuelle doit être encodée avant son envoi :
 
 ```python
+import serial
+
 with serial.Serial("COM3", baudrate=9600, timeout=1) as port:
     commande = "*IDN?\n".encode("utf-8")
     port.write(commande)
     reponse = port.readline().decode("utf-8").strip()
 ```
 
-Cette succession est importante :
+:::diagram vertical
+Commande textuelle
+Encodage en octets
+Envoi et réception
+Décodage des octets
+Réponse textuelle
+:::
 
-**octets reçus → décodage → texte → conversion numérique → donnée utilisable**.
+:::support
+La terminaison `\n` est ici incluse dans la commande car de nombreux instruments
+attendent une fin de ligne avant de traiter le message. La terminaison exacte doit
+être vérifiée dans la documentation de l'appareil.
+:::
 ---
-## Exemple : lire un capteur Arduino
+## Acquisition avec une carte Arduino
 
-Une carte Arduino peut envoyer régulièrement une mesure sur sa liaison série.
+Une carte Arduino peut envoyer périodiquement une mesure terminée par un retour à la ligne. Python peut alors :
 
-Python peut alors :
-- ouvrir la liaison ;
-- lire les mesures ;
-- convertir le texte reçu en nombre ;
-- stocker les valeurs ;
-- calculer des statistiques ;
-- tracer un graphique.
+1. ouvrir la liaison série ;
+2. lire et convertir chaque mesure ;
+3. stocker les valeurs ;
+4. calculer des indicateurs avec NumPy ;
+5. tracer et sauvegarder un graphique.
 
-Nous retrouvons ainsi toutes les notions des quatre séances.
+:::diagram vertical
+Capteur
+Arduino
+Liaison série
+Python
+NumPy
+Matplotlib
+:::
 
-La chaîne complète devient :
-
-**capteur → Arduino → série → Python → données → NumPy → statistiques → Matplotlib**.
+Une source simulée permet de tester le programme lorsqu'aucun matériel n'est disponible.
 ---
-## Le fil conducteur du cours
+## Synthèse du cours
 
-Les notions vues ne sont pas indépendantes.
+Les quatre séances construisent une chaîne complète :
 
-Nous avons progressivement construit une chaîne complète de traitement des données :
+| Étape | Outils principaux |
+|---|---|
+| programmer | variables, conditions, fonctions, boucles |
+| stocker | listes, fichiers, CSV |
+| calculer | NumPy et statistiques descriptives |
+| visualiser | Matplotlib |
+| acquérir | instrument, liaison série, Arduino |
 
-**1. Programmer**
-→ variables, types, conditions, fonctions, boucles
+L'objectif est de transformer une grandeur physique en données interprétables, puis en résultat scientifique communicable.
 
-**2. Stocker**
-→ listes, fichiers, CSV
-
-**3. Calculer**
-→ NumPy, moyenne, écart-type
-
-**4. Visualiser**
-→ Matplotlib
-
-**5. Acquérir**
-→ liaison série, Arduino, instrumentation
-
-L'objectif final est de pouvoir automatiser une petite chaîne de mesure et d'analyse.
----
-## Bilan de la séance
-
-Vous devez maintenant comprendre les grandes étapes d'un programme scientifique :
-
-- récupérer des données ;
-- les convertir dans un format exploitable ;
-- les stocker ;
-- les analyser ;
-- produire des indicateurs ;
-- représenter les résultats ;
-- éventuellement communiquer directement avec un instrument.
-
-Les bibliothèques Python permettent d'ajouter progressivement ces capacités sans devoir tout programmer soi-même.
+:::support
+Chaque étape possède une responsabilité distincte. Cette séparation permet de
+tester les traitements avec des données simulées avant de connecter le matériel,
+puis de remplacer la simulation par une acquisition réelle sans reconstruire tout
+le programme.
+:::

@@ -17,7 +17,7 @@ cours_python_iut/
 ├── utils.py                     # Fonctions réutilisables (modularité, fichiers, images, listes)
 ├── pdf_export.py                # Conversion Markdown -> PDF (mise en page impression)
 ├── views/
-│   ├── cours.py                 # Diapositives + mode Tableau (grand affichage)
+│   ├── cours.py                 # Diaporama de projection + mode Lecture
 │   ├── bac_a_sable.py           # Exécution de code Python en direct
 │   ├── exercices.py             # Affichage des exercices
 │   └── imprimer.py              # Génération de PDF imprimables
@@ -39,7 +39,8 @@ La page Cours propose deux affichages :
 Trois blocs facultatifs permettent d'adapter un contenu au support :
 ```markdown
 :::support
-Complément masqué dans le diaporama, mais visible en mode Lecture et dans le PDF.
+Texte affiché dans une note bleue en mode Lecture et dans le PDF, mais masqué
+dans le diaporama.
 :::
 
 :::attention
@@ -53,6 +54,18 @@ Idée essentielle à mémoriser, visible partout.
 
 Les fichiers existants restent valides sans utiliser ces blocs.
 
+## Diagrammes simples
+Une chaîne conceptuelle peut être affichée sous forme de blocs encadrés :
+```markdown
+:::diagram
+Fichier sur le stockage
+Programme et données en RAM
+Traitement par le CPU
+:::
+```
+
+Pour une chaîne longue, utilisez `:::diagram vertical`.
+
 ## Ajouter des images dans les diapositives
 Placez vos images dans `data/sessions/images/`, puis référencez-les dans le
 Markdown avec un chemin **relatif au fichier de la séance** :
@@ -64,10 +77,10 @@ chargement de la diapositive (nécessaire car `st.markdown()` ne sait pas
 servir des fichiers du disque comme le ferait un serveur web classique). Les
 images distantes (`http://...`, `https://...`) fonctionnent sans modification.
 
-## Mode Tableau
-Sur la page Cours, l'interrupteur "🖥️ Mode Tableau" dans la barre latérale
-agrandit le texte, le code et les boutons de navigation — pratique pour une
-projection lue depuis le fond de la salle.
+## Affichage du cours
+Le mode **Diaporama** utilise automatiquement une typographie agrandie pour la
+projection en salle. Le mode **Lecture** conserve une mise en page plus compacte
+et affiche les notes `:::support` destinées à la consultation individuelle.
 
 ## Version imprimable
 La page "Version imprimable" génère, à partir du contenu Markdown actuel, un

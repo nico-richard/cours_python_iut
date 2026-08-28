@@ -1,4 +1,4 @@
-# Exercices — Séance 3 : Calcul scientifique
+# Exercices — Séance 3 : Exploiter des données scientifiques
 
 **Ex. 1 — Module `math` et `random`**
 Utiliser `math` pour calculer racine carrée, puissance, et `random` pour générer 10 mesures aléatoires simulées entre 10 et 20.

@@ -1,239 +1,261 @@
 # Séance 1
-## Machine, logiciel et bases de Python
+## Premiers programmes Python
 
-L'objectif de cette séance est de comprendre les bases nécessaires pour écrire un premier programme Python.
+### De la machine aux données, calculs et décisions
 
-On part de la machine elle-même, puis on progresse vers le programme :
-**ordinateur → Python → données → calculs → décisions**.
+Nous allons suivre le chemin qui mène de la machine à un premier programme :
 
-À la fin de la séance, vous devez être capables de lire et d'écrire un petit programme qui manipule des valeurs et prend des décisions.
+:::diagram
+Ordinateur
+Python
+Données
+Calculs
+Décisions
+:::
+
+À la fin de la séance, vous devez être capables de lire et d'écrire un script simple qui manipule une mesure et adapte son comportement à sa valeur.
+
+:::support
+Cette séance pose les bases utilisées dans tout le cours : exécuter un programme,
+représenter une donnée, effectuer un calcul, communiquer avec l'utilisateur et
+prendre une décision. Les séances suivantes permettront d'organiser ces traitements
+et de les appliquer à des séries de mesures.
+:::
 ---
 ## Architecture matérielle
 
-Avant d'écrire du code, il est utile de comprendre très rapidement où « vit » un programme et où sont stockées les données qu'il manipule.
+Un programme utilise plusieurs ressources de l'ordinateur :
 
-Un ordinateur est composé de plusieurs éléments qui collaborent :
+| Élément | Rôle principal |
+|---|---|
+| **CPU** | exécuter les instructions |
+| **RAM** | accueillir le programme et les données en cours d'utilisation |
+| **Stockage** | conserver durablement programmes et fichiers |
+| **Périphériques** | échanger avec l'extérieur |
 
-- **CPU (processeur)** : exécute les instructions ;
-- **RAM** : mémoire de travail, rapide mais volatile ;
-- **Stockage** : conserve les fichiers même lorsque l'ordinateur est éteint ;
-- **Périphériques** : clavier, écran, capteurs, ports USB et liaison série.
+:::diagram
+Fichier sur le stockage
+Programme et données en RAM
+Traitement par le CPU
+:::
 
-Quand un programme travaille sur des données, celles-ci sont généralement chargées depuis le stockage vers la RAM, puis traitées par le processeur.
-
-Cette distinction deviendra importante lorsque nous travaillerons avec des fichiers de mesures et de grandes quantités de données.
+:::support
+La RAM est une mémoire de travail rapide mais volatile : son contenu disparaît
+lorsque la machine est éteinte. Le CPU exécute des instructions machine ; dans
+notre cas, l'interpréteur fait le lien entre le code Python et leur exécution.
+Les périphériques regroupent notamment le clavier, l'écran et les capteurs.
+:::
 ---
 ## Architecture logicielle
 
-Le matériel seul ne sait pas quoi faire : il a besoin de logiciels qui lui donnent des instructions.
+Le **système d'exploitation** gère la mémoire, les fichiers, les périphériques et le lancement des applications.
 
-Le **système d'exploitation** (Windows, Linux ou macOS) fait le lien entre le matériel et les applications. Il gère notamment la mémoire, les fichiers, les périphériques et l'exécution des programmes.
+Dans son usage courant, un programme Python suit cette chaîne :
 
-Deux modes d'exécution sont couramment distingués :
+:::diagram
+Fichier `mesure.py`
+Interpréteur Python
+Instructions exécutées
+:::
 
-- **compilation préalable** : le programme est traduit avant son exécution ;
-- **exécution par un interpréteur** : un autre programme prend en charge son exécution.
+```python
+print("Première mesure")
+```
 
-Dans son usage courant, un programme Python est lancé par l'interpréteur Python. En pratique, Python réalise aussi des étapes internes de traduction ; l'opposition « compilé ou interprété » est donc un modèle simplifié.
-
-L'idée importante pour nous est donc :
-**notre fichier Python contient des instructions, et Python se charge de les faire exécuter par l'ordinateur.**
+:::support
+On oppose souvent les programmes compilés, traduits avant leur exécution, aux
+programmes interprétés, pris en charge par un interpréteur. Cette opposition est
+un modèle simplifié : l'implémentation de référence de Python produit également
+une représentation intermédiaire appelée bytecode.
+:::
 ---
-## Installation et exécution de Python
+## Console interactive et script
 
-Avant de programmer, il faut disposer d'un environnement permettant d'écrire et d'exécuter du code.
+Python peut être utilisé de deux manières complémentaires :
 
-Python peut être utilisé de deux façons complémentaires :
+| Console interactive | Script `.py` |
+|---|---|
+| tester rapidement une instruction | conserver un programme |
+| obtenir un résultat immédiat | enchaîner plusieurs traitements |
+| expérimenter | modifier et réutiliser le code |
 
-- **console interactive** : pratique pour tester immédiatement une instruction ;
-- **script `.py`** : permet d'enregistrer un programme et de le réexécuter.
+```text
+>>> 2 + 3
+5
+```
 
-La console est utile pour expérimenter. Le fichier `.py` devient rapidement indispensable dès que le programme comporte plusieurs instructions.
-
-L'objectif n'est pas seulement de savoir lancer Python : il faut comprendre que **le code que nous écrivons est un fichier que Python va ensuite exécuter**.
+Un script peut être lancé depuis un éditeur ou avec `python mesure.py` dans un terminal (`py mesure.py` sur certaines installations Windows).
 ---
-## Mémoriser une valeur
+## Variables et affectation
 
-Un programme manipule des informations : températures, distances, résultats de mesures, noms ou états d'un système.
-
-Si une information doit être réutilisée, il faut pouvoir la conserver et lui donner un nom.
-
-C'est le rôle d'une **variable**.
-
-Une variable permet donc de donner un nom à une valeur afin de pouvoir la réutiliser ou la modifier au cours du programme.
+Une variable permet de donner un nom à une valeur pour la réutiliser :
 
 ```python
 temperature = 20.5
 ```
 
-Ici, `temperature` est le nom choisi par le programmeur et `20.5` est la valeur associée.
+```text
+temperature = 20.5
+───────────   ────
+    nom       valeur
+```
 
-Le choix des noms est important : un nom explicite rend un programme beaucoup plus facile à comprendre.
+`=` réalise une **affectation**. Une nouvelle affectation remplace la valeur associée au nom.
+
+:::support
+Une affectation n'est pas une égalité mathématique. Python évalue l'expression
+située à droite, puis associe son résultat au nom situé à gauche. Des noms comme
+`temperature` ou `nombre_mesures` rendent le programme plus compréhensible que
+des noms génériques comme `x` ou `a`.
+:::
 ---
-## Variables et types de données
+## Types de données
 
-Toutes les données ne sont pas de même nature.
+Le type décrit la nature d'une valeur et détermine les opérations possibles :
 
-Une température peut être un nombre réel, un âge un entier, le nom d'un étudiant du texte et l'état d'un système une valeur vraie ou fausse.
-
-Python distingue notamment :
-
-- `int` : nombre entier ;
-- `float` : nombre à virgule flottante ;
-- `str` : chaîne de caractères ;
-- `bool` : valeur logique `True` ou `False`.
-
-Python détermine automatiquement le type d'une valeur.
-
-Le **type** est important car il indique à Python comment cette valeur peut être utilisée.
-
-La fonction `type()` permet de l'observer :
+| Type | Nature | Exemple |
+|---|---|---|
+| `int` | nombre entier | `12` |
+| `float` | nombre à virgule flottante | `20.5` |
+| `str` | chaîne de caractères | `"capteur A"` |
+| `bool` | résultat logique | `True` ou `False` |
 
 ```python
-temperature = 20.5
-print(type(temperature))  # <class 'float'>
+print(type(20.5))  # <class 'float'>
+print(type(20 > 10))  # <class 'bool'>
 ```
+
+:::support
+Python utilise un typage dynamique : le type est associé à la valeur et déterminé
+pendant l'exécution. La fonction `type()` permet d'observer le type d'une donnée,
+ce qui est notamment utile pour comprendre une erreur de conversion.
+:::
 ---
 ## Conversions explicites
 
-Les données ne sont pas toujours dans le type dont nous avons besoin.
+Une donnée doit parfois changer de représentation avant d'être utilisée :
 
-C'est particulièrement fréquent lorsque les données proviennent d'une saisie utilisateur ou d'un fichier : une information peut être lue comme du texte alors que nous voulons effectuer un calcul numérique.
-
-Python permet de demander explicitement une conversion :
+:::diagram
+Texte `"20.5"`
+Conversion avec `float()`
+Nombre `20.5`
+:::
 
 ```python
-int("42")
-float("3.14")
-str(42)
+temperature = float("20.5")
+nombre_mesures = int("12")
+message = str(20.5)
 ```
 
-Certaines conversions sont impossibles. Il faut donc distinguer **une donnée qui ressemble à un nombre** d'une donnée réellement stockée comme nombre.
+`float()`, `int()` et `str()` produisent une nouvelle valeur du type demandé. Une conversion échoue si le contenu n'est pas compatible : `float("vingt")` provoque une erreur.
 ---
 ## Opérateurs arithmétiques
 
-Une fois les données stockées, un programme doit pouvoir effectuer des opérations dessus.
+Python fournit les opérations usuelles :
 
-Les opérateurs arithmétiques permettent de réaliser les calculs courants :
+| Expression | Opération | Résultat pour `a = 7`, `b = 2` |
+|---|---|---:|
+| `a + b` | addition | `9` |
+| `a - b` | soustraction | `5` |
+| `a * b` | multiplication | `14` |
+| `a / b` | division | `3.5` |
+| `a // b` | quotient arrondi vers le bas | `3` |
+| `a % b` | reste | `1` |
+| `a ** b` | puissance | `49` |
 
-```python
-7 + 2
-7 - 2
-7 * 2
-7 / 2
-7 // 2
-7 % 2
-7 ** 2
-```
-
-Quelques points importants :
-
-- `/` réalise une division réelle ;
-- `//` calcule le quotient arrondi vers le bas ;
-- `%` donne le reste d'une division ;
-- `**` représente une puissance.
-
-Ces opérateurs sont la base des calculs que nous effectuerons ensuite sur des mesures.
----
-## Comparaisons et affectations
-
-Python propose également des opérateurs pour comparer des valeurs :
-
-```python
-a == b
-a != b
-a < b
-a <= b
-a > b
-a >= b
-```
-
-Le résultat d'une comparaison est un **booléen** : `True` ou `False`.
-
-Il existe aussi des affectations combinées :
-
-```python
-x += 1
-x *= 2
-```
-
-Il faut surtout distinguer `=` et `==` :
-
-- `=` affecte une valeur à une variable ;
-- `==` teste si deux valeurs sont égales.
-
-Ces comparaisons vont nous permettre de faire prendre des décisions au programme.
----
-## Influence du type sur le résultat
-
-Le type d'une donnée influence les opérations que Python réalise.
-
-Par exemple :
-
-```python
-7 / 2
-```
-
-donne `3.5`, alors que :
-
-```python
-7 // 2
-```
-
-donne `3`.
-
-Avec les nombres flottants, il faut également connaître une limite importante : leur représentation en mémoire n'est pas infiniment précise.
-
-Ainsi, un calcul comme `0.1 + 0.2` peut produire une valeur très légèrement différente de `0.3`.
-
-Pour un premier cours, retenez surtout :
-**un `float` est une approximation numérique, pas un nombre réel mathématique exact.**
+Les parenthèses permettent de rendre l'ordre des calculs explicite.
 
 :::support
-De nombreux nombres décimaux ne peuvent pas être représentés exactement avec
-un nombre fini de chiffres binaires. Pour comparer deux résultats calculés,
-on utilise donc parfois une tolérance plutôt qu'une égalité stricte.
-:::
-
-:::retenir
-L'affichage d'un écart minuscule ne signifie pas nécessairement que Python a
-effectué une mauvaise opération.
+L'opérateur `//` est parfois appelé « division entière », mais cette expression
+peut être trompeuse : le résultat est arrondi vers le bas. Ainsi, `-7 // 2`
+produit `-4`. Le reste `%` permet notamment de tester si un entier est pair avec
+la condition `n % 2 == 0`.
 :::
 ---
-## Entrées et sorties simples
+## Affectation, comparaison et mise à jour
 
-Jusqu'ici, les valeurs étaient écrites directement dans le programme.
+Il faut distinguer la modification d'une variable et la comparaison de deux valeurs :
 
-Un programme devient plus intéressant lorsqu'il peut **communiquer avec l'utilisateur** ou récupérer une information extérieure.
+| Écriture | Rôle | Résultat |
+|---|---|---|
+| `temperature = 20` | affecter | la variable reçoit `20` |
+| `temperature == 20` | comparer | `True` ou `False` |
+| `temperature != 20` | comparer | `True` ou `False` |
 
-`input()` permet de demander une valeur à l'utilisateur.
-
-Attention : `input()` renvoie toujours une **chaîne de caractères**.
-
-Il faut donc souvent convertir le résultat :
-
-```python
-valeur = input("Température : ")
-temperature = float(valeur)
-```
-
-À l'inverse, `print()` permet d'afficher une information.
-
-Les f-strings permettent de construire facilement un texte contenant des valeurs.
+Deux écritures possibles pour la même mise à jour :
 
 ```python
-print(f"Température mesurée : {temperature:.1f} °C")
+nombre = nombre + 1
+# ou, sous forme abrégée : nombre += 1
 ```
 
-Le format `.1f` modifie l'affichage, pas la valeur utilisée dans les calculs.
+Autres comparaisons : `<`, `<=`, `>` et `>=`.
 ---
-## Tests logiques
+## Précision des nombres flottants
 
-Un programme ne doit pas toujours exécuter les mêmes instructions.
+Les nombres décimaux ne peuvent pas tous être représentés exactement en mémoire :
 
-Il peut devoir déclencher une alerte si une température dépasse un seuil, afficher un message différent selon une valeur ou effectuer une action uniquement dans certaines conditions.
+```python
+resultat = 0.1 + 0.2
+print(resultat)
+```
 
-On utilise pour cela `if`, `elif` et `else`.
+```text
+0.30000000000000004
+```
+
+Un `float` représente donc une valeur numérique avec une précision limitée. Cette approximation est normale et doit être prise en compte lors des comparaisons.
+
+:::support
+De nombreux nombres décimaux ne possèdent pas de représentation binaire finie.
+Pour comparer deux résultats calculés, on utilise parfois une tolérance, par
+exemple `abs(a - b) < 1e-9`, plutôt qu'une égalité stricte avec `==`.
+:::
+---
+## Saisie et conversion
+
+`input()` permet de recevoir une information saisie au clavier. Son résultat est toujours une chaîne de caractères :
+
+```python
+saisie = input("Température : ")
+temperature = float(saisie)
+```
+
+:::diagram
+Clavier
+`input()`
+Texte `"20.5"`
+`float()`
+Nombre `20.5`
+:::
+
+Après la conversion, `temperature` peut être utilisée dans un calcul.
+
+:::support
+`input()` interrompt le programme jusqu'à la validation de la saisie. Une saisie
+invalide comme `vingt` provoque une erreur pendant la conversion. La validation
+des données sera approfondie plus tard ; pour le moment, on suppose que
+l'utilisateur fournit une valeur compatible.
+:::
+---
+## Affichage et f-strings
+
+`print()` affiche une information. Une f-string permet d'intégrer une valeur dans un texte :
+
+```python
+temperature = 20.456
+print(f"Température : {temperature:.1f} °C")
+```
+
+```text
+Température : 20.5 °C
+```
+
+Le format `.1f` affiche la valeur arrondie à un chiffre après la virgule. Il modifie l'affichage, pas la valeur utilisée dans les calculs.
+---
+## Prendre une décision
+
+Un programme peut adapter son comportement à la valeur d'une mesure :
 
 ```python
 if temperature < 0:
@@ -244,31 +266,66 @@ else:
     print("Seuil supérieur dépassé")
 ```
 
-Les opérateurs `and`, `or` et `not` permettent de combiner ou modifier des conditions.
+Les conditions sont évaluées dans l'ordre. Python exécute la première branche dont la condition est vraie ; `else` traite les autres cas. L'indentation délimite les instructions de chaque branche.
 
-L'**indentation** est essentielle en Python : elle indique quelles instructions appartiennent au bloc conditionnel.
+:::support
+`if` introduit le premier test, `elif` ajoute un test lorsque les précédents sont
+faux et `else` traite tous les autres cas. Une seule branche de cette structure
+est exécutée. Si le second test est atteint, Python sait déjà que la température
+est supérieure ou égale à zéro.
+:::
+---
+## Combiner des conditions
+
+Dans une condition, les opérateurs logiques permettent de combiner plusieurs tests :
+
+| Opérateur | Signification |
+|---|---|
+| `and` | les deux conditions sont vraies |
+| `or` | au moins une condition est vraie |
+| `not` | inverse une valeur logique |
+
+```python
+if temperature >= 0 and temperature < 30:
+    print("Température dans la plage prévue")
+```
+
+Les parenthèses peuvent clarifier une condition complexe. Si elle devient difficile à lire, il est préférable de la décomposer.
 ---
 ## Comprendre les erreurs
 
-Une erreur fait partie du travail de programmation. Il faut identifier sa nature avant de la corriger.
+Une erreur fait partie du travail de programmation. Il faut d'abord identifier sa catégorie :
 
-- **erreur de syntaxe** : le code ne respecte pas la grammaire de Python ;
-- **erreur d'exécution** : une instruction valide échoue, par exemple `float("abc")` ;
-- **erreur de logique** : le programme s'exécute mais produit un résultat incorrect.
+| Catégorie | Exemple |
+|---|---|
+| **syntaxe** | parenthèse ou deux-points absents |
+| **exécution** | conversion impossible avec `float("abc")` |
+| **logique** | seuil incorrect dans une condition |
 
-Le message d'erreur indique généralement le fichier, la ligne concernée et le type d'erreur. Il doit être lu en commençant par sa dernière ligne.
+Les erreurs de syntaxe et d'exécution produisent généralement un message indiquant la ligne et la nature du problème. Une erreur de logique doit être repérée en vérifiant les résultats.
+
+:::support
+Une erreur de syntaxe empêche Python de comprendre le programme. Une erreur
+d'exécution apparaît pendant une opération impossible. Une erreur de logique est
+plus discrète : le programme s'exécute, mais produit un mauvais résultat. Dans un
+traceback, la dernière ligne donne généralement le type d'erreur.
+:::
 ---
-## Bilan de la séance
+## Synthèse de la séance
 
-Nous avons construit les premières briques d'un programme :
+Nous pouvons maintenant construire une première chaîne de traitement :
 
-1. l'ordinateur fournit les ressources matérielles ;
-2. Python permet d'exécuter notre code ;
-3. les variables permettent de conserver les données ;
-4. les types décrivent la nature des données ;
-5. les opérateurs permettent de calculer et comparer ;
-6. `input()` et `print()` permettent de communiquer ;
-7. les conditions permettent au programme de prendre des décisions.
+:::diagram vertical
+Donnée extérieure
+Saisie avec `input()`
+Conversion du texte en nombre
+Calcul et comparaison
+Décision avec `if`
+Résultat affiché
+:::
 
-La prochaine étape consiste à gérer des programmes plus longs :
-**comment éviter de répéter du code et comment traiter plusieurs données ?**
+:::support
+Le programme sait recevoir une donnée, la convertir, la mémoriser, effectuer un
+calcul, prendre une décision et afficher un résultat. La séance suivante permettra
+d'organiser les traitements avec des fonctions et de manipuler plusieurs valeurs.
+:::

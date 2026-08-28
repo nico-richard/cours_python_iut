@@ -1,4 +1,4 @@
-# Exercices — Séance 4 : Visualisation et instrumentation
+# Exercices — Séance 4 : Visualiser et acquérir des mesures
 
 **Ex. 1 — Première courbe**
 À partir du CSV de la séance 3, tracer température en fonction du temps avec `plt.plot`, en ajoutant titre et légendes des axes.

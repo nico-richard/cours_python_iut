@@ -1,131 +1,141 @@
 # Séance 3
-## Calcul scientifique
+## Exploiter des données scientifiques
 
-Nous savons maintenant programmer les traitements de base.
+### Fichiers, CSV et calcul avec NumPy
 
-L'étape suivante consiste à travailler avec de vraies données scientifiques : des fichiers de mesures, des séries de températures et de grandes quantités de valeurs.
+Les données d'une expérience doivent être conservées, relues et transformées avant de produire des résultats.
 
-Nous allons introduire les bibliothèques Python, les fichiers et surtout **NumPy**, qui permettra de réaliser efficacement des calculs scientifiques.
+À la fin de la séance, vous devez être capables de lire un fichier de mesures, de convertir son contenu et d'effectuer des calculs simples avec NumPy.
 
-À la fin de la séance, vous devez être capables de lire un fichier de mesures, de convertir ses données et de réaliser des calculs simples avec NumPy.
----
-## Rôle des bibliothèques
-
-Python possède déjà de nombreuses fonctionnalités, mais un langage généraliste ne peut pas fournir toutes les fonctions nécessaires à tous les domaines.
-
-Des bibliothèques permettent de réutiliser du code déjà développé et testé.
-
-On distingue notamment :
-- la **bibliothèque standard**, fournie avec Python ;
-- les **bibliothèques externes**, installées séparément.
-
-En calcul scientifique, NumPy est une bibliothèque fondamentale.
+:::support
+Cette séance construit la chaîne qui relie un fichier à une analyse numérique.
+Elle réutilise les conversions, les listes et les boucles, puis introduit les
+tableaux NumPy adaptés au calcul scientifique.
+:::
 ---
 ## Modules et bibliothèques
 
-Un **module** est un fichier Python contenant du code réutilisable.
+Une bibliothèque fournit du code déjà développé pour un domaine particulier.
 
-Une **bibliothèque** ou un **package** regroupe généralement plusieurs modules et fournit un ensemble cohérent de fonctionnalités.
+| Élément | Rôle |
+|---|---|
+| **module** | unité de code importable, souvent un fichier `.py` |
+| **package** | ensemble organisé de modules |
+| **bibliothèque standard** | installée avec Python |
+| **bibliothèque externe** | installée séparément |
 
-Quelques bibliothèques standard : `math`, `random`, `csv`, `os`.
+Exemples : `math`, `csv`, `numpy`, `matplotlib` et `serial`.
 
-Parmi les bibliothèques externes que nous utiliserons : `numpy`, `matplotlib` et `pyserial`.
+:::support
+Dans l'usage courant, les mots package et bibliothèque sont parfois employés de
+manière souple. L'idée essentielle est la réutilisation : on s'appuie sur des
+fonctions testées au lieu de reconstruire tous les outils nécessaires.
+:::
+---
+## Installer et importer
 
-L'intérêt est de ne pas réinventer des outils déjà disponibles.
-
-Une bibliothèque externe doit être installée dans l'environnement Python utilisé par le projet, par exemple :
+Une bibliothèque externe est installée une fois dans l'environnement Python :
 
 ```text
 python -m pip install numpy
 ```
 
-L'installation n'est effectuée qu'une fois ; l'import est écrit dans chaque programme qui utilise la bibliothèque.
----
-## Importer un module
-
-Avant d'utiliser une bibliothèque, Python doit savoir que nous souhaitons l'utiliser.
-
-On utilise pour cela `import`.
+Elle est ensuite importée dans chaque programme qui l'utilise :
 
 ```python
 import math
-math.sqrt(16)
-```
-
-On peut aussi importer un élément précis :
-
-```python
 from math import sqrt
-```
-
-Avec NumPy, la convention courante est :
-
-```python
 import numpy as np
 ```
 
-`np` devient alors un raccourci utilisé dans le reste du programme.
+Avec `import numpy as np`, `np` est un alias court et conventionnel.
+
+:::support
+`import math` conserve le nom du module dans les appels, par exemple
+`math.sqrt(16)`. `from math import sqrt` permet d'écrire directement `sqrt(16)`,
+mais rend l'origine de la fonction moins visible. L'installation doit être faite
+dans le même environnement que celui qui exécute le programme.
+:::
 ---
-## Conserver les données dans des fichiers
+## Conserver les données
 
-Une variable ne suffit pas pour conserver durablement les résultats d'une expérience.
+Une variable existe seulement pendant l'exécution du programme. Un fichier permet de retrouver les données après son arrêt.
 
-Si un capteur réalise des mesures pendant plusieurs heures, nous voulons pouvoir conserver les mesures, fermer le programme, puis rouvrir les données plus tard.
+```text
+programme en cours → variables en RAM
+expérience terminée → données conservées dans un fichier
+```
 
-Les **fichiers** permettent cette persistance.
-
-Dans ce cours, nous nous intéresserons surtout aux fichiers texte et aux fichiers **CSV**, très utilisés pour échanger des données tabulaires.
+Les fichiers permettent également d'échanger des mesures avec un tableur, un instrument ou un autre programme.
 ---
-## Fichiers texte, binaires et chemins
+## Formats et chemins
 
-Un fichier texte contient des caractères que nous pouvons lire directement, par exemple aux formats `.txt`, `.csv` ou `.json`.
+Un fichier **texte** contient des caractères directement lisibles, tandis qu'un fichier **binaire** suit une organisation qui dépend de son format.
 
-Un fichier binaire contient des données organisées selon un format spécifique : image, tableur, etc.
+| Chemin relatif | Chemin absolu |
+|---|---|
+| `data/mesures.csv` | `C:/projet/data/mesures.csv` |
+| dépend du dossier de travail | désigne un emplacement complet |
 
-Pour accéder à un fichier, Python doit connaître son **chemin**.
+Le format du fichier et son extension ne suffisent pas : le programme doit connaître l'organisation réelle des données.
 
-Un chemin peut être relatif au dossier de travail courant ou absolu sur l'ordinateur.
-
-Comprendre les chemins est essentiel lorsque le programme doit retrouver automatiquement ses fichiers de données.
+:::support
+Les fichiers `.txt`, `.csv` et `.json` sont des formats textuels. Les images,
+certains fichiers de tableur et de nombreux formats scientifiques sont binaires.
+Un chemin relatif est interprété à partir du dossier de travail courant, qui peut
+différer du dossier où se trouve le script.
+:::
 ---
 ## Ouvrir un fichier avec `with`
 
-Pour lire ou écrire un fichier, Python fournit `open()`.
-
 ```python
-with open("mesures.txt", "r", encoding="utf-8") as f:
-    contenu = f.read()
+with open("mesures.txt", "r", encoding="utf-8") as fichier:
+    contenu = fichier.read()
 ```
 
-Le bloc `with` garantit que le fichier sera correctement fermé à la fin du traitement.
+Le bloc `with` ferme automatiquement le fichier à sa sortie, même si une erreur survient.
 
-Les principaux modes sont :
-- `r` : lecture ;
-- `w` : écriture ;
-- `a` : ajout ;
-- `x` : création.
+| Mode | Action |
+|---|---|
+| `r` | lire un fichier existant |
+| `w` | écrire en remplaçant le contenu |
+| `a` | ajouter à la fin |
+| `x` | créer un nouveau fichier |
+
+:::support
+Le mode de lecture `r` est utilisé par défaut. Le paramètre `encoding="utf-8"`
+indique comment les octets du fichier texte sont convertis en caractères. Le mode
+`w` doit être utilisé avec prudence car il efface le contenu précédent.
+:::
 ---
-## Lire un fichier texte
+## Lire un fichier ligne par ligne
 
-Un fichier peut être parcouru ligne par ligne :
+Une boucle permet de traiter un fichier sans charger tout son contenu en une seule fois :
 
 ```python
-with open("mesures.txt", "r", encoding="utf-8") as f:
-    for ligne in f:
-        print(ligne.strip())
+with open("mesures.txt", "r", encoding="utf-8") as fichier:
+    for ligne in fichier:
+        texte = ligne.strip()
+        mesure = float(texte)
+        print(mesure)
 ```
 
-Cela réutilise une notion déjà vue : la boucle `for`.
+:::diagram
+Ligne du fichier
+Texte nettoyé
+Conversion
+Nombre `float`
+:::
 
-Une ligne lue depuis un fichier est du **texte**. Si elle contient une mesure numérique, il faudra donc généralement convertir la partie correspondante en `float` ou en `int`.
-
-Cette conversion est une source fréquente d'erreurs chez les débutants.
+:::support
+Chaque ligne contient généralement un caractère de fin de ligne retiré par
+`strip()`. La conversion peut échouer si une ligne est vide ou mal formée. Dans
+une application réelle, il faut définir une stratégie pour ces données invalides.
+:::
 ---
-## Lire un fichier CSV (1/2)
+## Structure d'un fichier CSV
 
-Un CSV est un fichier texte dans lequel les données sont organisées en lignes et séparées par un caractère.
-
-Exemple de structure :
+Un CSV représente des données tabulaires dans un fichier texte :
 
 ```text
 temps;temperature
@@ -134,174 +144,217 @@ temps;temperature
 2;20.9
 ```
 
-Même si nous voyons des nombres, un lecteur de texte les récupère initialement comme des chaînes de caractères.
+| Ligne | Rôle |
+|---|---|
+| première ligne | noms des colonnes |
+| lignes suivantes | observations |
+| `;` | séparateur utilisé ici |
 
-Il faut donc comprendre la structure du fichier avant de convertir et traiter les données.
+Les valeurs visibles comme des nombres sont d'abord lues comme du texte.
+
+:::support
+CSV signifie *Comma-Separated Values*, mais le séparateur dépend des usages et de
+la configuration régionale. En France, le point-virgule est fréquent afin de ne
+pas le confondre avec la virgule décimale. Le séparateur doit être indiqué au
+lecteur lorsque ce n'est pas une virgule.
+:::
 ---
-## Lire un fichier CSV (2/2)
-
-Python fournit le module `csv` pour faciliter cette lecture.
+## Lire et convertir un CSV
 
 ```python
 import csv
 
-with open("mesures.csv", newline="", encoding="utf-8") as f:
-    lecteur = csv.reader(f, delimiter=";")
+temps = []
+temperatures = []
+
+with open("mesures.csv", newline="", encoding="utf-8") as fichier:
+    lecteur = csv.reader(fichier, delimiter=";")
     next(lecteur)  # ignorer l'en-tête
 
     for ligne in lecteur:
-        temps = float(ligne[0])
-        temperature = float(ligne[1])
+        temps.append(float(ligne[0]))
+        temperatures.append(float(ligne[1]))
 ```
 
-Le séparateur doit correspondre au fichier. Ici, `delimiter=";"` est nécessaire car les colonnes sont séparées par des points-virgules.
+:::diagram
+Fichier
+Lignes
+Colonnes
+Conversions
+Listes numériques
+:::
 
-Cette étape constitue le passage entre :
-**un fichier contenant des caractères** et **des données utilisables pour un calcul scientifique**.
+:::support
+`csv.reader` gère correctement les séparateurs et les champs éventuellement
+protégés par des guillemets. `next(lecteur)` consomme la première ligne. Cette
+version suppose que le fichier possède un en-tête et que chaque ligne contient
+deux nombres valides.
+:::
 ---
-## Écrire dans un fichier
+## Écrire un résultat
 
-La même logique permet de sauvegarder des résultats.
+Le mode `w` permet de produire un rapport ou un nouveau fichier de données :
 
 ```python
-with open("resultats.txt", "w", encoding="utf-8") as f:
-    f.write("Moyenne : 20.4 °C\n")
+moyenne = 20.47
+
+with open("rapport.txt", "w", encoding="utf-8") as fichier:
+    fichier.write(f"Moyenne : {moyenne:.2f} °C\n")
 ```
 
-L'écriture est utile pour conserver les résultats d'une analyse ou produire un fichier destiné à un autre logiciel.
+`write()` attend une chaîne de caractères et n'ajoute pas automatiquement de retour à la ligne.
 
-Attention au mode `w` : il remplace le contenu existant du fichier.
+:::support
+L'écriture permet de conserver un résultat ou de le transmettre à un autre outil.
+Pour produire un véritable CSV, il est préférable d'utiliser `csv.writer` plutôt
+que d'assembler manuellement les séparateurs.
+:::
 ---
 ## NumPy et le calcul scientifique
 
-Nous pourrions stocker une série de mesures dans une liste Python.
-
-Mais les calculs scientifiques nécessitent souvent de manipuler des tableaux numériques importants et d'effectuer les mêmes opérations sur toutes leurs valeurs.
-
-**NumPy** fournit une structure spécialisée : le `ndarray`.
-
-NumPy apporte notamment des tableaux numériques efficaces, des opérations mathématiques et des fonctions statistiques.
-
-C'est une des briques fondamentales du calcul scientifique en Python.
----
-## Créer un `ndarray`
-
-On peut créer un tableau NumPy à partir d'une liste :
+Une liste Python peut stocker des mesures, mais elle n'est pas spécialisée dans le calcul numérique.
 
 ```python
+temperatures = np.array([20.1, 20.4, 20.9])
+```
+
+Un `ndarray` NumPy fournit :
+
+- des données numériques homogènes ;
+- des tableaux à plusieurs dimensions ;
+- des opérations appliquées à l'ensemble des valeurs ;
+- des fonctions de calcul scientifique.
+
+:::support
+NumPy stocke les éléments de manière régulière et exécute de nombreuses opérations
+dans du code optimisé. Pour de grandes séries numériques, cela rend les calculs
+plus rapides et leur écriture souvent plus concise qu'avec des boucles Python.
+:::
+---
+## Créer un tableau NumPy
+
+```python
+import numpy as np
+
 a = np.array([1, 2, 3, 4])
+zeros = np.zeros(4)
+indices = np.arange(0, 10, 2)
+temps = np.linspace(0, 1, 5)
 ```
 
-NumPy permet également de créer directement des tableaux selon un besoin :
-
-```python
-np.zeros((3, 4))
-np.arange(0, 10, 2)
-np.linspace(0, 1, 5)
-```
-
-Ces fonctions sont particulièrement utiles pour initialiser des tableaux ou construire des séries régulières.
+| Fonction | Usage |
+|---|---|
+| `np.array` | convertir une séquence existante |
+| `np.zeros` | initialiser avec des zéros |
+| `np.arange` | créer une progression avec un pas |
+| `np.linspace` | répartir un nombre donné de valeurs |
 ---
-## Dimensions et taille
-
-Un tableau NumPy peut avoir plusieurs dimensions.
+## Dimensions et type des éléments
 
 ```python
-a = np.array([[1, 2, 3],
-              [4, 5, 6]])
+tableau = np.array([[1, 2, 3],
+                    [4, 5, 6]])
 ```
 
-Quelques propriétés importantes :
-- `shape` : forme du tableau ;
-- `ndim` : nombre de dimensions ;
-- `size` : nombre total d'éléments ;
-- `dtype` : type des éléments.
+| Propriété | Valeur | Signification |
+|---|---|---|
+| `tableau.shape` | `(2, 3)` | 2 lignes et 3 colonnes |
+| `tableau.ndim` | `2` | 2 dimensions |
+| `tableau.size` | `6` | 6 éléments au total |
+| `tableau.dtype` | type entier | type commun des éléments |
 
-Un tableau `2 × 3` possède 2 lignes, 3 colonnes, mais 6 éléments.
+Un `ndarray` possède une forme et un type d'éléments homogène.
 ---
 ## Accéder aux valeurs
 
-L'accès aux éléments reprend le principe d'indexage vu avec les listes.
-
-Pour un tableau 2D :
+Pour un tableau à deux dimensions, les indices sont donnés dans l'ordre **ligne, colonne** :
 
 ```python
-mesures[0, 1]
+tableau[0, 1]   # élément de la ligne 0, colonne 1
+tableau[1, :]   # deuxième ligne
+tableau[:, 0]   # première colonne
+tableau[0:2, 1:3]
 ```
 
-On peut sélectionner une ligne entière :
+Le symbole `:` signifie ici « tous les indices » de la dimension concernée.
 
-```python
-mesures[1, :]
-```
-
-ou une colonne :
-
-```python
-mesures[:, 0]
-```
-
-Cette notation permet de travailler directement sur des sous-ensembles de données.
+:::support
+L'indexage commence à zéro comme pour les listes. NumPy étend le slicing à
+plusieurs dimensions en séparant les sélections par une virgule.
+:::
 ---
 ## Opérations vectorisées
 
-L'un des intérêts majeurs de NumPy est de pouvoir appliquer une opération à tout un tableau sans écrire explicitement une boucle.
+NumPy applique une opération à tous les éléments d'un tableau :
 
 ```python
+temperatures_c = np.array([18.2, 19.1, 20.0])
 temperatures_k = temperatures_c + 273.15
 ```
 
-NumPy applique l'opération à chaque élément du tableau.
+:::diagram
+Tableau en degrés Celsius
+Addition de `273.15`
+Tableau en kelvins
+:::
 
-On parle d'**opération vectorisée**.
-
-Cela rend souvent le code plus court, plus lisible et plus efficace qu'un parcours manuel.
+La vectorisation remplace ici une boucle explicite par une expression portant sur le tableau entier.
 ---
-## Statistiques avec NumPy
-
-Une fois les données placées dans un tableau, les fonctions statistiques deviennent très simples.
+## Statistiques descriptives
 
 ```python
-mesures.mean()
-mesures.std()
-mesures.min()
-mesures.max()
-mesures.sum()
+mesures = np.array([18.2, 19.1, 20.0, 19.7])
+
+mesures.mean()  # moyenne
+mesures.std()   # écart-type
+mesures.min()   # minimum
+mesures.max()   # maximum
+mesures.sum()   # somme
 ```
 
-La moyenne résume le niveau central de la série. L'écart-type calculé ici décrit la dispersion des valeurs autour de cette moyenne.
+La moyenne résume le niveau central ; l'écart-type décrit la dispersion autour de cette moyenne.
 
-Dans un contexte expérimental, ces indicateurs permettent de passer d'une longue liste de mesures à quelques informations synthétiques.
+:::support
+`std()` calcule ici l'écart-type de la population décrite par le tableau. Dans un
+cours de statistique, une correction peut être appliquée lorsqu'un échantillon est
+utilisé pour estimer une population. Cette distinction n'est pas nécessaire pour
+les premiers traitements descriptifs de cette séance.
+:::
 ---
-## Calculs suivant un axe
-
-Pour un tableau multidimensionnel, l'argument `axis` indique la dimension supprimée par le calcul.
+## Calculer suivant un axe
 
 ```python
 tableau = np.array([[1, 2, 3],
                     [4, 5, 6]])
 
-tableau.mean(axis=0)  # [2.5, 3.5, 4.5] : une valeur par colonne
-tableau.mean(axis=1)  # [2.0, 5.0]      : une valeur par ligne
+tableau.mean(axis=0)  # [2.5, 3.5, 4.5]
+tableau.mean(axis=1)  # [2.0, 5.0]
 ```
 
-Si les lignes représentent des capteurs et les colonnes des instants, `axis=1` calcule donc une moyenne par capteur et `axis=0` une moyenne par instant.
+| Calcul | Résultat |
+|---|---|
+| `axis=0` | une moyenne par colonne |
+| `axis=1` | une moyenne par ligne |
 
-Cette notion devient importante dès que les données représentent plusieurs variables, plusieurs capteurs ou plusieurs expériences.
+Si les lignes sont des capteurs, `axis=1` calcule une moyenne par capteur.
+
+:::support
+Une manière rigoureuse de comprendre `axis` est de considérer que l'axe indiqué
+est supprimé par le calcul. Avec `axis=0`, les lignes sont agrégées et il reste une
+valeur par colonne. Avec `axis=1`, les colonnes sont agrégées et il reste une
+valeur par ligne.
+:::
 ---
-## Bilan de la séance
+## Synthèse de la séance
 
-Nous savons maintenant passer :
+La chaîne complète de traitement est désormais :
 
-**fichier → texte → données Python → tableau NumPy → calcul scientifique**
+:::diagram vertical
+Fichier CSV
+Lecture des chaînes de caractères
+Conversion en listes numériques
+Création du tableau NumPy
+Calcul des indicateurs scientifiques
+:::
 
-Nous avons vu :
-- modules et bibliothèques ;
-- lecture et écriture de fichiers ;
-- structure d'un CSV ;
-- tableaux NumPy ;
-- dimensions et indexage ;
-- opérations vectorisées ;
-- moyenne, écart-type et autres statistiques.
-
-La prochaine étape est de rendre ces résultats compréhensibles visuellement.
+La séance suivante utilisera ces données pour produire des représentations graphiques et réaliser une acquisition.
