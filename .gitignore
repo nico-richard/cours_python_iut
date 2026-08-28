@@ -1,5 +1,6 @@
 # Python : bytecode et caches
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 
@@ -39,4 +40,3 @@ pdf_pregeneres/*.pdf
 .DS_Store
 Thumbs.db
 Desktop.ini
-
