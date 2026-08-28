@@ -1,6 +1,8 @@
 # Outil de cours — Python IUT 1re année
 
 ## Installation
+Python 3.10 ou une version plus récente est recommandé.
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -24,7 +26,8 @@ cours_python_iut/
 └── data/
     ├── sessions/seanceN.md      # Contenu des diapositives (modifiable librement)
     ├── sessions/images/         # Images utilisées dans les diapositives
-    └── exercices/seanceN.md     # Énoncés des exercices
+    ├── exercices/seanceN.md     # Énoncés des exercices
+    └── donnees/                 # Fichiers utilisés pendant les TP
 ```
 
 Pour modifier le contenu d'un cours ou des exercices, il suffit d'éditer les

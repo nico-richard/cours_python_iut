@@ -16,4 +16,4 @@ Ajouter au graphique une ligne horizontale représentant un seuil (`plt.axhline`
 Créer une figure avec 2 sous-graphiques côte à côte (courbe + histogramme) pour la même série de mesures, avec `plt.subplots`.
 
 **Ex. 6 — Lecture d'un port série (si matériel disponible)**
-Avec `pyserial`, lister les ports disponibles, se connecter à une carte (Arduino ou simulateur), lire 10 mesures, les stocker dans une liste puis les tracer.
+Avec `pyserial`, lister les ports avec `serial.tools.list_ports.comports()`, se connecter à une carte, lire 10 mesures, les stocker dans une liste puis les tracer. Sans matériel, relire progressivement les lignes de `data/donnees/mesures.csv` comme si elles arrivaient du port série.
