@@ -212,27 +212,6 @@ nombre = nombre + 1
 
 Autres comparaisons : `<`, `<=`, `>` et `>=`.
 ---
-## Précision des nombres flottants
-
-Les nombres décimaux ne peuvent pas tous être représentés exactement en mémoire :
-
-```python
-resultat = 0.1 + 0.2
-print(resultat)
-```
-
-```text
-0.30000000000000004
-```
-
-Un `float` représente donc une valeur numérique avec une précision limitée. Cette approximation est normale et doit être prise en compte lors des comparaisons.
-
-:::support
-De nombreux nombres décimaux ne possèdent pas de représentation binaire finie.
-Pour comparer deux résultats calculés, on utilise parfois une tolérance, par
-exemple `abs(a - b) < 1e-9`, plutôt qu'une égalité stricte avec `==`.
-:::
----
 ## Saisie et conversion
 
 `input()` permet de recevoir une information saisie au clavier. Son résultat est toujours une chaîne de caractères :

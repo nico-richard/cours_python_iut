@@ -280,7 +280,6 @@ def liste_qcm() -> dict[str, str]:
     """Associe chaque questionnaire à son fichier JSON."""
     base = Path(__file__).parent / "data" / "qcm"
     return {
-        "Diagnostic — Avant le premier cours": str(base / "diagnostic.json"),
         "Séance 1 — Premiers programmes": str(base / "seance1.json"),
         "Séance 2 — Fonctions, objets et boucles": str(base / "seance2.json"),
         "Séance 3 — Fichiers et NumPy": str(base / "seance3.json"),

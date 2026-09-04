@@ -1,4 +1,4 @@
-"""Page des questionnaires de diagnostic et de révision."""
+"""Page des questionnaires de révision."""
 
 from pathlib import Path
 
@@ -56,7 +56,7 @@ def _afficher_correction(qcm: dict, reponses: list[str | None]) -> None:
 
 
 def page_qcm() -> None:
-    """Affiche les cinq QCM et permet leur correction immédiate."""
+    """Affiche les QCM des quatre séances et permet leur correction immédiate."""
     questionnaires = liste_qcm()
 
     st.sidebar.subheader("❓ QCM")

@@ -28,7 +28,7 @@ cours_python_iut/
     ├── sessions/seanceN.md      # Séance 0 d'introduction puis 4 séances de cours
     ├── sessions/images/         # Images utilisées dans les diapositives
     ├── exercices/seanceN.md     # Installation (séance 0) puis exercices 1 à 4
-    ├── qcm/*.json               # Diagnostic et QCM des 4 séances
+    ├── qcm/*.json               # QCM des 4 séances
     └── donnees/                 # Fichiers utilisés pendant les TP
 ```
 
@@ -36,8 +36,7 @@ Pour modifier le contenu d'un cours ou des exercices, il suffit d'éditer les
 fichiers Markdown dans `data/` — aucune modification du code n'est nécessaire.
 Les diapositives sont séparées par une ligne `---`.
 
-La page **QCM** contient un diagnostic non noté à faire avant le premier cours,
-puis un questionnaire de 15 questions pour chacune des quatre séances. Les
+La page **QCM** contient un questionnaire pour chacune des quatre séances. Les
 choix sont mélangés et la correction expliquée s'affiche après validation.
 
 La page Cours propose deux affichages :
