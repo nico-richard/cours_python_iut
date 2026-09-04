@@ -3,7 +3,7 @@
 
 ### Fichiers, CSV et calcul avec NumPy
 
-Les données d'une expérience doivent être conservées, relues et transformées avant de produire des résultats.
+À la fin d'une expérience, fermer Python ne doit pas faire disparaître les mesures. Il faut les enregistrer dans un format que l'on saura relire quelques jours plus tard, éventuellement avec un autre logiciel.
 
 À la fin de la séance, vous devez être capables de lire un fichier de mesures, de convertir son contenu et d'effectuer des calculs simples avec NumPy.
 
@@ -15,7 +15,7 @@ tableaux NumPy adaptés au calcul scientifique.
 ---
 ## Modules et bibliothèques
 
-Une bibliothèque fournit du code déjà développé pour un domaine particulier.
+Une bibliothèque fournit du code déjà développé pour un domaine particulier. C'est le fonctionnement normal de Python : on ne réécrit pas soi-même un lecteur CSV ou une fonction de calcul numérique.
 
 | Élément | Rôle |
 |---|---|
@@ -24,12 +24,14 @@ Une bibliothèque fournit du code déjà développé pour un domaine particulier
 | **bibliothèque standard** | installée avec Python |
 | **bibliothèque externe** | installée séparément |
 
-Exemples : `math`, `csv`, `numpy`, `matplotlib` et `serial`.
+Exemples : `math` et `csv` sont fournis avec Python ; `numpy`, `matplotlib` et `serial` sont installés séparément.
 
 :::support
 Dans l'usage courant, les mots package et bibliothèque sont parfois employés de
 manière souple. L'idée essentielle est la réutilisation : on s'appuie sur des
 fonctions testées au lieu de reconstruire tous les outils nécessaires.
+La documentation officielle et `help()` permettent ensuite de vérifier les
+arguments attendus et les valeurs renvoyées.
 :::
 ---
 ## Installer et importer
@@ -49,6 +51,8 @@ import numpy as np
 ```
 
 Avec `import numpy as np`, `np` est un alias court et conventionnel.
+
+Un paquet externe doit être choisi avec soin sur PyPI : le nom saisi dans `pip install` doit être vérifié avant l'installation.
 
 :::support
 `import math` conserve le nom du module dans les appels, par exemple
@@ -78,6 +82,8 @@ Un fichier **texte** contient des caractères directement lisibles, tandis qu'un
 | dépend du dossier de travail | désigne un emplacement complet |
 
 Le format du fichier et son extension ne suffisent pas : le programme doit connaître l'organisation réelle des données.
+
+Pour des mesures tabulées, la tabulation `\t` ou le point-virgule `;` sont souvent plus pratiques qu'une virgule lorsque les données circulent aussi dans un tableur configuré en français.
 
 :::support
 Les fichiers `.txt`, `.csv` et `.json` sont des formats textuels. Les images,
@@ -176,6 +182,8 @@ with open("mesures.csv", newline="", encoding="utf-8") as fichier:
         temperatures.append(float(ligne[1]))
 ```
 
+`next(lecteur)` récupère la ligne suivante et avance le lecteur. Ici, le premier appel consomme donc la ligne d'en-tête avant le début de la boucle.
+
 :::diagram
 Fichier
 Lignes
@@ -215,6 +223,8 @@ que d'assembler manuellement les séparateurs.
 Une liste Python peut stocker des mesures, mais elle n'est pas spécialisée dans le calcul numérique.
 
 ```python
+import numpy as np
+
 temperatures = np.array([20.1, 20.4, 20.9])
 ```
 
@@ -282,6 +292,25 @@ Le symbole `:` signifie ici « tous les indices » de la dimension concernée.
 L'indexage commence à zéro comme pour les listes. NumPy étend le slicing à
 plusieurs dimensions en séparant les sélections par une virgule.
 :::
+---
+## Charger directement un fichier tabulé
+
+Maintenant que l'indexation d'un tableau à deux dimensions est connue, NumPy peut charger puis séparer les colonnes d'un fichier numérique régulier :
+
+```python
+import numpy as np
+
+donnees = np.loadtxt(
+    "mesures.csv",
+    delimiter=";",
+    skiprows=1,
+)
+
+temps = donnees[:, 0]
+temperatures = donnees[:, 1]
+```
+
+`skiprows=1` ignore la ligne d'en-tête. `donnees[:, 0]` sélectionne toute la première colonne et `donnees[:, 1]` toute la deuxième. Cette méthode suppose que les autres lignes contiennent les colonnes numériques attendues.
 ---
 ## Opérations vectorisées
 

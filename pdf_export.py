@@ -58,7 +58,20 @@ CSS_IMPRESSION = """
         border: none; width: 18px; padding: 2px; text-align: center;
         vertical-align: middle; color: #2a6f9e; font-weight: bold;
     }
-    table.diagram-flow-vertical { width: 70%; margin-left: 15%; }
+    .diagram-wrapper-vertical-pdf { width: 100%; margin: 12px 0; }
+    table.diagram-step-vertical-pdf {
+        width: 70%; margin-left: 15%; border-spacing: 0;
+    }
+    table.diagram-step-vertical-pdf td.diagram-node-vertical-pdf {
+        width: 100%; padding: 8px; border: 1.5px solid #2a6f9e;
+        background-color: #eef5fb; color: #17324d;
+        text-align: center; font-weight: bold;
+    }
+    table.diagram-step-vertical-pdf td.diagram-arrow-vertical-pdf {
+        width: 100%; border: none;
+        height: 12px; margin: 0; padding: 0; line-height: 10px;
+        color: #2a6f9e; text-align: center; font-weight: bold;
+    }
     hr { border: none; border-top: 1px solid #ccc; margin: 14px 0; }
     img { max-width: 90%; margin: 8px 0; }
     .page-break { page-break-before: always; }
@@ -75,19 +88,57 @@ def _markdown_vers_html(chemin_fichier: Path) -> str:
         return "<p><em>(Contenu non disponible)</em></p>"
     texte = chemin_fichier.read_text(encoding="utf-8")
     texte = traiter_blocs_pedagogiques(texte, inclure_support=True)
-    texte = traiter_diagrammes(texte)
+    texte = traiter_diagrammes(texte, mode_impression=True)
     texte = corriger_espacement_listes(texte)
     # Les séparateurs de diapositives structurent l'écran mais ne doivent pas
     # devenir une succession de traits horizontaux dans le polycopié.
     texte = re.sub(r"(?m)^---\s*$", "", texte)
     texte = _integrer_images_locales(texte, chemin_fichier.parent)
-    return markdown.markdown(texte, extensions=["fenced_code", "tables"])
+    html = markdown.markdown(texte, extensions=["fenced_code", "tables"])
+
+    # xhtml2pdf ne respecte pas toujours ``white-space: pre-wrap`` et peut
+    # fusionner toutes les lignes d'un bloc <pre>. Des balises <br /> rendent
+    # les retours à la ligne explicites, sans modifier le code affiché.
+    def preserver_sauts_ligne_code(match: re.Match) -> str:
+        ouverture, contenu, fermeture = match.groups()
+        lignes = contenu.rstrip("\n").split("\n")
+        for index, ligne in enumerate(lignes):
+            indentation = len(ligne) - len(ligne.lstrip(" \t"))
+            espaces = (
+                ligne[:indentation]
+                .replace("\t", "&nbsp;" * 4)
+                .replace(" ", "&nbsp;")
+            )
+            lignes[index] = espaces + ligne[indentation:]
+        contenu = "<br />\n".join(lignes)
+        return f"{ouverture}{contenu}{fermeture}"
+
+    return re.sub(
+        r'(<pre><code(?:\s+class="[^"]*")?>)(.*?)(</code></pre>)',
+        preserver_sauts_ligne_code,
+        html,
+        flags=re.DOTALL,
+    )
+
+
+def _produire_pdf(html_complet: str) -> bytes:
+    """Convertit le HTML en PDF et signale explicitement tout échec d'export."""
+    sortie = io.BytesIO()
+    resultat = pisa.CreatePDF(src=html_complet, dest=sortie, encoding="utf-8")
+    if resultat.err:
+        raise RuntimeError(
+            f"La génération du PDF a échoué avec {resultat.err} erreur(s)."
+        )
+    donnees = sortie.getvalue()
+    if not donnees.startswith(b"%PDF-"):
+        raise RuntimeError("La génération n'a pas produit un fichier PDF valide.")
+    return donnees
 
 
 def generer_pdf_seance(
     titre_seance: str,
     chemin_cours: str,
-    chemin_exercices: str,
+    chemin_exercices: str | None,
     inclure_exercices: bool = True,
 ) -> bytes:
     """Assemble le cours et les exercices d'une séance en un PDF imprimable.
@@ -95,18 +146,18 @@ def generer_pdf_seance(
     Args:
         titre_seance: titre affiché en page de garde (ex: "Séance 1 — ...").
         chemin_cours: chemin du fichier Markdown des diapositives de cours.
-        chemin_exercices: chemin du fichier Markdown des exercices.
+        chemin_exercices: chemin du fichier Markdown des exercices, ou ``None``
+            lorsqu'une séance ne possède pas de travaux pratiques.
 
     Returns:
         Le contenu binaire du PDF généré.
     """
     html_cours = _markdown_vers_html(Path(chemin_cours))
-    html_exercices = _markdown_vers_html(Path(chemin_exercices))
     bloc_exercices = ""
-    if inclure_exercices:
+    if inclure_exercices and chemin_exercices:
+        html_exercices = _markdown_vers_html(Path(chemin_exercices))
         bloc_exercices = f"""
         <div class="page-break"></div>
-        <h1>Exercices</h1>
         {html_exercices}
         """
 
@@ -117,18 +168,14 @@ def generer_pdf_seance(
             <p>Introduction à la programmation Python — IUT 1re année</p>
         </div>
         <div class="page-break"></div>
-        <h1>Support de cours</h1>
         {html_cours}
         {bloc_exercices}
         <div id="footer_content" style="text-align:center; font-size:8pt; color:#888;">
-            {titre_seance}
+            {titre_seance} — page <pdf:pagenumber>
         </div>
     </body></html>
     """
-
-    sortie = io.BytesIO()
-    pisa.CreatePDF(src=html_complet, dest=sortie, encoding="utf-8")
-    return sortie.getvalue()
+    return _produire_pdf(html_complet)
 
 
 def generer_pdf_exercices_seance(titre_seance: str, chemin_exercices: str) -> bytes:
@@ -147,9 +194,7 @@ def generer_pdf_exercices_seance(titre_seance: str, chemin_exercices: str) -> by
         </div>
     </body></html>
     """
-    sortie = io.BytesIO()
-    pisa.CreatePDF(src=html_complet, dest=sortie, encoding="utf-8")
-    return sortie.getvalue()
+    return _produire_pdf(html_complet)
 
 
 def generer_pdf_complet(
@@ -166,17 +211,24 @@ def generer_pdf_complet(
     Returns:
         Le contenu binaire du PDF généré.
     """
-    noms_exercices = list(exercices.values())
     blocs = []
-    for i, (titre, chemin_cours) in enumerate(seances.items()):
+    for titre, chemin_cours in seances.items():
         html_cours = _markdown_vers_html(Path(chemin_cours))
-        html_exercices = _markdown_vers_html(Path(noms_exercices[i])) if i < len(noms_exercices) else ""
-        bloc_exercices = f"<h2>Exercices</h2>{html_exercices}" if inclure_exercices else ""
-        saut = '<div class="page-break"></div>' if i > 0 else ""
+        correspondance_numero = re.match(r"Séance (\d+)", titre)
+        numero = correspondance_numero.group(1) if correspondance_numero else ""
+        chemin_exercices = exercices.get(f"Séance {numero}")
+        html_exercices = (
+            _markdown_vers_html(Path(chemin_exercices)) if chemin_exercices else ""
+        )
+        bloc_exercices = ""
+        if inclure_exercices and html_exercices:
+            bloc_exercices = (
+                '<div class="page-break"></div>'
+                f"{html_exercices}"
+            )
+        saut = '<div class="page-break"></div>'
         blocs.append(f"""
             {saut}
-            <h1>{titre}</h1>
-            <h2>Cours</h2>
             {html_cours}
             {bloc_exercices}
         """)
@@ -194,6 +246,4 @@ def generer_pdf_complet(
     </body></html>
     """
 
-    sortie = io.BytesIO()
-    pisa.CreatePDF(src=html_complet, dest=sortie, encoding="utf-8")
-    return sortie.getvalue()
+    return _produire_pdf(html_complet)

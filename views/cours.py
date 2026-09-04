@@ -3,37 +3,50 @@
 import re
 
 import streamlit as st
+import streamlit.components.v1 as components
 from utils import charger_document, charger_slides, liste_seances
 
 CSS_DIAPORAMA = """
 <style>
-[data-testid="stMarkdownContainer"] h1 { font-size: 3.2rem !important; }
-[data-testid="stMarkdownContainer"] h2 { font-size: 2.5rem !important; }
-[data-testid="stMarkdownContainer"] h3 { font-size: 2.1rem !important; }
-[data-testid="stMarkdownContainer"] p,
-[data-testid="stMarkdownContainer"] li {
-    font-size: 1.7rem !important;
-    line-height: 1.7 !important;
-}
-[data-testid="stMarkdownContainer"] code {
-    font-size: 1.35rem !important;
-}
-[data-testid="stMarkdownContainer"] pre code {
-    font-size: 1.35rem !important;
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] h1 { font-size: 2.8rem !important; }
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] h2 { font-size: 2.15rem !important; }
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] h3 { font-size: 1.7rem !important; }
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] p,
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] li {
+    font-size: 1.42rem !important;
     line-height: 1.5 !important;
 }
-[data-testid="stMarkdownContainer"] th,
-[data-testid="stMarkdownContainer"] td {
-    font-size: 1.35rem !important;
-    line-height: 1.45 !important;
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] code {
+    font-size: 1.15rem !important;
 }
-div.stButton > button {
-    font-size: 1.6rem !important;
-    padding: 0.6rem 1.6rem !important;
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] pre code {
+    font-size: 1.15rem !important;
+    line-height: 1.4 !important;
 }
-.block-container {
-    max-width: 1100px;
-    padding-top: 2rem;
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] th,
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] td {
+    font-size: 1.15rem !important;
+    line-height: 1.35 !important;
+}
+[data-testid="stMain"] div.stButton > button {
+    min-height: 2.1rem !important;
+    padding: 0.15rem 0.45rem !important;
+}
+[data-testid="stMain"] div.stButton > button p {
+    font-size: 1.05rem !important;
+    line-height: 1.1 !important;
+}
+[data-testid="stMain"] [data-testid="stProgress"] p {
+    font-size: 0.85rem !important;
+    line-height: 1.1 !important;
+    margin-bottom: 0.15rem !important;
+}
+[data-testid="stMain"] hr {
+    margin: 0.25rem 0 0.75rem !important;
+}
+[data-testid="stMainBlockContainer"] {
+    max-width: 1200px;
+    padding-top: 4rem;
 }
 </style>
 """
@@ -84,27 +97,89 @@ table.diagram-flow-vertical td.diagram-arrow-vertical {
 """
 
 
+def _changer_slide(pas: int, nb_slides: int) -> None:
+    """Déplace l'index courant avant le nouveau rendu de la page."""
+    index = st.session_state.get("index_slide", 0)
+    st.session_state["index_slide"] = max(0, min(index + pas, nb_slides - 1))
+
+
+def _activer_navigation_clavier() -> None:
+    """Associe les flèches gauche et droite aux boutons de navigation."""
+    components.html(
+        """
+        <script>
+        (() => {
+            const host = window.parent;
+            const handlerName = "__coursPythonSlideKeyboardHandler";
+
+            if (host[handlerName]) {
+                host.removeEventListener("keydown", host[handlerName]);
+            }
+
+            const handler = (event) => {
+                if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+
+                const target = event.target;
+                const tag = target && target.tagName ? target.tagName.toLowerCase() : "";
+                const isEditable = target && (
+                    target.isContentEditable || tag === "input" || tag === "textarea" || tag === "select"
+                );
+                if (isEditable) return;
+
+                const label = event.key === "ArrowLeft" ? "←" : "→";
+                const button = Array.from(host.document.querySelectorAll("button")).find(
+                    (item) => item.innerText.trim() === label
+                );
+
+                if (button && !button.disabled) {
+                    event.preventDefault();
+                    button.click();
+                }
+            };
+
+            host[handlerName] = handler;
+            host.addEventListener("keydown", handler);
+        })();
+        </script>
+        """,
+        height=0,
+    )
+
+
 def _afficher_diaporama(chemin_seance: str) -> None:
     """Affiche une seule diapositive avec la navigation de projection."""
     slides = charger_slides(chemin_seance)
     nb_slides = len(slides)
     index = min(st.session_state.get("index_slide", 0), nb_slides - 1)
-
-    st.progress((index + 1) / nb_slides)
-
-    col_prec, col_compteur, col_suiv = st.columns([1, 1, 1])
-    if col_prec.button("◀ Précédent", use_container_width=True) and index > 0:
-        index -= 1
-    col_compteur.markdown(
-        f"<p style='text-align:center; padding-top:0.5rem;'>Diapo {index + 1}/{nb_slides}</p>",
-        unsafe_allow_html=True,
-    )
-    if col_suiv.button("Suivant ▶", use_container_width=True) and index < nb_slides - 1:
-        index += 1
-
     st.session_state["index_slide"] = index
+
+    col_prec, col_progression, col_suiv = st.columns([0.7, 8, 0.7], gap="small")
+    col_prec.button(
+        "←",
+        key="diapo_precedente",
+        help="Diapositive précédente — flèche gauche",
+        disabled=index == 0,
+        use_container_width=True,
+        on_click=_changer_slide,
+        args=(-1, nb_slides),
+    )
+    col_progression.progress(
+        (index + 1) / nb_slides,
+        text=f"Diapo {index + 1}/{nb_slides}",
+    )
+    col_suiv.button(
+        "→",
+        key="diapo_suivante",
+        help="Diapositive suivante — flèche droite",
+        disabled=index == nb_slides - 1,
+        use_container_width=True,
+        on_click=_changer_slide,
+        args=(1, nb_slides),
+    )
+
     st.divider()
     st.markdown(slides[index], unsafe_allow_html=True)
+    _activer_navigation_clavier()
 
 
 def _afficher_lecture(chemin_seance: str) -> None:

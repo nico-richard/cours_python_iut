@@ -1,13 +1,17 @@
 # Exercices — Séance 3 : Exploiter des données scientifiques
 
+## Fichiers nécessaires
+
+Copier les fichiers `notes.txt` et `mesures.csv` fournis par l'enseignant dans le dossier `seance3` créé au début du module. Enregistrer également les programmes de cette feuille dans ce dossier. Les chemins simples utilisés ci-dessous fonctionneront alors directement.
+
 **Ex. 1 — Module `math` et `random`**
 Utiliser `math` pour calculer racine carrée, puissance, et `random` pour générer 10 mesures aléatoires simulées entre 10 et 20.
 
 **Ex. 2 — Lecture d'un fichier texte**
-Lire le fichier `data/donnees/notes.txt` (une valeur par ligne), puis calculer le nombre de notes, leur somme et leur moyenne.
+Lire le fichier `notes.txt` (une valeur par ligne), puis calculer le nombre de notes, leur somme et leur moyenne.
 
 **Ex. 3 — Lecture d'un CSV de mesures**
-Charger `data/donnees/mesures.csv` (colonnes `temps` et `temperature`, séparateur `;`) dans deux listes Python, puis calculer la moyenne des températures sans NumPy.
+Charger `mesures.csv` (colonnes `temps` et `temperature`, séparateur `;`) dans deux listes Python, puis calculer la moyenne des températures sans NumPy.
 
 **Ex. 4 — Écriture d'un rapport**
 Écrire les résultats de l'Ex. 3 (moyenne, min, max) dans un fichier `rapport.txt`, avec `with open(..., "w")`.

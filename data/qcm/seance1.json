@@ -1,0 +1,97 @@
+{
+  "titre": "QCM — Séance 1 : Premiers programmes Python",
+  "description": "Variables, types, saisie, calculs, affichage et premières conditions.",
+  "diagnostic": false,
+  "questions": [
+    {
+      "question": "Quel composant exécute les instructions d'un programme ?",
+      "choix": ["Le processeur", "Le clavier", "Le disque externe", "L'écran"],
+      "reponse": 0,
+      "explication": "Le processeur exécute les instructions tandis que la mémoire contient les programmes et données en cours d'utilisation."
+    },
+    {
+      "question": "Que devient en général le contenu de la mémoire vive quand on éteint l'ordinateur ?",
+      "choix": ["Il est perdu", "Il est imprimé", "Il est automatiquement envoyé sur internet", "Il devient un programme Python"],
+      "reponse": 0,
+      "explication": "La mémoire vive est volatile ; les fichiers enregistrés sur un support de stockage persistent."
+    },
+    {
+      "question": "Quel est l'intérêt d'un fichier .py par rapport à une commande saisie dans la console ?",
+      "choix": ["Il conserve une suite d'instructions réutilisable", "Il interdit toute erreur", "Il ne peut contenir qu'une ligne", "Il remplace Python"],
+      "reponse": 0,
+      "explication": "Un script permet de sauvegarder, relire, modifier et relancer le programme."
+    },
+    {
+      "question": "Que fait l'instruction masse = 2.5 ?",
+      "choix": ["Elle associe la valeur 2.5 au nom masse", "Elle teste si masse vaut 2.5", "Elle affiche automatiquement 2.5", "Elle crée un fichier nommé masse"],
+      "reponse": 0,
+      "explication": "En Python, le signe = réalise une affectation ; le test d'égalité s'écrit ==."
+    },
+    {
+      "question": "Quel est le type Python de la valeur 20.5 ?",
+      "choix": ["float", "int", "str", "bool"],
+      "reponse": 0,
+      "explication": "Une valeur numérique écrite avec un point décimal est un nombre flottant, de type float."
+    },
+    {
+      "question": "Quel type de valeur renvoie input() ?",
+      "choix": ["str", "float", "int", "bool"],
+      "reponse": 0,
+      "explication": "input() renvoie toujours du texte ; il faut convertir la saisie avant un calcul numérique."
+    },
+    {
+      "question": "Comment convertir le texte « 20.5 » en nombre décimal ?",
+      "choix": ["float(\"20.5\")", "str(20.5)", "print(\"20.5\")", "type(\"20.5\")"],
+      "reponse": 0,
+      "explication": "La fonction float convertit une représentation textuelle valide en nombre flottant."
+    },
+    {
+      "question": "Quelle valeur produit l'expression 7 / 2 en Python 3 ?",
+      "choix": ["3.5", "3", "1", "Une erreur"],
+      "reponse": 0,
+      "explication": "L'opérateur / réalise une division et renvoie ici le flottant 3.5."
+    },
+    {
+      "question": "Que calcule l'opérateur % ?",
+      "choix": ["Le reste d'une division entière", "Un pourcentage automatiquement", "Une puissance", "Une moyenne"],
+      "reponse": 0,
+      "explication": "Par exemple, 7 % 2 vaut 1 ; cet opérateur est notamment utile pour tester la parité."
+    },
+    {
+      "question": "Quel opérateur teste l'égalité de deux valeurs ?",
+      "choix": ["==", "=", "!=", ">="],
+      "reponse": 0,
+      "explication": "== compare deux valeurs, tandis que = affecte une valeur à une variable."
+    },
+    {
+      "question": "Pourquoi 0.1 + 0.2 peut-il s'afficher avec de petites décimales supplémentaires ?",
+      "choix": ["Certains décimaux sont approximés en binaire", "Python choisit une valeur au hasard", "L'addition est interdite avec des float", "L'écran modifie le résultat"],
+      "reponse": 0,
+      "explication": "Les nombres flottants ont une précision finie et certains décimaux n'ont pas de représentation binaire exacte."
+    },
+    {
+      "question": "Quelle écriture affiche la variable temperature avec une décimale ?",
+      "choix": ["f\"{temperature:.1f} °C\"", "f\"temperature.1\"", "print(.1 temperature)", "str{temperature:1}"],
+      "reponse": 0,
+      "explication": "Dans une f-string, :.1f demande un affichage flottant avec une décimale."
+    },
+    {
+      "question": "Dans une structure if / elif / else, combien de branches sont exécutées ?",
+      "choix": ["La première branche dont la condition est vraie, ou else", "Toutes les branches", "Toujours la branche else", "Aucune branche"],
+      "reponse": 0,
+      "explication": "Les conditions sont testées dans l'ordre et une seule branche de la structure est exécutée."
+    },
+    {
+      "question": "Que signifie la condition temperature > 20 and temperature < 30 ?",
+      "choix": ["La température est strictement comprise entre 20 et 30", "La température est inférieure à 20", "Une seule comparaison doit être vraie", "La température vaut 20 ou 30"],
+      "reponse": 0,
+      "explication": "Avec and, les deux comparaisons doivent être vraies en même temps."
+    },
+    {
+      "question": "Lorsqu'un programme affiche une traceback, quelle information faut-il lire en priorité ?",
+      "choix": ["La dernière ligne, qui indique le type et le message de l'erreur", "Uniquement le nom de l'ordinateur", "La première variable du programme", "L'heure de lancement"],
+      "reponse": 0,
+      "explication": "La fin de la traceback donne généralement le type d'exception et le message le plus utile au diagnostic."
+    }
+  ]
+}

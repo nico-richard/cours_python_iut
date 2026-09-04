@@ -1,11 +1,11 @@
 # Séance 4
 ## Visualiser et acquérir des mesures
 
-### Matplotlib, instrumentation et liaison série
+### Matplotlib, instrumentation, liaisons série et réseau
 
 Une série de nombres devient plus facile à interpréter lorsqu'elle est représentée graphiquement. Python peut aussi recevoir directement les mesures d'un instrument.
 
-À la fin de la séance, vous devez être capables de produire un graphique scientifique lisible et d'expliquer les étapes d'une acquisition par liaison série.
+À la fin de la séance, vous devez être capables de produire un graphique scientifique lisible et d'expliquer les étapes d'un dialogue avec un instrument.
 
 :::support
 Cette séance termine la chaîne commencée avec les fichiers et NumPy. Matplotlib
@@ -48,6 +48,9 @@ en barres représentant des catégories.
 ```python
 import matplotlib.pyplot as plt
 
+temps = [0, 1, 2, 3]
+temperatures = [20.1, 20.4, 20.9, 21.3]
+
 plt.plot(temps, temperatures)
 plt.xlabel("Temps (s)")
 plt.ylabel("Température (°C)")
@@ -71,6 +74,11 @@ doivent avoir le même nombre d'éléments : chaque abscisse correspond à une o
 ## Représenter une évolution
 
 ```python
+import matplotlib.pyplot as plt
+
+temps = [0, 1, 2, 3]
+temperatures = [20.1, 20.4, 20.9, 21.3]
+
 plt.plot(
     temps,
     temperatures,
@@ -91,12 +99,18 @@ Une ligne est pertinente lorsque l'ordre des points possède un sens.
 ## Nuage de points et histogramme
 
 ```python
-plt.scatter(tension, courant)
+import matplotlib.pyplot as plt
+
+tensions = [1.0, 2.0, 3.0, 4.0]
+courants = [0.10, 0.19, 0.31, 0.40]
+
+plt.scatter(tensions, courants)
 ```
 
 Le nuage de points montre la relation entre deux variables mesurées sur les mêmes observations.
 
 ```python
+temperatures = [20.1, 20.4, 20.9, 21.3, 20.8, 20.5]
 plt.hist(temperatures, bins=10)
 ```
 
@@ -127,6 +141,11 @@ grille légère facilite la lecture des valeurs mais ne doit pas dominer les don
 Matplotlib distingue la **figure**, qui contient l'ensemble du document, et les **axes**, qui sont les zones de tracé.
 
 ```python
+import matplotlib.pyplot as plt
+
+temps = [0, 1, 2, 3]
+temperatures = [20.1, 20.4, 20.9, 21.3]
+
 fig, axes = plt.subplots(1, 2, figsize=(10, 4))
 
 axes[0].plot(temps, temperatures)
@@ -145,9 +164,16 @@ que `plt` dès que la figure contient plusieurs graphiques.
 ---
 ## Exporter une figure
 
-Une figure peut être enregistrée pour être intégrée dans un rapport :
+Une figure peut être enregistrée pour être intégrée dans un rapport. Cet exemple complet crée la figure avant de l'enregistrer :
 
 ```python
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+ax.plot([0, 1, 2, 3], [20.1, 20.4, 20.9, 21.3])
+ax.set_xlabel("Temps (s)")
+ax.set_ylabel("Température (°C)")
+
 fig.savefig(
     "temperature.png",
     dpi=300,
@@ -187,22 +213,21 @@ les valeurs à l'ordinateur, où Python peut automatiser leur stockage, leur ana
 et leur représentation.
 :::
 ---
-## Support de communication et protocole
+## Liaison matérielle et liaison logicielle
 
-Deux éléments sont nécessaires pour dialoguer avec un instrument :
+Pour dialoguer avec un instrument, il faut d'abord savoir comment s'y brancher, puis quelles instructions lui envoyer :
 
 | Élément | Question associée | Exemples |
 |---|---|---|
-| **support/interface** | par où circulent les données ? | USB, série, réseau |
-| **protocole** | quelles règles sont utilisées ? | SCPI, protocole constructeur |
+| **liaison matérielle** | quel câble et quel connecteur ? | USB, série, Ethernet, GPIB |
+| **liaison logicielle** | quelles règles et commandes ? | SCPI, VISA, Modbus, protocole constructeur |
 
-Une connexion USB n'indique pas à elle seule la forme des commandes ou des réponses échangées.
+Deux appareils équipés du même connecteur USB ou Ethernet ne parlent pas forcément le même langage.
 
 :::support
-Une interface décrit le moyen de transport et ses caractéristiques. Un protocole
-définit la structure, l'ordre et la signification des messages. Plusieurs protocoles
-peuvent utiliser un même support, et un même protocole peut parfois être transporté
-par plusieurs interfaces.
+La liaison matérielle décrit le transport. La liaison logicielle définit la
+structure, l'ordre et la signification des messages. Avant tout achat ou essai,
+il faut donc vérifier les deux dans la documentation technique.
 :::
 ---
 ## Commandes SCPI
@@ -211,12 +236,16 @@ SCPI (*Standard Commands for Programmable Instruments*) définit une syntaxe tex
 
 ```text
 *IDN?
-MEASure:VOLTage:DC?
+MEAS:TEMP?
+TEMP:UNIT DEG
 ```
 
 - `*IDN?` demande l'identification de l'instrument ;
-- `MEASure:VOLTage:DC?` demande une mesure de tension continue ;
+- `MEAS:TEMP?` demande une mesure de température ;
+- `TEMP:UNIT DEG` règle un paramètre sans attendre nécessairement de réponse ;
 - le point d'interrogation signale une requête qui attend une réponse.
+
+Dans tous les cas, seule la documentation de l'instrument fait foi.
 
 :::support
 SCPI standardise une partie du vocabulaire, mais les commandes réellement prises
@@ -232,10 +261,13 @@ Une liaison série transmet une suite d'octets. Les deux équipements doivent ut
 |---|---|
 | port | identifier l'interface, par exemple `COM3` |
 | `baudrate` | fixer la vitesse de transmission |
+| format | fixer le nombre de bits, la parité et les bits d'arrêt |
 | `timeout` | limiter la durée d'attente d'une lecture |
 | fin de ligne | délimiter les messages |
 
 Sous Linux, un port peut notamment apparaître sous la forme `/dev/ttyUSB0` ou `/dev/ttyACM0`.
+
+Sous Windows, un port série ne peut généralement être ouvert que par une application à la fois. Le nom d'un adaptateur USB-série peut aussi changer après un débranchement.
 ---
 ## Octets, texte et nombre
 
@@ -250,6 +282,7 @@ Nombre `20.5`
 :::
 
 ```python
+ligne = b"20.5\r\n"  # exemple de réponse reçue
 texte = ligne.decode("utf-8").strip()
 mesure = float(texte)
 ```
@@ -267,7 +300,7 @@ les caractères de fin de ligne avant la conversion numérique.
 ```python
 import serial
 
-with serial.Serial("COM3", baudrate=9600, timeout=1) as port:
+with serial.Serial("COM3", baudrate=19200, timeout=1) as port:
     ligne = port.readline()
     texte = ligne.decode("utf-8").strip()
     mesure = float(texte)
@@ -289,7 +322,7 @@ Une commande textuelle doit être encodée avant son envoi :
 ```python
 import serial
 
-with serial.Serial("COM3", baudrate=9600, timeout=1) as port:
+with serial.Serial("COM3", baudrate=19200, timeout=1) as port:
     commande = "*IDN?\n".encode("utf-8")
     port.write(commande)
     reponse = port.readline().decode("utf-8").strip()
@@ -307,6 +340,34 @@ Réponse textuelle
 La terminaison `\n` est ici incluse dans la commande car de nombreux instruments
 attendent une fin de ligne avant de traiter le message. La terminaison exacte doit
 être vérifiée dans la documentation de l'appareil.
+:::
+---
+## Communiquer par le réseau
+
+Un instrument Ethernet est généralement identifié par deux informations :
+
+| Information | Rôle | Exemple |
+|---|---|---|
+| **adresse IP** | identifier l'instrument sur le réseau | `192.168.0.26` |
+| **port TCP** | identifier le service qui reçoit les commandes | `8000` |
+
+Le dialogue suit ensuite les mêmes étapes qu'avec une liaison série :
+
+:::diagram
+Connexion à l'adresse et au port
+Envoi de la commande
+Réception de la réponse
+Décodage du texte
+:::
+
+Les valeurs à utiliser et le protocole de dialogue sont indiqués dans la documentation de l'instrument. Une prise Ethernet ne garantit pas à elle seule que l'appareil accepte des commandes SCPI par une connexion TCP directe.
+
+:::support
+Python fournit le module `socket` pour les communications réseau de bas niveau.
+Les constantes et méthodes nécessaires dépendent du protocole retenu ; elles ne
+sont pas à mémoriser dans ce cours. En pratique, une bibliothèque constructeur ou
+VISA peut fournir une interface plus simple. On commencera donc toujours par la
+documentation de l'instrument plutôt que par un exemple de socket générique.
 :::
 ---
 ## Acquisition avec une carte Arduino
@@ -340,7 +401,7 @@ Les quatre séances construisent une chaîne complète :
 | stocker | listes, fichiers, CSV |
 | calculer | NumPy et statistiques descriptives |
 | visualiser | Matplotlib |
-| acquérir | instrument, liaison série, Arduino |
+| acquérir | instrument, liaisons série ou réseau, Arduino |
 
 L'objectif est de transformer une grandeur physique en données interprétables, puis en résultat scientifique communicable.
 

@@ -1,10 +1,14 @@
 # Exercices — Séance 4 : Visualiser et acquérir des mesures
 
+## Fichier nécessaire
+
+Copier `mesures.csv` depuis le dossier `seance3` vers le dossier `seance4`, puis enregistrer les programmes de cette feuille dans `seance4`.
+
 **Ex. 1 — Première courbe**
 À partir du CSV de la séance 3, tracer température en fonction du temps avec `plt.plot`, en ajoutant titre et légendes des axes.
 
 **Ex. 2 — Nuage de points et histogramme**
-Sur un même script, tracer un nuage de points (deux séries de mesures liées) puis un histogramme d'une série de valeurs.
+Dans un même script, créer d'abord une figure contenant un nuage de points (deux séries de mesures liées), puis une seconde figure contenant l'histogramme d'une série de valeurs.
 
 **Ex. 3 — Personnalisation et export**
 Reprendre l'Ex. 1 : changer couleur/style de ligne, ajouter une grille et une légende, puis exporter le graphique en `.png`.

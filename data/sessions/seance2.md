@@ -1,16 +1,212 @@
 # Séance 2
 ## Organiser et répéter les traitements
 
-### Fonctions, séquences, textes et boucles
+### Fonctions, objets, séquences, textes et boucles
 
 Un programme devient rapidement difficile à maintenir lorsqu'il répète du code ou manipule de nombreuses valeurs séparément.
 
-À la fin de la séance, vous devez être capables de découper un programme en fonctions, de regrouper des données et de répéter automatiquement un traitement.
+À la fin de la séance, vous devez être capables de découper un programme en fonctions, d'utiliser des objets existants, de regrouper des données et de répéter automatiquement un traitement.
 
 :::support
 Cette séance fait passer du petit programme linéaire à un programme structuré.
 Les fonctions organisent les traitements, les séquences regroupent les données et
 les boucles permettent d'appliquer une même opération à plusieurs valeurs.
+:::
+---
+## La POO rassemble données et comportements
+
+La **programmation orientée objet** (POO) organise un programme autour d'objets qui regroupent :
+
+- des **attributs** : les données propres à l'objet ;
+- des **méthodes** : les opérations que l'objet sait effectuer.
+
+Un objet représente ainsi une entité du programme avec un état et des comportements.
+
+:::diagram
+Objet `capteur`
+Attributs : nom, valeur
+Méthodes : actualiser, afficher
+:::
+
+La POO est particulièrement utile lorsqu'un programme manipule plusieurs éléments de même nature : capteurs, instruments, fichiers ou graphiques.
+
+:::support
+La POO associe les données et les traitements qui leur correspondent au lieu de
+les disperser dans le programme. Une classe définit cette organisation commune ;
+les objets créés à partir d'elle portent leurs propres valeurs.
+:::
+---
+## Une classe sert de modèle aux objets
+
+Une **classe** décrit la structure commune de ses futurs objets. Pour les exemples suivants, on suppose qu'une bibliothèque fournit cette classe :
+
+```text
+CapteurTemperature(nom, valeur_initiale)
+```
+
+| Élément défini par la classe | Exemple |
+|---|---|
+| constructeur | `CapteurTemperature(...)` |
+| attributs | `.nom`, `.valeur` |
+| méthodes | `.actualiser()`, `.afficher()` |
+
+La classe constitue le modèle commun ; les valeurs particulières appartiendront à chaque objet créé.
+
+:::support
+La documentation d'une classe présente généralement son constructeur, ses
+attributs et ses méthodes. Elle indique les arguments attendus, les types de
+valeurs et les effets produits.
+:::
+---
+## Instancier crée un nouvel objet
+
+Créer un objet à partir d'une classe s'appelle une **instanciation** :
+
+```python
+capteur_salle = CapteurTemperature("Salle A", 20.5)
+```
+
+:::diagram
+Classe `CapteurTemperature`
+Appel du constructeur
+Objet `capteur_salle`
+:::
+
+`capteur_salle` est une **instance** de `CapteurTemperature`. Dans ce cours, il faudra surtout savoir instancier et utiliser des classes existantes, pas écrire leur définition.
+
+:::support
+Le constructeur s'appelle comme une fonction. Ses arguments fournissent les
+valeurs nécessaires à l'initialisation. L'objet obtenu possède alors les attributs
+et les méthodes prévus par la classe.
+:::
+---
+## Chaque instance conserve son propre état
+
+Deux appels du constructeur créent deux objets indépendants :
+
+```python
+capteur_salle = CapteurTemperature("Salle A", 20.5)
+capteur_dehors = CapteurTemperature("Extérieur", 12.8)
+
+capteur_salle.valeur = 21.0
+
+print(capteur_salle.valeur)   # 21.0
+print(capteur_dehors.valeur)  # 12.8
+```
+
+Modifier `capteur_salle` ne modifie pas `capteur_dehors`.
+
+On accède aux attributs et aux méthodes d'un objet avec le **point** :
+
+```text
+objet.attribut       objet.methode()
+```
+
+:::support
+Chaque instance possède son identité et son propre ensemble d'attributs. Les
+objets peuvent donc évoluer séparément, même lorsqu'ils ont été créés à partir de
+la même classe.
+:::
+---
+## Les attributs décrivent l'état d'un objet
+
+Les attributs sont des variables associées à une instance. Ils sont souvent initialisés par le constructeur :
+
+```python
+capteur = CapteurTemperature("Salle A", 20.5)
+
+print(capteur.nom)     # Salle A
+print(capteur.valeur)  # 20.5
+```
+
+Un attribut modifiable peut ensuite recevoir une nouvelle valeur :
+
+```python
+capteur.valeur = 21.3
+print(capteur.valeur)  # 21.3
+```
+
+La documentation précise le nom, le rôle, le type et l'unité éventuelle de chaque attribut. Il ne faut pas inventer un attribut qui n'est pas prévu par la classe.
+
+:::support
+Tous les attributs ne sont pas nécessairement destinés à être modifiés directement.
+Certaines classes imposent de passer par une méthode afin de contrôler la nouvelle
+valeur ou de maintenir la cohérence de l'objet.
+:::
+---
+## Les méthodes font agir l'objet
+
+Une méthode est une fonction attachée à un objet. Elle peut consulter ou modifier ses attributs :
+
+```python
+capteur = CapteurTemperature("Salle A", 20.5)
+
+capteur.actualiser(21.3)
+print(capteur.valeur)  # 21.3
+```
+
+Une méthode peut aussi produire un affichage ou renvoyer un résultat :
+
+```python
+capteur.afficher()
+# Salle A : 21.3 °C
+```
+
+Dans `capteur.actualiser(21.3)`, l'objet placé avant le point est celui sur lequel la méthode agit.
+
+:::support
+La méthode reçoit implicitement l'objet concerné. Son effet et sa valeur de retour
+sont décrits dans la documentation. Certaines méthodes modifient l'objet, tandis
+que d'autres renvoient une nouvelle valeur sans changer l'état initial.
+:::
+---
+## En Python, toutes les valeurs sont des objets
+
+Les objets ne concernent pas seulement les classes fournies par une bibliothèque. Les nombres, textes et listes sont eux aussi des objets :
+
+```python
+temperature = 20.5
+message = "mesure terminée"
+mesures = [18.2, 19.1]
+
+print(type(temperature))  # <class 'float'>
+print(type(message))      # <class 'str'>
+print(type(mesures))      # <class 'list'>
+```
+
+Leur type détermine les opérations et méthodes disponibles :
+
+```python
+message.upper()       # "MESURE TERMINÉE"
+mesures.append(20.0)  # modifie la liste
+```
+
+Nous utiliserons cette même notation avec NumPy, Matplotlib et pyserial.
+---
+## Inspecter un objet
+
+Python permet d'interroger un objet lorsque l'on ne connaît pas exactement son contenu :
+
+```python
+type(capteur)
+isinstance(capteur, CapteurTemperature)
+dir(capteur)
+help(capteur.actualiser)
+```
+
+| Outil | Information obtenue |
+|---|---|
+| `type(objet)` | classe de l'objet |
+| `isinstance(objet, Classe)` | vérification du type attendu |
+| `dir(objet)` | noms des attributs et méthodes |
+| `help(...)` | documentation disponible |
+
+`dir()` peut produire une longue liste contenant des noms techniques. Il sert surtout à repérer un nom, puis `help()` ou la documentation explique comment l'utiliser.
+
+:::support
+Dans un environnement comme Thonny, l'autocomplétion après le point complète cette
+inspection. Ces outils aident à explorer, mais la documentation officielle reste
+la référence pour connaître les paramètres, les effets et les valeurs renvoyées.
 :::
 ---
 ## Organiser le code avec des fonctions
@@ -76,11 +272,11 @@ des variables globales ou à demander elle-même les données à l'utilisateur.
 `return` fournit un résultat au reste du programme ; `print()` produit seulement un affichage.
 
 ```python
-def calculer_moyenne(mesures):
-    return sum(mesures) / len(mesures)
+def calculer_energie(puissance, duree):
+    return puissance * duree
 
-moyenne = calculer_moyenne([18.2, 19.1, 20.0])
-print(f"Moyenne : {moyenne:.1f} °C")
+energie = calculer_energie(12.0, 3.0)
+print(f"Énergie : {energie:.1f} Wh")
 ```
 
 Le résultat retourné peut être mémorisé, comparé ou utilisé dans un autre calcul.
@@ -229,6 +425,12 @@ capteur[:4]   # "TEMP"
 ```
 
 Quelques caractères possèdent une écriture spéciale : `\n` représente un retour à la ligne et `\t` une tabulation.
+
+Pour un chemin Windows contenant des antislashs, une chaîne brute évite de les doubler :
+
+```python
+chemin = r"C:\mesures\essai1.csv"
+```
 
 Les chaînes sont non modifiables : une transformation produit une nouvelle chaîne.
 ---

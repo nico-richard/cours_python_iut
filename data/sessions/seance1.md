@@ -3,7 +3,7 @@
 
 ### De la machine aux données, calculs et décisions
 
-Nous allons suivre le chemin qui mène de la machine à un premier programme :
+Nous commencerons dans la console Python, utilisée comme une calculatrice, puis nous enregistrerons les mêmes instructions dans un véritable script :
 
 :::diagram
 Ordinateur
@@ -13,7 +13,9 @@ Calculs
 Décisions
 :::
 
-À la fin de la séance, vous devez être capables de lire et d'écrire un script simple qui manipule une mesure et adapte son comportement à sa valeur.
+Le fil rouge sera une mesure de température : la saisir, la convertir, effectuer un calcul et choisir un message selon sa valeur.
+
+À la fin de la séance, vous devez être capables de lire et d'écrire ce type de script simple.
 
 :::support
 Cette séance pose les bases utilisées dans tout le cours : exécuter un programme,
@@ -80,11 +82,28 @@ Python peut être utilisé de deux manières complémentaires :
 | expérimenter | modifier et réutiliser le code |
 
 ```text
->>> 2 + 3
-5
+>>> temperature = 20.5
+>>> temperature + 273.15
+293.65
 ```
 
-Un script peut être lancé depuis un éditeur ou avec `python mesure.py` dans un terminal (`py mesure.py` sur certaines installations Windows).
+Dans Thonny, le **Shell** sert à essayer une instruction ; l'éditeur sert à construire puis conserver `mesure.py`.
+
+Le même script peut aussi être lancé avec `python mesure.py` dans un terminal (`py mesure.py` sur certaines installations Windows).
+---
+## Trouver une information fiable
+
+Personne ne mémorise toute la bibliothèque Python. Deux réflexes sont utiles :
+
+```python
+help(print)
+help(float)
+```
+
+- `help()` décrit une fonction, un type ou une valeur disponible dans l'environnement ;
+- [docs.python.org](https://docs.python.org/fr/3/) est la documentation officielle du langage et de sa bibliothèque standard.
+
+Pour une fonction externe, par exemple NumPy ou pyserial, il faut consulter la documentation de la bibliothèque concernée.
 ---
 ## Variables et affectation
 
@@ -115,9 +134,9 @@ Le type décrit la nature d'une valeur et détermine les opérations possibles :
 
 | Type | Nature | Exemple |
 |---|---|---|
-| `int` | nombre entier | `12` |
-| `float` | nombre à virgule flottante | `20.5` |
-| `str` | chaîne de caractères | `"capteur A"` |
+| `int` | nombre entier | `299_792_458` |
+| `float` | nombre à virgule flottante | `1.602e-19` |
+| `str` | chaîne de caractères | `"COM3"` |
 | `bool` | résultat logique | `True` ou `False` |
 
 ```python
@@ -148,6 +167,8 @@ message = str(20.5)
 ```
 
 `float()`, `int()` et `str()` produisent une nouvelle valeur du type demandé. Une conversion échoue si le contenu n'est pas compatible : `float("vingt")` provoque une erreur.
+
+Dans un programme Python, le séparateur décimal est toujours le point : `20.5`, et non `20,5`.
 ---
 ## Opérateurs arithmétiques
 
@@ -286,11 +307,11 @@ Dans une condition, les opérateurs logiques permettent de combiner plusieurs te
 | `not` | inverse une valeur logique |
 
 ```python
-if temperature >= 0 and temperature < 30:
+if 0 <= temperature < 30:
     print("Température dans la plage prévue")
 ```
 
-Les parenthèses peuvent clarifier une condition complexe. Si elle devient difficile à lire, il est préférable de la décomposer.
+Python autorise cette comparaison enchaînée. Pour des tests de nature différente, on utilise `and`, `or` et `not`. Si une condition devient difficile à lire, il est préférable de la décomposer.
 ---
 ## Comprendre les erreurs
 

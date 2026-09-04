@@ -7,11 +7,13 @@ gestion des erreurs, typage indicatif.
 """
 
 from pathlib import Path
+import json
 import io
 import re
 import base64
 import contextlib
 import html
+import random
 
 _TYPES_MIME = {
     ".png": "image/png",
@@ -95,12 +97,13 @@ def _formater_noeud_diagramme(texte: str) -> str:
     return texte
 
 
-def traiter_diagrammes(texte: str) -> str:
+def traiter_diagrammes(texte: str, mode_impression: bool = False) -> str:
     """Transforme un bloc ``:::diagram`` en diagramme HTML accessible.
 
     Chaque ligne non vide devient un bloc encadré. Par défaut les blocs sont
     disposés horizontalement ; ``:::diagram vertical`` produit une chaîne
-    verticale adaptée aux séquences longues.
+    verticale adaptée aux séquences longues. Le mode impression utilise des
+    blocs indépendants et des flèches ASCII, mieux pris en charge par xhtml2pdf.
     """
 
     def remplacer(match: re.Match) -> str:
@@ -112,6 +115,25 @@ def traiter_diagrammes(texte: str) -> str:
         ]
         if not noeuds:
             return ""
+
+        if vertical and mode_impression:
+            etapes = []
+            for index, noeud in enumerate(noeuds):
+                ligne_fleche = (
+                    '<tr><td class="diagram-arrow-vertical-pdf">v</td></tr>'
+                    if index > 0
+                    else ""
+                )
+                etapes.append(
+                    '<table class="diagram-step-vertical-pdf" role="presentation">'
+                    f"{ligne_fleche}"
+                    f'<tr><td class="diagram-node-vertical-pdf">{noeud}</td></tr>'
+                    "</table>"
+                )
+            return (
+                '\n\n<div class="diagram-wrapper diagram-wrapper-vertical-pdf">'
+                f"{''.join(etapes)}</div>\n\n"
+            )
 
         if vertical:
             lignes = []
@@ -127,7 +149,8 @@ def traiter_diagrammes(texte: str) -> str:
             cellules = []
             for index, noeud in enumerate(noeuds):
                 if index:
-                    cellules.append('<td class="diagram-arrow">→</td>')
+                    fleche = "-&gt;" if mode_impression else "→"
+                    cellules.append(f'<td class="diagram-arrow">{fleche}</td>')
                 cellules.append(f'<td class="diagram-node">{noeud}</td>')
             contenu = f"<tr>{''.join(cellules)}</tr>"
             classe = "diagram-flow"
@@ -233,6 +256,7 @@ def liste_seances() -> dict[str, str]:
     """Associe le nom affiché de chaque séance à son fichier de contenu."""
     base = Path(__file__).parent / "data" / "sessions"
     return {
+        "Séance 0 — Présentation du cours": str(base / "seance0.md"),
         "Séance 1 — Premiers programmes Python": str(base / "seance1.md"),
         "Séance 2 — Organiser et répéter les traitements": str(base / "seance2.md"),
         "Séance 3 — Exploiter des données scientifiques": str(base / "seance3.md"),
@@ -244,8 +268,40 @@ def liste_exercices() -> dict[str, str]:
     """Associe le nom affiché de chaque séance à son fichier d'exercices."""
     base = Path(__file__).parent / "data" / "exercices"
     return {
+        "Séance 0 — Installation et premiers essais": str(base / "seance0.md"),
         "Séance 1": str(base / "seance1.md"),
         "Séance 2": str(base / "seance2.md"),
         "Séance 3": str(base / "seance3.md"),
         "Séance 4": str(base / "seance4.md"),
     }
+
+
+def liste_qcm() -> dict[str, str]:
+    """Associe chaque questionnaire à son fichier JSON."""
+    base = Path(__file__).parent / "data" / "qcm"
+    return {
+        "Diagnostic — Avant le premier cours": str(base / "diagnostic.json"),
+        "Séance 1 — Premiers programmes": str(base / "seance1.json"),
+        "Séance 2 — Fonctions, objets et boucles": str(base / "seance2.json"),
+        "Séance 3 — Fichiers et NumPy": str(base / "seance3.json"),
+        "Séance 4 — Visualisation et instrumentation": str(base / "seance4.json"),
+    }
+
+
+def charger_qcm(chemin_fichier: str) -> dict:
+    """Charge un QCM et mélange ses choix de façon stable."""
+    chemin = Path(chemin_fichier)
+    with chemin.open(encoding="utf-8") as fichier:
+        qcm = json.load(fichier)
+
+    for question in qcm["questions"]:
+        # Les questions de positionnement n'ont pas de bonne réponse et leur
+        # échelle ordonnée doit rester dans l'ordre défini dans le fichier.
+        if question.get("sondage"):
+            continue
+        bonne_reponse = question["choix"][question["reponse"]]
+        generateur = random.Random(f"{qcm['titre']}|{question['question']}")
+        generateur.shuffle(question["choix"])
+        question["reponse"] = question["choix"].index(bonne_reponse)
+
+    return qcm

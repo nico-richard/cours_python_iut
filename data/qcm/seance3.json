@@ -1,0 +1,97 @@
+{
+  "titre": "QCM — Séance 3 : Fichiers et calcul scientifique",
+  "description": "Modules, lecture et écriture de fichiers, données tabulaires et tableaux NumPy.",
+  "diagnostic": false,
+  "questions": [
+    {
+      "question": "Quelle différence y a-t-il entre la bibliothèque standard et une bibliothèque externe ?",
+      "choix": ["La bibliothèque externe doit généralement être installée séparément", "La bibliothèque standard ne contient aucune fonction", "Une bibliothèque externe ne peut pas être importée", "Il n'y a jamais de différence"],
+      "reponse": 0,
+      "explication": "Les modules de la bibliothèque standard accompagnent Python ; un paquet comme NumPy est installé séparément."
+    },
+    {
+      "question": "Quelle affirmation distingue correctement installation et import ?",
+      "choix": ["pip installe le paquet ; import le rend disponible dans le programme", "import installe toujours le paquet", "pip ne sert qu'à lancer Python", "Les deux commandes suppriment le paquet"],
+      "reponse": 0,
+      "explication": "L'installation se fait dans l'environnement Python, tandis que l'import a lieu dans le code qui utilise la bibliothèque."
+    },
+    {
+      "question": "Pourquoi utilise-t-on with open(...) as fichier ?",
+      "choix": ["Pour fermer correctement le fichier à la fin du bloc", "Pour convertir automatiquement toutes les données", "Pour créer un tableau NumPy", "Pour empêcher toute erreur de lecture"],
+      "reponse": 0,
+      "explication": "Le gestionnaire de contexte assure la fermeture du fichier, même si une erreur survient dans le bloc."
+    },
+    {
+      "question": "Que fait le mode \"w\" lors de l'ouverture d'un fichier existant ?",
+      "choix": ["Il remplace son contenu", "Il lit seulement le fichier", "Il ajoute toujours à la fin", "Il transforme le fichier en image"],
+      "reponse": 0,
+      "explication": "Le mode w écrit depuis le début et tronque un fichier existant ; le mode a ajoute à la fin."
+    },
+    {
+      "question": "Dans quel cas ouvre-t-on typiquement un fichier en mode binaire ?",
+      "choix": ["Pour manipuler des octets, par exemple une image", "Pour lire un fichier CSV ordinaire", "Pour écrire uniquement des nombres entiers", "Pour afficher une f-string"],
+      "reponse": 0,
+      "explication": "Le mode b manipule des bytes sans décodage de texte ; il convient aux images et formats binaires."
+    },
+    {
+      "question": "Dans un fichier CSV utilisant le point-virgule, à quoi sert ce caractère ?",
+      "choix": ["À séparer les champs d'une ligne", "À terminer le fichier", "À représenter une décimale", "À commenter la ligne"],
+      "reponse": 0,
+      "explication": "Le délimiteur sépare les colonnes ; il faut choisir celui réellement utilisé par le fichier."
+    },
+    {
+      "question": "Après une lecture de CSV, sous quelle forme les champs sont-ils généralement obtenus avant conversion ?",
+      "choix": ["Sous forme de chaînes de caractères", "Toujours sous forme de float", "Toujours sous forme de booléens", "Sous forme d'images"],
+      "reponse": 0,
+      "explication": "Il faut convertir explicitement les champs textuels en int ou float lorsque l'on veut calculer."
+    },
+    {
+      "question": "La méthode write() ajoute-t-elle automatiquement un retour à la ligne ?",
+      "choix": ["Non, il faut écrire \\n si nécessaire", "Oui, toujours", "Seulement pour les nombres", "Seulement dans un CSV"],
+      "reponse": 0,
+      "explication": "write écrit exactement la chaîne fournie ; le caractère de fin de ligne doit être inclus explicitement."
+    },
+    {
+      "question": "Quelle caractéristique distingue principalement un tableau NumPy d'une liste Python ?",
+      "choix": ["Ses éléments ont généralement un même type numérique", "Il ne peut contenir qu'une valeur", "Il n'a pas de dimensions", "Il est toujours enregistré dans un fichier"],
+      "reponse": 0,
+      "explication": "Le stockage homogène permet des opérations numériques compactes et efficaces."
+    },
+    {
+      "question": "Que renseigne l'attribut shape d'un tableau NumPy ?",
+      "choix": ["La taille selon chaque dimension", "La moyenne des valeurs", "Le nom du fichier source", "La couleur du graphique"],
+      "reponse": 0,
+      "explication": "Pour un tableau de 100 lignes et 3 colonnes, shape vaut (100, 3)."
+    },
+    {
+      "question": "Que sélectionne tableau[:, 0] dans un tableau à deux dimensions ?",
+      "choix": ["Toute la première colonne", "Toute la première ligne", "Le dernier élément", "Toutes les colonnes sauf la première"],
+      "reponse": 0,
+      "explication": "Le deux-points sélectionne toutes les lignes et 0 désigne la première colonne."
+    },
+    {
+      "question": "Que signifie vectoriser un calcul avec NumPy ?",
+      "choix": ["Appliquer une opération directement à un tableau entier", "Transformer chaque nombre en texte", "Écrire obligatoirement une boucle while", "Dessiner une flèche"],
+      "reponse": 0,
+      "explication": "Les opérations vectorisées évitent souvent une boucle Python explicite et rendent le calcul plus lisible."
+    },
+    {
+      "question": "Quelle fonction calcule la moyenne d'un tableau NumPy nommé mesures ?",
+      "choix": ["np.mean(mesures)", "np.open(mesures)", "mesures.split()", "print.mean(mesures)"],
+      "reponse": 0,
+      "explication": "np.mean calcule la moyenne ; np.std permet notamment de calculer l'écart-type."
+    },
+    {
+      "question": "Dans np.mean(tableau, axis=0), sur quoi porte le résultat pour un tableau 2D ?",
+      "choix": ["Une moyenne par colonne", "Une moyenne par ligne", "Uniquement la première case", "Aucune moyenne"],
+      "reponse": 0,
+      "explication": "Réduire selon l'axe 0 agrège les lignes et conserve une valeur par colonne."
+    },
+    {
+      "question": "Quels paramètres sont utiles pour charger un fichier de mesures avec en-tête et séparateur point-virgule via np.loadtxt ?",
+      "choix": ["delimiter=\";\" et skiprows=1", "color=\"blue\" et dpi=300", "baudrate et timeout", "xlabel et ylabel"],
+      "reponse": 0,
+      "explication": "delimiter décrit le séparateur des colonnes et skiprows permet d'ignorer la ligne d'en-tête."
+    }
+  ]
+}

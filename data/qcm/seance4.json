@@ -1,0 +1,97 @@
+{
+  "titre": "QCM — Séance 4 : Visualisation et instrumentation",
+  "description": "Choix d'un graphique, Matplotlib, liaisons série et réseau, commandes SCPI et acquisition.",
+  "diagnostic": false,
+  "questions": [
+    {
+      "question": "Quel graphique convient le mieux pour représenter l'évolution d'une tension au cours du temps ?",
+      "choix": ["Une courbe", "Un histogramme", "Un diagramme circulaire", "Un organigramme"],
+      "reponse": 0,
+      "explication": "Une courbe relie naturellement une grandeur à une variable continue comme le temps."
+    },
+    {
+      "question": "Quel graphique met le mieux en évidence la relation entre deux séries de mesures ?",
+      "choix": ["Un nuage de points", "Un histogramme", "Une zone de texte", "Une jauge unique"],
+      "reponse": 0,
+      "explication": "Le nuage de points permet d'observer une relation, une dispersion ou une tendance entre deux variables."
+    },
+    {
+      "question": "À quoi sert principalement un histogramme ?",
+      "choix": ["À étudier la distribution d'une série de valeurs", "À afficher le code source", "À communiquer avec un port série", "À représenter un circuit électrique"],
+      "reponse": 0,
+      "explication": "L'histogramme regroupe les valeurs par classes pour montrer leur fréquence de répartition."
+    },
+    {
+      "question": "Pourquoi les axes d'un graphique de mesures doivent-ils indiquer les unités ?",
+      "choix": ["Pour rendre les valeurs interprétables", "Pour augmenter automatiquement la précision", "Pour trier les fichiers", "Pour accélérer NumPy"],
+      "reponse": 0,
+      "explication": "Un titre, des axes nommés et des unités permettent de comprendre le graphique sans deviner le contexte."
+    },
+    {
+      "question": "Dans Matplotlib, quel objet représente la zone sur laquelle les données sont tracées ?",
+      "choix": ["Axes", "Figure uniquement", "Serial", "Socket"],
+      "reponse": 0,
+      "explication": "La Figure est le support global ; un objet Axes porte les courbes, axes, titres et légendes."
+    },
+    {
+      "question": "Quelle instruction enregistre une figure Matplotlib avec une bonne résolution ?",
+      "choix": ["fig.savefig(\"mesure.png\", dpi=300)", "fig.write(300)", "np.saveplot(\"mesure.png\")", "plt.input(dpi=300)"],
+      "reponse": 0,
+      "explication": "savefig produit un fichier ; dpi règle notamment la résolution d'une image matricielle."
+    },
+    {
+      "question": "Dans une chaîne de mesure, quel élément fait le lien entre le programme et la grandeur physique ?",
+      "choix": ["L'instrument ou l'interface d'acquisition", "La f-string", "Le fichier README", "La boucle for seule"],
+      "reponse": 0,
+      "explication": "L'instrument acquiert le signal physique et communique les valeurs au programme par une liaison définie."
+    },
+    {
+      "question": "Que demande généralement la commande SCPI *IDN? à un instrument ?",
+      "choix": ["Son identification", "Son arrêt immédiat", "La suppression de sa mémoire", "Le tracé d'un histogramme"],
+      "reponse": 0,
+      "explication": "*IDN? est une commande de contrôle courante qui renvoie constructeur, modèle et informations d'identification."
+    },
+    {
+      "question": "Dans une commande SCPI, que signale généralement le caractère ? final ?",
+      "choix": ["Une requête qui attend une réponse", "Un commentaire Python", "Une affectation", "Une erreur certaine"],
+      "reponse": 0,
+      "explication": "Une commande terminée par ? interroge l'instrument ; le programme doit ensuite lire sa réponse."
+    },
+    {
+      "question": "Sur une liaison série, que faut-il régler de manière compatible des deux côtés ?",
+      "choix": ["Le débit en bauds et les paramètres de trame", "La couleur du terminal", "Le nom de la variable Python", "La taille du graphique"],
+      "reponse": 0,
+      "explication": "L'émetteur et le récepteur doivent partager les paramètres de communication, notamment le débit."
+    },
+    {
+      "question": "Pourquoi définir un timeout lors d'une communication avec un instrument ?",
+      "choix": ["Pour éviter que le programme attende indéfiniment", "Pour garantir une mesure exacte", "Pour convertir les octets en volt", "Pour installer automatiquement le pilote"],
+      "reponse": 0,
+      "explication": "Le délai maximal permet de reprendre la main et de traiter proprement l'absence de réponse."
+    },
+    {
+      "question": "Pourquoi utilise-t-on encode() avant certains envois série ou réseau ?",
+      "choix": ["Pour convertir du texte en octets", "Pour calculer une moyenne", "Pour ouvrir un fichier CSV", "Pour créer un objet Axes"],
+      "reponse": 0,
+      "explication": "De nombreuses interfaces transmettent des bytes ; decode réalise l'opération inverse à la réception."
+    },
+    {
+      "question": "Pourquoi une commande envoyée à un instrument se termine-t-elle souvent par \\n ?",
+      "choix": ["Parce que la fin de ligne délimite la commande", "Pour fermer le port série", "Pour augmenter le débit", "Pour convertir la réponse en float"],
+      "reponse": 0,
+      "explication": "De nombreux protocoles textuels attendent un terminateur de ligne avant de traiter la commande reçue."
+    },
+    {
+      "question": "Quelles informations faut-il connaître pour ouvrir une connexion TCP vers un instrument ?",
+      "choix": ["Son adresse IP et son port", "Uniquement son unité de mesure", "La taille de la RAM du PC", "Le titre du graphique"],
+      "reponse": 0,
+      "explication": "L'adresse identifie la machine sur le réseau et le numéro de port identifie le service de communication."
+    },
+    {
+      "question": "Quelle démarche est la plus sûre avant une acquisition longue sur le matériel réel ?",
+      "choix": ["Tester séparément la connexion, une lecture et le format des données", "Lancer directement une boucle infinie", "Désactiver tous les messages d'erreur", "Écrire immédiatement sur le fichier définitif"],
+      "reponse": 0,
+      "explication": "Des essais courts permettent de valider chaque étape et d'éviter de perdre une longue série de mesures."
+    }
+  ]
+}

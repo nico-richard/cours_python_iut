@@ -22,17 +22,23 @@ cours_python_iut/
 │   ├── cours.py                 # Diaporama de projection + mode Lecture
 │   ├── bac_a_sable.py           # Exécution de code Python en direct
 │   ├── exercices.py             # Affichage des exercices
+│   ├── qcm.py                   # QCM avec correction immédiate
 │   └── imprimer.py              # Génération de PDF imprimables
 └── data/
-    ├── sessions/seanceN.md      # Contenu des diapositives (modifiable librement)
+    ├── sessions/seanceN.md      # Séance 0 d'introduction puis 4 séances de cours
     ├── sessions/images/         # Images utilisées dans les diapositives
-    ├── exercices/seanceN.md     # Énoncés des exercices
+    ├── exercices/seanceN.md     # Installation (séance 0) puis exercices 1 à 4
+    ├── qcm/*.json               # Diagnostic et QCM des 4 séances
     └── donnees/                 # Fichiers utilisés pendant les TP
 ```
 
 Pour modifier le contenu d'un cours ou des exercices, il suffit d'éditer les
 fichiers Markdown dans `data/` — aucune modification du code n'est nécessaire.
 Les diapositives sont séparées par une ligne `---`.
+
+La page **QCM** contient un diagnostic non noté à faire avant le premier cours,
+puis un questionnaire de 15 questions pour chacune des quatre séances. Les
+choix sont mélangés et la correction expliquée s'affiche après validation.
 
 La page Cours propose deux affichages :
 - **Diaporama** : une diapositive à la fois pour la projection ;
@@ -85,11 +91,17 @@ Le mode **Diaporama** utilise automatiquement une typographie agrandie pour la
 projection en salle. Le mode **Lecture** conserve une mise en page plus compacte
 et affiche les notes `:::support` destinées à la consultation individuelle.
 
+Le mode Diaporama agrandit uniquement le contenu de l'écran principal : la
+taille de la navigation située à gauche reste identique dans les deux modes.
+Les diapositives se parcourent avec les boutons fléchés ou les touches
+gauche/droite du clavier.
+
 ## Version imprimable
 La page "Version imprimable" génère, à partir du contenu Markdown actuel, un
 PDF par séance (cours + exercices, mise en page classique en pages A4) ou un
-polycopié complet regroupant les 4 séances. Le rendu s'appuie sur `markdown`
-(conversion Markdown -> HTML) et `xhtml2pdf` (HTML -> PDF), sans dépendance
-système. Écrivez du Markdown standard (ligne vide avant une liste) pour un
-rendu propre : `utils.corriger_espacement_listes()` rattrape automatiquement
-l'oubli le plus courant.
+polycopié complet regroupant la séance 0 et les 4 séances de cours. Le rendu
+s'appuie sur `markdown` (conversion Markdown -> HTML) et `xhtml2pdf`
+(HTML -> PDF), sans dépendance système. Écrivez du Markdown standard (ligne
+vide avant une liste) pour un rendu propre :
+`utils.corriger_espacement_listes()` rattrape automatiquement l'oubli le plus
+courant.
