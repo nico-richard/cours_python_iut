@@ -276,6 +276,14 @@ def liste_exercices() -> dict[str, str]:
     }
 
 
+def liste_corrections() -> dict[str, str]:
+    """Associe le nom affiché de chaque séance à son fichier de corrections."""
+    base = Path(__file__).parent / "data" / "corrections"
+    return {
+        "Séance 2": str(base / "seance2.md"),
+    }
+
+
 def liste_qcm() -> dict[str, str]:
     """Associe chaque questionnaire à son fichier JSON."""
     base = Path(__file__).parent / "data" / "qcm"

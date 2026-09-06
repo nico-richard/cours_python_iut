@@ -22,12 +22,14 @@ cours_python_iut/
 │   ├── cours.py                 # Diaporama de projection + mode Lecture
 │   ├── bac_a_sable.py           # Exécution de code Python en direct
 │   ├── exercices.py             # Affichage des exercices
+│   ├── corrections.py           # Affichage des corrections
 │   ├── qcm.py                   # QCM avec correction immédiate
 │   └── imprimer.py              # Génération de PDF imprimables
 └── data/
     ├── sessions/seanceN.md      # Séance 0 d'introduction puis 4 séances de cours
     ├── sessions/images/         # Images utilisées dans les diapositives
     ├── exercices/seanceN.md     # Installation (séance 0) puis exercices 1 à 4
+    ├── corrections/seanceN.md   # Corrections proposées aux étudiants
     ├── qcm/*.json               # QCM des 4 séances
     └── donnees/                 # Fichiers utilisés pendant les TP
 ```
@@ -36,8 +38,23 @@ Pour modifier le contenu d'un cours ou des exercices, il suffit d'éditer les
 fichiers Markdown dans `data/` — aucune modification du code n'est nécessaire.
 Les diapositives sont séparées par une ligne `---`.
 
+La page **Corrections** affiche les corrigés disponibles. Pour ajouter une
+séance, placez son fichier dans `data/corrections/` et référencez-le dans
+`utils.liste_corrections()`.
+
 La page **QCM** contient un questionnaire pour chacune des quatre séances. Les
 choix sont mélangés et la correction expliquée s'affiche après validation.
+
+Le mode **Projection A / B** présente une question de chaque version côte à côte,
+A à gauche et B à droite. Le numéro de question fait avancer les deux colonnes.
+Les étudiants sélectionnent le questionnaire et leur version dans Verificator.
+Le mode **Questionnaire individuel** conserve la correction immédiate dans le cours.
+
+Les versions de projection sont figées dans `data/qcm_versions.json` pour garantir
+la concordance avec Verificator. Après une modification de ces versions, exporter
+leurs grilles avec `python export_qcm_versions.py ../verificator/verificator/qcm_keys.json`
+et déployer les deux dépôts ensemble. Les fichiers `data/qcm/seanceN.json` servent
+au mode individuel ; leur modification ne change pas les versions de projection.
 
 La page Cours propose deux affichages :
 - **Diaporama** : une diapositive à la fois pour la projection ;

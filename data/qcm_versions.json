@@ -1,0 +1,1350 @@
+{
+  "seance1": {
+    "titre": "QCM — Séance 1 : Premiers programmes Python",
+    "A": [
+      {
+        "question": "Que fait l'instruction masse = 2.5 ?",
+        "choix": [
+          "Elle affiche automatiquement 2.5",
+          "Elle crée un fichier nommé masse",
+          "Elle associe la valeur 2.5 au nom masse",
+          "Elle teste si masse vaut 2.5"
+        ],
+        "reponse": 2,
+        "explication": "En Python, le signe = réalise une affectation ; le test d'égalité s'écrit ==."
+      },
+      {
+        "question": "Quelle instruction affiche la valeur de temperature avec une décimale ?",
+        "choix": [
+          "print(f\"{temperature:.0f} °C\")",
+          "print(f\"{temperature:.2f} °C\")",
+          "print(\"temperature\")",
+          "print(f\"{temperature:.1f} °C\")"
+        ],
+        "reponse": 3,
+        "explication": "print() affiche le texte construit par la f-string. Le format :.1f affiche la valeur avec une décimale, sans modifier la valeur de la variable."
+      },
+      {
+        "question": "Lorsqu'un programme affiche une traceback, quelle information faut-il lire en priorité ?",
+        "choix": [
+          "L'heure de lancement",
+          "La première variable du programme",
+          "Uniquement le nom de l'ordinateur",
+          "La dernière ligne, qui indique le type et le message de l'erreur"
+        ],
+        "reponse": 3,
+        "explication": "La fin de la traceback donne généralement le type d'exception et le message le plus utile au diagnostic."
+      },
+      {
+        "question": "Quel type de valeur renvoie input() ?",
+        "choix": [
+          "bool",
+          "int",
+          "str",
+          "float"
+        ],
+        "reponse": 2,
+        "explication": "input() renvoie toujours du texte ; il faut convertir la saisie avant un calcul numérique."
+      },
+      {
+        "question": "Quelle valeur produit l'expression 7 / 2 en Python 3 ?",
+        "choix": [
+          "3.5",
+          "3",
+          "Une erreur",
+          "1"
+        ],
+        "reponse": 0,
+        "explication": "L'opérateur / réalise une division et renvoie ici le flottant 3.5."
+      },
+      {
+        "question": "Que calcule l'opérateur % ?",
+        "choix": [
+          "Une puissance",
+          "Une moyenne",
+          "Un pourcentage automatiquement",
+          "Le reste d'une division entière"
+        ],
+        "reponse": 3,
+        "explication": "Par exemple, 7 % 2 vaut 1 ; cet opérateur est notamment utile pour tester la parité."
+      },
+      {
+        "question": "Comment convertir le texte « 20.5 » en nombre décimal ?",
+        "choix": [
+          "type(\"20.5\")",
+          "print(\"20.5\")",
+          "float(\"20.5\")",
+          "str(20.5)"
+        ],
+        "reponse": 2,
+        "explication": "La fonction float convertit une représentation textuelle valide en nombre flottant."
+      },
+      {
+        "question": "Quel composant exécute les instructions d'un programme ?",
+        "choix": [
+          "Le disque externe",
+          "Le processeur",
+          "L'écran",
+          "Le clavier"
+        ],
+        "reponse": 1,
+        "explication": "Le processeur exécute les instructions tandis que la mémoire contient les programmes et données en cours d'utilisation."
+      },
+      {
+        "question": "Quel est le type Python de la valeur 20.5 ?",
+        "choix": [
+          "bool",
+          "float",
+          "str",
+          "int"
+        ],
+        "reponse": 1,
+        "explication": "Une valeur numérique écrite avec un point décimal est un nombre flottant, de type float."
+      },
+      {
+        "question": "Quel opérateur teste l'égalité de deux valeurs ?",
+        "choix": [
+          "!=",
+          "=",
+          "==",
+          ">="
+        ],
+        "reponse": 2,
+        "explication": "== compare deux valeurs, tandis que = affecte une valeur à une variable."
+      },
+      {
+        "question": "Que signifie la condition temperature > 20 and temperature < 30 ?",
+        "choix": [
+          "La température est strictement comprise entre 20 et 30",
+          "La température vaut 20 ou 30",
+          "Une seule comparaison doit être vraie",
+          "La température est inférieure à 20"
+        ],
+        "reponse": 0,
+        "explication": "Avec and, les deux comparaisons doivent être vraies en même temps."
+      },
+      {
+        "question": "Quel est l'intérêt d'un fichier .py par rapport à une commande saisie dans la console ?",
+        "choix": [
+          "Il interdit toute erreur",
+          "Il remplace Python",
+          "Il conserve une suite d'instructions réutilisable",
+          "Il ne peut contenir qu'une ligne"
+        ],
+        "reponse": 2,
+        "explication": "Un script permet de sauvegarder, relire, modifier et relancer le programme."
+      },
+      {
+        "question": "À quoi sert l'indentation des instructions après un if ?",
+        "choix": [
+          "À délimiter les instructions appartenant à cette branche",
+          "À répéter les instructions plusieurs fois",
+          "À afficher des espaces dans le résultat",
+          "À transformer les instructions en commentaires"
+        ],
+        "reponse": 0,
+        "explication": "Les instructions indentées sous le if appartiennent à sa branche. Elles sont exécutées lorsque sa condition est vraie."
+      },
+      {
+        "question": "Que devient en général le contenu de la mémoire vive quand on éteint l'ordinateur ?",
+        "choix": [
+          "Il devient un programme Python",
+          "Il est perdu",
+          "Il est imprimé",
+          "Il est automatiquement envoyé sur internet"
+        ],
+        "reponse": 1,
+        "explication": "La mémoire vive est volatile ; les fichiers enregistrés sur un support de stockage persistent."
+      },
+      {
+        "question": "Dans une structure if / elif / else, quelle branche est exécutée ?",
+        "choix": [
+          "Toutes les branches",
+          "Toujours la branche else",
+          "Aucune branche",
+          "La première branche dont la condition est vraie, ou else"
+        ],
+        "reponse": 3,
+        "explication": "Les conditions sont testées dans l'ordre et une seule branche de la structure est exécutée."
+      }
+    ],
+    "B": [
+      {
+        "question": "Quel composant exécute les instructions d'un programme ?",
+        "choix": [
+          "Le disque externe",
+          "Le processeur",
+          "L'écran",
+          "Le clavier"
+        ],
+        "reponse": 1,
+        "explication": "Le processeur exécute les instructions tandis que la mémoire contient les programmes et données en cours d'utilisation."
+      },
+      {
+        "question": "Quel est le type Python de la valeur 20.5 ?",
+        "choix": [
+          "bool",
+          "float",
+          "str",
+          "int"
+        ],
+        "reponse": 1,
+        "explication": "Une valeur numérique écrite avec un point décimal est un nombre flottant, de type float."
+      },
+      {
+        "question": "Quel opérateur teste l'égalité de deux valeurs ?",
+        "choix": [
+          "!=",
+          "=",
+          "==",
+          ">="
+        ],
+        "reponse": 2,
+        "explication": "== compare deux valeurs, tandis que = affecte une valeur à une variable."
+      },
+      {
+        "question": "Que signifie la condition temperature > 20 and temperature < 30 ?",
+        "choix": [
+          "La température est strictement comprise entre 20 et 30",
+          "La température vaut 20 ou 30",
+          "Une seule comparaison doit être vraie",
+          "La température est inférieure à 20"
+        ],
+        "reponse": 0,
+        "explication": "Avec and, les deux comparaisons doivent être vraies en même temps."
+      },
+      {
+        "question": "Quel est l'intérêt d'un fichier .py par rapport à une commande saisie dans la console ?",
+        "choix": [
+          "Il interdit toute erreur",
+          "Il remplace Python",
+          "Il conserve une suite d'instructions réutilisable",
+          "Il ne peut contenir qu'une ligne"
+        ],
+        "reponse": 2,
+        "explication": "Un script permet de sauvegarder, relire, modifier et relancer le programme."
+      },
+      {
+        "question": "À quoi sert l'indentation des instructions après un if ?",
+        "choix": [
+          "À délimiter les instructions appartenant à cette branche",
+          "À répéter les instructions plusieurs fois",
+          "À afficher des espaces dans le résultat",
+          "À transformer les instructions en commentaires"
+        ],
+        "reponse": 0,
+        "explication": "Les instructions indentées sous le if appartiennent à sa branche. Elles sont exécutées lorsque sa condition est vraie."
+      },
+      {
+        "question": "Que devient en général le contenu de la mémoire vive quand on éteint l'ordinateur ?",
+        "choix": [
+          "Il devient un programme Python",
+          "Il est perdu",
+          "Il est imprimé",
+          "Il est automatiquement envoyé sur internet"
+        ],
+        "reponse": 1,
+        "explication": "La mémoire vive est volatile ; les fichiers enregistrés sur un support de stockage persistent."
+      },
+      {
+        "question": "Dans une structure if / elif / else, quelle branche est exécutée ?",
+        "choix": [
+          "Toutes les branches",
+          "Toujours la branche else",
+          "Aucune branche",
+          "La première branche dont la condition est vraie, ou else"
+        ],
+        "reponse": 3,
+        "explication": "Les conditions sont testées dans l'ordre et une seule branche de la structure est exécutée."
+      },
+      {
+        "question": "Que fait l'instruction masse = 2.5 ?",
+        "choix": [
+          "Elle affiche automatiquement 2.5",
+          "Elle crée un fichier nommé masse",
+          "Elle associe la valeur 2.5 au nom masse",
+          "Elle teste si masse vaut 2.5"
+        ],
+        "reponse": 2,
+        "explication": "En Python, le signe = réalise une affectation ; le test d'égalité s'écrit ==."
+      },
+      {
+        "question": "Quelle instruction affiche la valeur de temperature avec une décimale ?",
+        "choix": [
+          "print(f\"{temperature:.0f} °C\")",
+          "print(f\"{temperature:.2f} °C\")",
+          "print(\"temperature\")",
+          "print(f\"{temperature:.1f} °C\")"
+        ],
+        "reponse": 3,
+        "explication": "print() affiche le texte construit par la f-string. Le format :.1f affiche la valeur avec une décimale, sans modifier la valeur de la variable."
+      },
+      {
+        "question": "Lorsqu'un programme affiche une traceback, quelle information faut-il lire en priorité ?",
+        "choix": [
+          "L'heure de lancement",
+          "La première variable du programme",
+          "Uniquement le nom de l'ordinateur",
+          "La dernière ligne, qui indique le type et le message de l'erreur"
+        ],
+        "reponse": 3,
+        "explication": "La fin de la traceback donne généralement le type d'exception et le message le plus utile au diagnostic."
+      },
+      {
+        "question": "Quel type de valeur renvoie input() ?",
+        "choix": [
+          "bool",
+          "int",
+          "str",
+          "float"
+        ],
+        "reponse": 2,
+        "explication": "input() renvoie toujours du texte ; il faut convertir la saisie avant un calcul numérique."
+      },
+      {
+        "question": "Quelle valeur produit l'expression 7 / 2 en Python 3 ?",
+        "choix": [
+          "3.5",
+          "3",
+          "Une erreur",
+          "1"
+        ],
+        "reponse": 0,
+        "explication": "L'opérateur / réalise une division et renvoie ici le flottant 3.5."
+      },
+      {
+        "question": "Que calcule l'opérateur % ?",
+        "choix": [
+          "Une puissance",
+          "Une moyenne",
+          "Un pourcentage automatiquement",
+          "Le reste d'une division entière"
+        ],
+        "reponse": 3,
+        "explication": "Par exemple, 7 % 2 vaut 1 ; cet opérateur est notamment utile pour tester la parité."
+      },
+      {
+        "question": "Comment convertir le texte « 20.5 » en nombre décimal ?",
+        "choix": [
+          "type(\"20.5\")",
+          "print(\"20.5\")",
+          "float(\"20.5\")",
+          "str(20.5)"
+        ],
+        "reponse": 2,
+        "explication": "La fonction float convertit une représentation textuelle valide en nombre flottant."
+      }
+    ]
+  },
+  "seance2": {
+    "titre": "QCM — Séance 2 : Fonctions, objets et boucles",
+    "A": [
+      {
+        "question": "Que fait la méthode strip() appliquée à une chaîne ?",
+        "choix": [
+          "Elle découpe tous les mots",
+          "Elle met le texte en majuscules",
+          "Elle retire les espaces et fins de ligne aux extrémités",
+          "Elle convertit le texte en nombre"
+        ],
+        "reponse": 2,
+        "explication": "strip() est utile pour nettoyer une ligne lue dans un fichier ou reçue d'un instrument."
+      },
+      {
+        "question": "Quel mot-clé quitte immédiatement une boucle ?",
+        "choix": [
+          "continue",
+          "returning",
+          "break",
+          "stop"
+        ],
+        "reponse": 2,
+        "explication": "break interrompt la boucle ; continue passe directement à l'itération suivante."
+      },
+      {
+        "question": "Que renvoie \"12.4;18.7\".split(\";\") ?",
+        "choix": [
+          "La liste [\"12.4\", \"18.7\"]",
+          "Le nombre 31.1",
+          "Le tuple (12.4, 18.7)",
+          "Une erreur obligatoire"
+        ],
+        "reponse": 0,
+        "explication": "split sépare une chaîne autour du délimiteur et renvoie une liste de chaînes."
+      },
+      {
+        "question": "Quelle propriété caractérise un tuple ?",
+        "choix": [
+          "Il est obligatoirement vide",
+          "Il commence toujours à l'indice 1",
+          "Il ne contient que des nombres",
+          "Il est non modifiable après sa création"
+        ],
+        "reponse": 3,
+        "explication": "Le tuple est une séquence ordonnée mais immuable, pratique pour représenter un groupe fixe de valeurs."
+      },
+      {
+        "question": "Une variable créée à l'intérieur d'une fonction est généralement…",
+        "choix": [
+          "locale à cette fonction",
+          "forcément une chaîne",
+          "visible partout sans restriction",
+          "automatiquement enregistrée"
+        ],
+        "reponse": 0,
+        "explication": "La portée locale limite la variable au corps de la fonction, sauf mécanisme explicitement prévu."
+      },
+      {
+        "question": "Que sélectionne valeurs[1:4] ?",
+        "choix": [
+          "Les éléments d'indices 1, 2 et 3",
+          "Les éléments d'indices 1 à 4 inclus",
+          "Uniquement l'élément 4",
+          "Les quatre premiers éléments"
+        ],
+        "reponse": 0,
+        "explication": "Dans une tranche, la borne de début est incluse et la borne de fin est exclue."
+      },
+      {
+        "question": "Que permet un paramètre avec une valeur par défaut ?",
+        "choix": [
+          "D'appeler la fonction sans fournir systématiquement cet argument",
+          "De rendre la fonction infinie",
+          "De supprimer return",
+          "D'interdire les autres arguments"
+        ],
+        "reponse": 0,
+        "explication": "La valeur par défaut est utilisée lorsque l'appel ne fournit pas l'argument correspondant."
+      },
+      {
+        "question": "Quelle boucle convient pour parcourir directement tous les éléments d'une liste ?",
+        "choix": [
+          "for",
+          "def",
+          "if",
+          "import"
+        ],
+        "reponse": 0,
+        "explication": "La boucle for parcourt naturellement les éléments d'une séquence ou de tout objet itérable."
+      },
+      {
+        "question": "Quel mot-clé introduit la définition d'une fonction ?",
+        "choix": [
+          "return",
+          "def",
+          "func",
+          "class"
+        ],
+        "reponse": 1,
+        "explication": "Une fonction se définit avec def, puis son nom, ses paramètres et un bloc indenté."
+      },
+      {
+        "question": "Comment appelle-t-on une méthode sur un objet nommé texte ?",
+        "choix": [
+          "texte.methode()",
+          "objet(texte.methode)",
+          "methode.texte()",
+          "texte = methode"
+        ],
+        "reponse": 0,
+        "explication": "La notation pointée demande à l'objet d'exécuter l'une des méthodes définies par son type."
+      },
+      {
+        "question": "Deux capteurs sont instanciés à partir de la même classe. Que se passe-t-il si l'attribut valeur du premier est modifié ?",
+        "choix": [
+          "Tous les attributs deviennent des méthodes",
+          "Les deux objets sont toujours modifiés",
+          "La classe entière est supprimée",
+          "Seul le premier objet est modifié"
+        ],
+        "reponse": 3,
+        "explication": "Chaque instance possède son propre état : modifier un attribut du premier capteur ne change pas celui du second."
+      },
+      {
+        "question": "Quelles valeurs produit range(5) ?",
+        "choix": [
+          "0, 1, 2, 3, 4",
+          "Uniquement 5",
+          "0, 1, 2, 3, 4, 5",
+          "1, 2, 3, 4, 5"
+        ],
+        "reponse": 0,
+        "explication": "range(5) commence à zéro et s'arrête avant la borne 5."
+      },
+      {
+        "question": "Quelle différence essentielle y a-t-il entre return et print ?",
+        "choix": [
+          "return écrit dans un fichier",
+          "print arrête la fonction",
+          "Ils sont toujours équivalents",
+          "return fournit une valeur au code appelant ; print l'affiche"
+        ],
+        "reponse": 3,
+        "explication": "Une valeur renvoyée peut être stockée ou utilisée dans un calcul, alors qu'un affichage sert surtout à communiquer avec l'utilisateur."
+      },
+      {
+        "question": "Quel est l'indice du premier élément d'une liste Python ?",
+        "choix": [
+          "Il n'a pas d'indice",
+          "0",
+          "1",
+          "-1"
+        ],
+        "reponse": 1,
+        "explication": "Les séquences Python sont indexées à partir de zéro ; l'indice -1 désigne le dernier élément."
+      },
+      {
+        "question": "Quelle collection peut être modifiée après sa création ?",
+        "choix": [
+          "Un tuple",
+          "Une liste",
+          "Aucune collection",
+          "Une chaîne de caractères"
+        ],
+        "reponse": 1,
+        "explication": "Une liste est mutable : on peut notamment ajouter, retirer ou remplacer ses éléments."
+      }
+    ],
+    "B": [
+      {
+        "question": "Quelle boucle convient pour parcourir directement tous les éléments d'une liste ?",
+        "choix": [
+          "for",
+          "def",
+          "if",
+          "import"
+        ],
+        "reponse": 0,
+        "explication": "La boucle for parcourt naturellement les éléments d'une séquence ou de tout objet itérable."
+      },
+      {
+        "question": "Quel mot-clé introduit la définition d'une fonction ?",
+        "choix": [
+          "return",
+          "def",
+          "func",
+          "class"
+        ],
+        "reponse": 1,
+        "explication": "Une fonction se définit avec def, puis son nom, ses paramètres et un bloc indenté."
+      },
+      {
+        "question": "Comment appelle-t-on une méthode sur un objet nommé texte ?",
+        "choix": [
+          "texte.methode()",
+          "objet(texte.methode)",
+          "methode.texte()",
+          "texte = methode"
+        ],
+        "reponse": 0,
+        "explication": "La notation pointée demande à l'objet d'exécuter l'une des méthodes définies par son type."
+      },
+      {
+        "question": "Deux capteurs sont instanciés à partir de la même classe. Que se passe-t-il si l'attribut valeur du premier est modifié ?",
+        "choix": [
+          "Tous les attributs deviennent des méthodes",
+          "Les deux objets sont toujours modifiés",
+          "La classe entière est supprimée",
+          "Seul le premier objet est modifié"
+        ],
+        "reponse": 3,
+        "explication": "Chaque instance possède son propre état : modifier un attribut du premier capteur ne change pas celui du second."
+      },
+      {
+        "question": "Quelles valeurs produit range(5) ?",
+        "choix": [
+          "0, 1, 2, 3, 4",
+          "Uniquement 5",
+          "0, 1, 2, 3, 4, 5",
+          "1, 2, 3, 4, 5"
+        ],
+        "reponse": 0,
+        "explication": "range(5) commence à zéro et s'arrête avant la borne 5."
+      },
+      {
+        "question": "Quelle différence essentielle y a-t-il entre return et print ?",
+        "choix": [
+          "return écrit dans un fichier",
+          "print arrête la fonction",
+          "Ils sont toujours équivalents",
+          "return fournit une valeur au code appelant ; print l'affiche"
+        ],
+        "reponse": 3,
+        "explication": "Une valeur renvoyée peut être stockée ou utilisée dans un calcul, alors qu'un affichage sert surtout à communiquer avec l'utilisateur."
+      },
+      {
+        "question": "Quel est l'indice du premier élément d'une liste Python ?",
+        "choix": [
+          "Il n'a pas d'indice",
+          "0",
+          "1",
+          "-1"
+        ],
+        "reponse": 1,
+        "explication": "Les séquences Python sont indexées à partir de zéro ; l'indice -1 désigne le dernier élément."
+      },
+      {
+        "question": "Quelle collection peut être modifiée après sa création ?",
+        "choix": [
+          "Un tuple",
+          "Une liste",
+          "Aucune collection",
+          "Une chaîne de caractères"
+        ],
+        "reponse": 1,
+        "explication": "Une liste est mutable : on peut notamment ajouter, retirer ou remplacer ses éléments."
+      },
+      {
+        "question": "Que fait la méthode strip() appliquée à une chaîne ?",
+        "choix": [
+          "Elle découpe tous les mots",
+          "Elle met le texte en majuscules",
+          "Elle retire les espaces et fins de ligne aux extrémités",
+          "Elle convertit le texte en nombre"
+        ],
+        "reponse": 2,
+        "explication": "strip() est utile pour nettoyer une ligne lue dans un fichier ou reçue d'un instrument."
+      },
+      {
+        "question": "Quel mot-clé quitte immédiatement une boucle ?",
+        "choix": [
+          "continue",
+          "returning",
+          "break",
+          "stop"
+        ],
+        "reponse": 2,
+        "explication": "break interrompt la boucle ; continue passe directement à l'itération suivante."
+      },
+      {
+        "question": "Que renvoie \"12.4;18.7\".split(\";\") ?",
+        "choix": [
+          "La liste [\"12.4\", \"18.7\"]",
+          "Le nombre 31.1",
+          "Le tuple (12.4, 18.7)",
+          "Une erreur obligatoire"
+        ],
+        "reponse": 0,
+        "explication": "split sépare une chaîne autour du délimiteur et renvoie une liste de chaînes."
+      },
+      {
+        "question": "Quelle propriété caractérise un tuple ?",
+        "choix": [
+          "Il est obligatoirement vide",
+          "Il commence toujours à l'indice 1",
+          "Il ne contient que des nombres",
+          "Il est non modifiable après sa création"
+        ],
+        "reponse": 3,
+        "explication": "Le tuple est une séquence ordonnée mais immuable, pratique pour représenter un groupe fixe de valeurs."
+      },
+      {
+        "question": "Une variable créée à l'intérieur d'une fonction est généralement…",
+        "choix": [
+          "locale à cette fonction",
+          "forcément une chaîne",
+          "visible partout sans restriction",
+          "automatiquement enregistrée"
+        ],
+        "reponse": 0,
+        "explication": "La portée locale limite la variable au corps de la fonction, sauf mécanisme explicitement prévu."
+      },
+      {
+        "question": "Que sélectionne valeurs[1:4] ?",
+        "choix": [
+          "Les éléments d'indices 1, 2 et 3",
+          "Les éléments d'indices 1 à 4 inclus",
+          "Uniquement l'élément 4",
+          "Les quatre premiers éléments"
+        ],
+        "reponse": 0,
+        "explication": "Dans une tranche, la borne de début est incluse et la borne de fin est exclue."
+      },
+      {
+        "question": "Que permet un paramètre avec une valeur par défaut ?",
+        "choix": [
+          "D'appeler la fonction sans fournir systématiquement cet argument",
+          "De rendre la fonction infinie",
+          "De supprimer return",
+          "D'interdire les autres arguments"
+        ],
+        "reponse": 0,
+        "explication": "La valeur par défaut est utilisée lorsque l'appel ne fournit pas l'argument correspondant."
+      }
+    ]
+  },
+  "seance3": {
+    "titre": "QCM — Séance 3 : Fichiers et calcul scientifique",
+    "A": [
+      {
+        "question": "Quelle différence y a-t-il entre la bibliothèque standard et une bibliothèque externe ?",
+        "choix": [
+          "La bibliothèque externe doit généralement être installée séparément",
+          "Une bibliothèque externe ne peut pas être importée",
+          "Il n'y a jamais de différence",
+          "La bibliothèque standard ne contient aucune fonction"
+        ],
+        "reponse": 0,
+        "explication": "Les modules de la bibliothèque standard accompagnent Python ; un paquet comme NumPy est installé séparément."
+      },
+      {
+        "question": "Dans quel cas ouvre-t-on typiquement un fichier en mode binaire ?",
+        "choix": [
+          "Pour écrire uniquement des nombres entiers",
+          "Pour manipuler des octets, par exemple une image",
+          "Pour afficher une f-string",
+          "Pour lire un fichier CSV ordinaire"
+        ],
+        "reponse": 1,
+        "explication": "Le mode b manipule des bytes sans décodage de texte ; il convient aux images et formats binaires."
+      },
+      {
+        "question": "Dans un fichier CSV utilisant le point-virgule, à quoi sert ce caractère ?",
+        "choix": [
+          "À représenter une décimale",
+          "À séparer les champs d'une ligne",
+          "À commenter la ligne",
+          "À terminer le fichier"
+        ],
+        "reponse": 1,
+        "explication": "Le délimiteur sépare les colonnes ; il faut choisir celui réellement utilisé par le fichier."
+      },
+      {
+        "question": "Après une lecture de CSV, sous quelle forme les champs sont-ils généralement obtenus avant conversion ?",
+        "choix": [
+          "Sous forme de chaînes de caractères",
+          "Toujours sous forme de booléens",
+          "Toujours sous forme de float",
+          "Sous forme d'images"
+        ],
+        "reponse": 0,
+        "explication": "Il faut convertir explicitement les champs textuels en int ou float lorsque l'on veut calculer."
+      },
+      {
+        "question": "Quelle affirmation distingue correctement installation et import ?",
+        "choix": [
+          "import installe toujours le paquet",
+          "pip ne sert qu'à lancer Python",
+          "Les deux commandes suppriment le paquet",
+          "pip installe le paquet ; import le rend disponible dans le programme"
+        ],
+        "reponse": 3,
+        "explication": "L'installation se fait dans l'environnement Python, tandis que l'import a lieu dans le code qui utilise la bibliothèque."
+      },
+      {
+        "question": "La méthode write() ajoute-t-elle automatiquement un retour à la ligne ?",
+        "choix": [
+          "Seulement pour les nombres",
+          "Oui, toujours",
+          "Non, il faut écrire \\n si nécessaire",
+          "Seulement dans un CSV"
+        ],
+        "reponse": 2,
+        "explication": "write écrit exactement la chaîne fournie ; le caractère de fin de ligne doit être inclus explicitement."
+      },
+      {
+        "question": "Que renseigne l'attribut shape d'un tableau NumPy ?",
+        "choix": [
+          "La moyenne des valeurs",
+          "La couleur du graphique",
+          "La taille selon chaque dimension",
+          "Le nom du fichier source"
+        ],
+        "reponse": 2,
+        "explication": "Pour un tableau de 100 lignes et 3 colonnes, shape vaut (100, 3)."
+      },
+      {
+        "question": "Dans np.mean(tableau, axis=0), sur quoi porte le résultat pour un tableau 2D ?",
+        "choix": [
+          "Uniquement la première case",
+          "Une moyenne par ligne",
+          "Une moyenne par colonne",
+          "Aucune moyenne"
+        ],
+        "reponse": 2,
+        "explication": "Réduire selon l'axe 0 agrège les lignes et conserve une valeur par colonne."
+      },
+      {
+        "question": "Pourquoi utilise-t-on with open(...) as fichier ?",
+        "choix": [
+          "Pour convertir automatiquement toutes les données",
+          "Pour fermer correctement le fichier à la fin du bloc",
+          "Pour empêcher toute erreur de lecture",
+          "Pour créer un tableau NumPy"
+        ],
+        "reponse": 1,
+        "explication": "Le gestionnaire de contexte assure la fermeture du fichier, même si une erreur survient dans le bloc."
+      },
+      {
+        "question": "Quelle caractéristique distingue principalement un tableau NumPy d'une liste Python ?",
+        "choix": [
+          "Il est toujours enregistré dans un fichier",
+          "Il ne peut contenir qu'une valeur",
+          "Ses éléments ont généralement un même type numérique",
+          "Il n'a pas de dimensions"
+        ],
+        "reponse": 2,
+        "explication": "Le stockage homogène permet des opérations numériques compactes et efficaces."
+      },
+      {
+        "question": "Que signifie vectoriser un calcul avec NumPy ?",
+        "choix": [
+          "Écrire obligatoirement une boucle while",
+          "Dessiner une flèche",
+          "Appliquer une opération directement à un tableau entier",
+          "Transformer chaque nombre en texte"
+        ],
+        "reponse": 2,
+        "explication": "Les opérations vectorisées évitent souvent une boucle Python explicite et rendent le calcul plus lisible."
+      },
+      {
+        "question": "Quelle fonction calcule la moyenne d'un tableau NumPy nommé mesures ?",
+        "choix": [
+          "print.mean(mesures)",
+          "np.mean(mesures)",
+          "np.open(mesures)",
+          "mesures.split()"
+        ],
+        "reponse": 1,
+        "explication": "np.mean calcule la moyenne ; np.std permet notamment de calculer l'écart-type."
+      },
+      {
+        "question": "Quels paramètres sont utiles pour charger un fichier de mesures avec en-tête et séparateur point-virgule via np.loadtxt ?",
+        "choix": [
+          "xlabel et ylabel",
+          "color=\"blue\" et dpi=300",
+          "delimiter=\";\" et skiprows=1",
+          "baudrate et timeout"
+        ],
+        "reponse": 2,
+        "explication": "delimiter décrit le séparateur des colonnes et skiprows permet d'ignorer la ligne d'en-tête."
+      },
+      {
+        "question": "Que fait le mode \"w\" lors de l'ouverture d'un fichier existant ?",
+        "choix": [
+          "Il transforme le fichier en image",
+          "Il remplace son contenu",
+          "Il ajoute toujours à la fin",
+          "Il lit seulement le fichier"
+        ],
+        "reponse": 1,
+        "explication": "Le mode w écrit depuis le début et tronque un fichier existant ; le mode a ajoute à la fin."
+      },
+      {
+        "question": "Que sélectionne tableau[:, 0] dans un tableau à deux dimensions ?",
+        "choix": [
+          "Toute la première colonne",
+          "Toutes les colonnes sauf la première",
+          "Toute la première ligne",
+          "Le dernier élément"
+        ],
+        "reponse": 0,
+        "explication": "Le deux-points sélectionne toutes les lignes et 0 désigne la première colonne."
+      }
+    ],
+    "B": [
+      {
+        "question": "Dans np.mean(tableau, axis=0), sur quoi porte le résultat pour un tableau 2D ?",
+        "choix": [
+          "Uniquement la première case",
+          "Une moyenne par ligne",
+          "Une moyenne par colonne",
+          "Aucune moyenne"
+        ],
+        "reponse": 2,
+        "explication": "Réduire selon l'axe 0 agrège les lignes et conserve une valeur par colonne."
+      },
+      {
+        "question": "Pourquoi utilise-t-on with open(...) as fichier ?",
+        "choix": [
+          "Pour convertir automatiquement toutes les données",
+          "Pour fermer correctement le fichier à la fin du bloc",
+          "Pour empêcher toute erreur de lecture",
+          "Pour créer un tableau NumPy"
+        ],
+        "reponse": 1,
+        "explication": "Le gestionnaire de contexte assure la fermeture du fichier, même si une erreur survient dans le bloc."
+      },
+      {
+        "question": "Quelle caractéristique distingue principalement un tableau NumPy d'une liste Python ?",
+        "choix": [
+          "Il est toujours enregistré dans un fichier",
+          "Il ne peut contenir qu'une valeur",
+          "Ses éléments ont généralement un même type numérique",
+          "Il n'a pas de dimensions"
+        ],
+        "reponse": 2,
+        "explication": "Le stockage homogène permet des opérations numériques compactes et efficaces."
+      },
+      {
+        "question": "Que signifie vectoriser un calcul avec NumPy ?",
+        "choix": [
+          "Écrire obligatoirement une boucle while",
+          "Dessiner une flèche",
+          "Appliquer une opération directement à un tableau entier",
+          "Transformer chaque nombre en texte"
+        ],
+        "reponse": 2,
+        "explication": "Les opérations vectorisées évitent souvent une boucle Python explicite et rendent le calcul plus lisible."
+      },
+      {
+        "question": "Quelle fonction calcule la moyenne d'un tableau NumPy nommé mesures ?",
+        "choix": [
+          "print.mean(mesures)",
+          "np.mean(mesures)",
+          "np.open(mesures)",
+          "mesures.split()"
+        ],
+        "reponse": 1,
+        "explication": "np.mean calcule la moyenne ; np.std permet notamment de calculer l'écart-type."
+      },
+      {
+        "question": "Quels paramètres sont utiles pour charger un fichier de mesures avec en-tête et séparateur point-virgule via np.loadtxt ?",
+        "choix": [
+          "xlabel et ylabel",
+          "color=\"blue\" et dpi=300",
+          "delimiter=\";\" et skiprows=1",
+          "baudrate et timeout"
+        ],
+        "reponse": 2,
+        "explication": "delimiter décrit le séparateur des colonnes et skiprows permet d'ignorer la ligne d'en-tête."
+      },
+      {
+        "question": "Que fait le mode \"w\" lors de l'ouverture d'un fichier existant ?",
+        "choix": [
+          "Il transforme le fichier en image",
+          "Il remplace son contenu",
+          "Il ajoute toujours à la fin",
+          "Il lit seulement le fichier"
+        ],
+        "reponse": 1,
+        "explication": "Le mode w écrit depuis le début et tronque un fichier existant ; le mode a ajoute à la fin."
+      },
+      {
+        "question": "Que sélectionne tableau[:, 0] dans un tableau à deux dimensions ?",
+        "choix": [
+          "Toute la première colonne",
+          "Toutes les colonnes sauf la première",
+          "Toute la première ligne",
+          "Le dernier élément"
+        ],
+        "reponse": 0,
+        "explication": "Le deux-points sélectionne toutes les lignes et 0 désigne la première colonne."
+      },
+      {
+        "question": "Quelle différence y a-t-il entre la bibliothèque standard et une bibliothèque externe ?",
+        "choix": [
+          "La bibliothèque externe doit généralement être installée séparément",
+          "Une bibliothèque externe ne peut pas être importée",
+          "Il n'y a jamais de différence",
+          "La bibliothèque standard ne contient aucune fonction"
+        ],
+        "reponse": 0,
+        "explication": "Les modules de la bibliothèque standard accompagnent Python ; un paquet comme NumPy est installé séparément."
+      },
+      {
+        "question": "Dans quel cas ouvre-t-on typiquement un fichier en mode binaire ?",
+        "choix": [
+          "Pour écrire uniquement des nombres entiers",
+          "Pour manipuler des octets, par exemple une image",
+          "Pour afficher une f-string",
+          "Pour lire un fichier CSV ordinaire"
+        ],
+        "reponse": 1,
+        "explication": "Le mode b manipule des bytes sans décodage de texte ; il convient aux images et formats binaires."
+      },
+      {
+        "question": "Dans un fichier CSV utilisant le point-virgule, à quoi sert ce caractère ?",
+        "choix": [
+          "À représenter une décimale",
+          "À séparer les champs d'une ligne",
+          "À commenter la ligne",
+          "À terminer le fichier"
+        ],
+        "reponse": 1,
+        "explication": "Le délimiteur sépare les colonnes ; il faut choisir celui réellement utilisé par le fichier."
+      },
+      {
+        "question": "Après une lecture de CSV, sous quelle forme les champs sont-ils généralement obtenus avant conversion ?",
+        "choix": [
+          "Sous forme de chaînes de caractères",
+          "Toujours sous forme de booléens",
+          "Toujours sous forme de float",
+          "Sous forme d'images"
+        ],
+        "reponse": 0,
+        "explication": "Il faut convertir explicitement les champs textuels en int ou float lorsque l'on veut calculer."
+      },
+      {
+        "question": "Quelle affirmation distingue correctement installation et import ?",
+        "choix": [
+          "import installe toujours le paquet",
+          "pip ne sert qu'à lancer Python",
+          "Les deux commandes suppriment le paquet",
+          "pip installe le paquet ; import le rend disponible dans le programme"
+        ],
+        "reponse": 3,
+        "explication": "L'installation se fait dans l'environnement Python, tandis que l'import a lieu dans le code qui utilise la bibliothèque."
+      },
+      {
+        "question": "La méthode write() ajoute-t-elle automatiquement un retour à la ligne ?",
+        "choix": [
+          "Seulement pour les nombres",
+          "Oui, toujours",
+          "Non, il faut écrire \\n si nécessaire",
+          "Seulement dans un CSV"
+        ],
+        "reponse": 2,
+        "explication": "write écrit exactement la chaîne fournie ; le caractère de fin de ligne doit être inclus explicitement."
+      },
+      {
+        "question": "Que renseigne l'attribut shape d'un tableau NumPy ?",
+        "choix": [
+          "La moyenne des valeurs",
+          "La couleur du graphique",
+          "La taille selon chaque dimension",
+          "Le nom du fichier source"
+        ],
+        "reponse": 2,
+        "explication": "Pour un tableau de 100 lignes et 3 colonnes, shape vaut (100, 3)."
+      }
+    ]
+  },
+  "seance4": {
+    "titre": "QCM — Séance 4 : Visualisation et instrumentation",
+    "A": [
+      {
+        "question": "Quel graphique convient le mieux pour représenter l'évolution d'une tension au cours du temps ?",
+        "choix": [
+          "Une courbe",
+          "Un diagramme circulaire",
+          "Un histogramme",
+          "Un organigramme"
+        ],
+        "reponse": 0,
+        "explication": "Une courbe relie naturellement une grandeur à une variable continue comme le temps."
+      },
+      {
+        "question": "Dans Matplotlib, quel objet représente la zone sur laquelle les données sont tracées ?",
+        "choix": [
+          "Socket",
+          "Axes",
+          "Figure uniquement",
+          "Serial"
+        ],
+        "reponse": 1,
+        "explication": "La Figure est le support global ; un objet Axes porte les courbes, axes, titres et légendes."
+      },
+      {
+        "question": "Que demande généralement la commande SCPI *IDN? à un instrument ?",
+        "choix": [
+          "Le tracé d'un histogramme",
+          "La suppression de sa mémoire",
+          "Son arrêt immédiat",
+          "Son identification"
+        ],
+        "reponse": 3,
+        "explication": "*IDN? est une commande de contrôle courante qui renvoie constructeur, modèle et informations d'identification."
+      },
+      {
+        "question": "Pourquoi définir un timeout lors d'une communication avec un instrument ?",
+        "choix": [
+          "Pour installer automatiquement le pilote",
+          "Pour garantir une mesure exacte",
+          "Pour convertir les octets en volt",
+          "Pour éviter que le programme attende indéfiniment"
+        ],
+        "reponse": 3,
+        "explication": "Le délai maximal permet de reprendre la main et de traiter proprement l'absence de réponse."
+      },
+      {
+        "question": "Sur une liaison série, que faut-il régler de manière compatible des deux côtés ?",
+        "choix": [
+          "Le nom de la variable Python",
+          "Le débit en bauds et les paramètres de trame",
+          "La couleur du terminal",
+          "La taille du graphique"
+        ],
+        "reponse": 1,
+        "explication": "L'émetteur et le récepteur doivent partager les paramètres de communication, notamment le débit."
+      },
+      {
+        "question": "Quelle instruction enregistre une figure Matplotlib avec une bonne résolution ?",
+        "choix": [
+          "fig.write(300)",
+          "fig.savefig(\"mesure.png\", dpi=300)",
+          "np.saveplot(\"mesure.png\")",
+          "plt.input(dpi=300)"
+        ],
+        "reponse": 1,
+        "explication": "savefig produit un fichier ; dpi règle notamment la résolution d'une image matricielle."
+      },
+      {
+        "question": "À quoi sert principalement un histogramme ?",
+        "choix": [
+          "À étudier la distribution d'une série de valeurs",
+          "À afficher le code source",
+          "À représenter un circuit électrique",
+          "À communiquer avec un port série"
+        ],
+        "reponse": 0,
+        "explication": "L'histogramme regroupe les valeurs par classes pour montrer leur fréquence de répartition."
+      },
+      {
+        "question": "Quelle démarche est la plus sûre avant une acquisition longue sur le matériel réel ?",
+        "choix": [
+          "Écrire immédiatement sur le fichier définitif",
+          "Tester séparément la connexion, une lecture et le format des données",
+          "Désactiver tous les messages d'erreur",
+          "Lancer directement une boucle infinie"
+        ],
+        "reponse": 1,
+        "explication": "Des essais courts permettent de valider chaque étape et d'éviter de perdre une longue série de mesures."
+      },
+      {
+        "question": "Pourquoi les axes d'un graphique de mesures doivent-ils indiquer les unités ?",
+        "choix": [
+          "Pour trier les fichiers",
+          "Pour rendre les valeurs interprétables",
+          "Pour accélérer NumPy",
+          "Pour augmenter automatiquement la précision"
+        ],
+        "reponse": 1,
+        "explication": "Un titre, des axes nommés et des unités permettent de comprendre le graphique sans deviner le contexte."
+      },
+      {
+        "question": "Pourquoi une commande envoyée à un instrument se termine-t-elle souvent par \\n ?",
+        "choix": [
+          "Pour fermer le port série",
+          "Pour convertir la réponse en float",
+          "Parce que la fin de ligne délimite la commande",
+          "Pour augmenter le débit"
+        ],
+        "reponse": 2,
+        "explication": "De nombreux protocoles textuels attendent un terminateur de ligne avant de traiter la commande reçue."
+      },
+      {
+        "question": "Pourquoi utilise-t-on encode() avant certains envois série ou réseau ?",
+        "choix": [
+          "Pour ouvrir un fichier CSV",
+          "Pour calculer une moyenne",
+          "Pour convertir du texte en octets",
+          "Pour créer un objet Axes"
+        ],
+        "reponse": 2,
+        "explication": "De nombreuses interfaces transmettent des bytes ; decode réalise l'opération inverse à la réception."
+      },
+      {
+        "question": "Quel graphique met le mieux en évidence la relation entre deux séries de mesures ?",
+        "choix": [
+          "Une zone de texte",
+          "Une jauge unique",
+          "Un nuage de points",
+          "Un histogramme"
+        ],
+        "reponse": 2,
+        "explication": "Le nuage de points permet d'observer une relation, une dispersion ou une tendance entre deux variables."
+      },
+      {
+        "question": "Dans une commande SCPI, que signale généralement le caractère ? final ?",
+        "choix": [
+          "Une erreur certaine",
+          "Une requête qui attend une réponse",
+          "Un commentaire Python",
+          "Une affectation"
+        ],
+        "reponse": 1,
+        "explication": "Une commande terminée par ? interroge l'instrument ; le programme doit ensuite lire sa réponse."
+      },
+      {
+        "question": "Dans une chaîne de mesure, quel élément fait le lien entre le programme et la grandeur physique ?",
+        "choix": [
+          "L'instrument ou l'interface d'acquisition",
+          "La f-string",
+          "Le fichier README",
+          "La boucle for seule"
+        ],
+        "reponse": 0,
+        "explication": "L'instrument acquiert le signal physique et communique les valeurs au programme par une liaison définie."
+      },
+      {
+        "question": "Quelles informations faut-il connaître pour ouvrir une connexion TCP vers un instrument ?",
+        "choix": [
+          "La taille de la RAM du PC",
+          "Uniquement son unité de mesure",
+          "Son adresse IP et son port",
+          "Le titre du graphique"
+        ],
+        "reponse": 2,
+        "explication": "L'adresse identifie la machine sur le réseau et le numéro de port identifie le service de communication."
+      }
+    ],
+    "B": [
+      {
+        "question": "Quelle démarche est la plus sûre avant une acquisition longue sur le matériel réel ?",
+        "choix": [
+          "Écrire immédiatement sur le fichier définitif",
+          "Tester séparément la connexion, une lecture et le format des données",
+          "Désactiver tous les messages d'erreur",
+          "Lancer directement une boucle infinie"
+        ],
+        "reponse": 1,
+        "explication": "Des essais courts permettent de valider chaque étape et d'éviter de perdre une longue série de mesures."
+      },
+      {
+        "question": "Pourquoi les axes d'un graphique de mesures doivent-ils indiquer les unités ?",
+        "choix": [
+          "Pour trier les fichiers",
+          "Pour rendre les valeurs interprétables",
+          "Pour accélérer NumPy",
+          "Pour augmenter automatiquement la précision"
+        ],
+        "reponse": 1,
+        "explication": "Un titre, des axes nommés et des unités permettent de comprendre le graphique sans deviner le contexte."
+      },
+      {
+        "question": "Pourquoi une commande envoyée à un instrument se termine-t-elle souvent par \\n ?",
+        "choix": [
+          "Pour fermer le port série",
+          "Pour convertir la réponse en float",
+          "Parce que la fin de ligne délimite la commande",
+          "Pour augmenter le débit"
+        ],
+        "reponse": 2,
+        "explication": "De nombreux protocoles textuels attendent un terminateur de ligne avant de traiter la commande reçue."
+      },
+      {
+        "question": "Pourquoi utilise-t-on encode() avant certains envois série ou réseau ?",
+        "choix": [
+          "Pour ouvrir un fichier CSV",
+          "Pour calculer une moyenne",
+          "Pour convertir du texte en octets",
+          "Pour créer un objet Axes"
+        ],
+        "reponse": 2,
+        "explication": "De nombreuses interfaces transmettent des bytes ; decode réalise l'opération inverse à la réception."
+      },
+      {
+        "question": "Quel graphique met le mieux en évidence la relation entre deux séries de mesures ?",
+        "choix": [
+          "Une zone de texte",
+          "Une jauge unique",
+          "Un nuage de points",
+          "Un histogramme"
+        ],
+        "reponse": 2,
+        "explication": "Le nuage de points permet d'observer une relation, une dispersion ou une tendance entre deux variables."
+      },
+      {
+        "question": "Dans une commande SCPI, que signale généralement le caractère ? final ?",
+        "choix": [
+          "Une erreur certaine",
+          "Une requête qui attend une réponse",
+          "Un commentaire Python",
+          "Une affectation"
+        ],
+        "reponse": 1,
+        "explication": "Une commande terminée par ? interroge l'instrument ; le programme doit ensuite lire sa réponse."
+      },
+      {
+        "question": "Dans une chaîne de mesure, quel élément fait le lien entre le programme et la grandeur physique ?",
+        "choix": [
+          "L'instrument ou l'interface d'acquisition",
+          "La f-string",
+          "Le fichier README",
+          "La boucle for seule"
+        ],
+        "reponse": 0,
+        "explication": "L'instrument acquiert le signal physique et communique les valeurs au programme par une liaison définie."
+      },
+      {
+        "question": "Quelles informations faut-il connaître pour ouvrir une connexion TCP vers un instrument ?",
+        "choix": [
+          "La taille de la RAM du PC",
+          "Uniquement son unité de mesure",
+          "Son adresse IP et son port",
+          "Le titre du graphique"
+        ],
+        "reponse": 2,
+        "explication": "L'adresse identifie la machine sur le réseau et le numéro de port identifie le service de communication."
+      },
+      {
+        "question": "Quel graphique convient le mieux pour représenter l'évolution d'une tension au cours du temps ?",
+        "choix": [
+          "Une courbe",
+          "Un diagramme circulaire",
+          "Un histogramme",
+          "Un organigramme"
+        ],
+        "reponse": 0,
+        "explication": "Une courbe relie naturellement une grandeur à une variable continue comme le temps."
+      },
+      {
+        "question": "Dans Matplotlib, quel objet représente la zone sur laquelle les données sont tracées ?",
+        "choix": [
+          "Socket",
+          "Axes",
+          "Figure uniquement",
+          "Serial"
+        ],
+        "reponse": 1,
+        "explication": "La Figure est le support global ; un objet Axes porte les courbes, axes, titres et légendes."
+      },
+      {
+        "question": "Que demande généralement la commande SCPI *IDN? à un instrument ?",
+        "choix": [
+          "Le tracé d'un histogramme",
+          "La suppression de sa mémoire",
+          "Son arrêt immédiat",
+          "Son identification"
+        ],
+        "reponse": 3,
+        "explication": "*IDN? est une commande de contrôle courante qui renvoie constructeur, modèle et informations d'identification."
+      },
+      {
+        "question": "Pourquoi définir un timeout lors d'une communication avec un instrument ?",
+        "choix": [
+          "Pour installer automatiquement le pilote",
+          "Pour garantir une mesure exacte",
+          "Pour convertir les octets en volt",
+          "Pour éviter que le programme attende indéfiniment"
+        ],
+        "reponse": 3,
+        "explication": "Le délai maximal permet de reprendre la main et de traiter proprement l'absence de réponse."
+      },
+      {
+        "question": "Sur une liaison série, que faut-il régler de manière compatible des deux côtés ?",
+        "choix": [
+          "Le nom de la variable Python",
+          "Le débit en bauds et les paramètres de trame",
+          "La couleur du terminal",
+          "La taille du graphique"
+        ],
+        "reponse": 1,
+        "explication": "L'émetteur et le récepteur doivent partager les paramètres de communication, notamment le débit."
+      },
+      {
+        "question": "Quelle instruction enregistre une figure Matplotlib avec une bonne résolution ?",
+        "choix": [
+          "fig.write(300)",
+          "fig.savefig(\"mesure.png\", dpi=300)",
+          "np.saveplot(\"mesure.png\")",
+          "plt.input(dpi=300)"
+        ],
+        "reponse": 1,
+        "explication": "savefig produit un fichier ; dpi règle notamment la résolution d'une image matricielle."
+      },
+      {
+        "question": "À quoi sert principalement un histogramme ?",
+        "choix": [
+          "À étudier la distribution d'une série de valeurs",
+          "À afficher le code source",
+          "À représenter un circuit électrique",
+          "À communiquer avec un port série"
+        ],
+        "reponse": 0,
+        "explication": "L'histogramme regroupe les valeurs par classes pour montrer leur fréquence de répartition."
+      }
+    ]
+  }
+}

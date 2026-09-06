@@ -1,6 +1,7 @@
 """Page des questionnaires de révision."""
 
 from pathlib import Path
+import json
 
 import streamlit as st
 
@@ -65,6 +66,22 @@ def page_qcm() -> None:
     identifiant = Path(questionnaires[nom_qcm]).stem
 
     st.title("❓ QCM")
+    mode = st.sidebar.radio("Affichage", ["Projection A / B", "Questionnaire individuel"])
+    if mode == "Projection A / B":
+        catalogue = json.loads((Path(__file__).parents[1] / "data" / "qcm_versions.json").read_text(encoding="utf-8"))
+        versions = catalogue[identifiant]
+        st.header(qcm["titre"])
+        st.caption("Choisissez ce questionnaire et votre version dans Verificator. Les lettres des réponses vont de A à D.")
+        numero = st.number_input("Question", min_value=1, max_value=len(versions["A"]), value=1, key=f"projection_{identifiant}")
+        for colonne, version, cote in zip(st.columns(2), ("A", "B"), ("Gauche", "Droite")):
+            with colonne:
+                st.header(f"{version} — {cote}")
+                question = versions[version][numero - 1]
+                st.subheader(f"Question {numero}")
+                st.markdown(question["question"])
+                for lettre, choix in zip("ABCD", question["choix"]):
+                    st.markdown(f"**{lettre}.** {choix}")
+        return
     st.header(qcm["titre"])
     st.write(qcm["description"])
     nb_sondage = sum(question.get("sondage", False) for question in qcm["questions"])

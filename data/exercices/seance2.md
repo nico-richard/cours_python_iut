@@ -1,79 +1,92 @@
 # Exercices — Séance 2 : Station Aster
 
-Un atelier universitaire installe **Aster**, une petite station chargée de surveiller son environnement. Pour la mettre en service, il faut progressivement convertir les données de ses capteurs, repérer leur position, analyser leurs mesures et déclencher une alerte.
+Programmer les fonctions de la station Aster, de la conversion des mesures au déclenchement d'une alerte.
 
-Chaque exercice ajoute une nouvelle capacité à la station et reprend les notions déjà rencontrées. Les programmes restent indépendants afin de pouvoir être vérifiés séparément. L'objectif final est de disposer des outils nécessaires pour détecter automatiquement une mesure anormale.
+## Consignes communes
 
-## Comment rendre un programme vérifiable
+Créer un fichier indépendant par exercice, nommé `s2_ex1.py`, …, `s2_ex10.py`. Respecter le nom de la fonction, l'ordre des arguments et le résultat demandé. Choisir des noms de paramètres clairs.
 
-Pour chaque exercice, créer un fichier Python indépendant nommé selon le format `sX_exY.py`, où `X` est le numéro de la séance et `Y` celui de l'exercice. Pour cette séance, les fichiers sont donc nommés `s2_ex1.py`, …, `s2_ex10.py`. Respecter exactement le nom de la fonction, le nombre et l'ordre des arguments attendus ainsi que le type du résultat. Choisir des noms de paramètres clairs. Verificator charge le fichier et appelle la fonction avec plusieurs jeux de données.
-
-- Recevoir les données par les paramètres et renvoyer le résultat avec `return`.
-- Ne mettre aucun `input()` ni `print()` dans le fichier remis : l'outil fournit les données et récupère le résultat.
-- Ne pas ajouter d'appel de fonction au niveau principal du fichier. Pour essayer son programme, l'exécuter dans un IDE puis appeler la fonction dans sa console Python.
-- Les arguments respectent les domaines annoncés : aucune gestion d'exception ni validation de saisie n'est demandée.
-- Utiliser seulement les notions des séances 1 et 2. Aucun import, accès aux fichiers, définition de classe, compréhension de liste ou `assert` n'est nécessaire.
+- Recevoir les données par les paramètres et renvoyer le résultat avec `return`, sans modifier les données reçues.
+- Ne pas mettre d'`input()`, de `print()` ni d'appel de fonction dans le fichier remis. Pour les essais, appeler la fonction dans la console Python d'un IDE.
+- Utiliser uniquement les notions des séances 1 et 2. Les données respectent les conditions annoncées : aucune vérification des arguments n'est demandée.
 
 ## Ex. 1 — Démarrer le capteur de température
 
 **Nom de la fonction :** `convertir_c_en_k`
 
-Le premier capteur d'Aster mesure une température en degrés Celsius, mais sa fiche technique utilise les kelvins. La fonction reçoit une température supérieure ou égale à `-273.15` et renvoie sa valeur en kelvins. Pour effectuer la conversion, ajouter `273.15`. Ne pas arrondir le résultat.
+Recevoir une température en degrés Celsius, supérieure ou égale à `-273.15`. Renvoyer la température en kelvins en ajoutant `273.15`, sans arrondir.
 
 ## Ex. 2 — Adapter les unités de distance
 
 **Nom de la fonction :** `convertir_depuis_m`
 
-Les capteurs sont reliés à la station par des câbles dont les longueurs peuvent être affichées dans différentes unités. La fonction reçoit d'abord une longueur positive ou nulle exprimée en mètres, puis une unité parmi `"m"`, `"cm"` et `"km"`. Renvoyer la longueur inchangée pour `"m"`, multipliée par 100 pour `"cm"` ou divisée par 1000 pour `"km"`. Si la seconde donnée n'est pas fournie, utiliser `"m"`. Ne pas arrondir le résultat.
+Recevoir une longueur positive ou nulle en mètres, puis une unité parmi `"m"`, `"cm"` et `"km"`. Renvoyer, sans arrondir :
+
+- pour `"m"` : la longueur inchangée ;
+- pour `"cm"` : la longueur multipliée par 100 ;
+- pour `"km"` : la longueur divisée par 1000.
+
+Utiliser `"m"` par défaut si l'unité n'est pas fournie.
 
 ## Ex. 3 — Positionner un capteur
 
 **Nom de la fonction :** `deplacer`
 
-Le plan de l'atelier représente la position d'un capteur par un tuple de deux nombres. La fonction reçoit ce tuple, puis les déplacements horizontal et vertical. Elle renvoie un nouveau tuple contenant les deux coordonnées après le déplacement.
+Recevoir un tuple de deux coordonnées, puis un déplacement horizontal et un déplacement vertical. Ajouter chaque déplacement à la coordonnée correspondante et renvoyer les deux nouvelles coordonnées dans un tuple.
 
 ## Ex. 4 — Produire le premier bilan
 
 **Nom de la fonction :** `moyenne`
 
-Aster reçoit maintenant plusieurs mesures d'un même capteur dans une liste non vide. Pour produire son premier bilan, la fonction reçoit cette liste et renvoie la moyenne arithmétique de ses valeurs, sans arrondir le résultat. La liste reçue ne doit pas être modifiée.
+Recevoir une liste non vide de nombres. Renvoyer leur moyenne : la somme des valeurs divisée par leur nombre, sans arrondir.
 
 ## Ex. 5 — Lire un message de la station
 
 **Nom de la fonction :** `analyser_phrase`
 
-La station transmet aussi des messages textuels. Pour préparer leur analyse, la fonction reçoit une chaîne éventuellement vide. Renvoyer un tuple contenant, dans cet ordre : le premier caractère, les cinq premiers caractères, les cinq derniers caractères et la liste des mots. Si la chaîne est vide, le premier caractère doit être la chaîne vide `""`.
+Recevoir une chaîne, éventuellement vide. Renvoyer un tuple contenant, dans cet ordre :
+
+- le premier caractère, ou `""` si la chaîne est vide ;
+- les cinq premiers caractères ;
+- les cinq derniers caractères ;
+- la liste des mots.
+
+Si la chaîne contient moins de cinq caractères, conserver tous les caractères disponibles. Les espaces successifs ne doivent pas produire de mots vides.
 
 ## Ex. 6 — Simuler une campagne de mesures
 
 **Nom de la fonction :** `generer_mesures`
 
-Avant de connecter le matériel réel, il faut simuler une campagne de mesures régulières. La fonction reçoit, dans cet ordre, la valeur de départ, le pas entre deux valeurs et le nombre de valeurs à produire. Les deux premières données sont des entiers ; la troisième est un entier compris entre 0 et 100. Renvoyer une nouvelle liste contenant la valeur de départ, puis les valeurs suivantes obtenues en ajoutant successivement le pas. Un pas négatif ou nul est autorisé. Si le nombre demandé vaut zéro, renvoyer une liste vide.
+Recevoir trois entiers, dans cet ordre : une valeur de départ, un pas et un nombre de valeurs compris entre 0 et 100.
+
+Renvoyer une liste de la longueur demandée : commencer par la valeur de départ, puis ajouter le pas pour obtenir chaque valeur suivante. Le pas peut être négatif ou nul. Si le nombre demandé vaut zéro, renvoyer une liste vide.
 
 ## Ex. 7 — Repérer le pic de mesure
 
 **Nom de la fonction :** `maximum`
 
-Une campagne est terminée : Aster doit maintenant repérer son pic de mesure. La fonction reçoit une liste non vide de nombres et renvoie son plus grand élément. Ne pas modifier la liste reçue.
+Recevoir une liste non vide de nombres et renvoyer son plus grand élément.
 
 ## Ex. 8 — Enregistrer les capteurs
 
 **Nom de la fonction :** `nettoyer_noms`
 
-Avant le lancement officiel, un technicien transmet les noms des capteurs dans une chaîne séparée par `;`. Cette saisie peut contenir des espaces superflus et des champs vides. La fonction reçoit cette chaîne et renvoie la liste des noms nettoyés. Les espaces placés aux extrémités de chaque nom et les champs vides doivent disparaître. Conserver l'ordre, les doublons, la casse et les espaces à l'intérieur des noms.
+Recevoir une chaîne contenant des noms séparés par `;`. Renvoyer une liste en retirant les espaces aux extrémités de chaque nom et en supprimant les noms vides.
+
+Conserver l'ordre, les doublons, les majuscules, les minuscules et les espaces à l'intérieur des noms.
 
 ## Ex. 9 — Suivre la recharge de la batterie
 
 **Nom de la fonction :** `atteindre_objectif`
 
-Aster doit disposer d'assez d'énergie avant de démarrer sa surveillance. La fonction reçoit, dans cet ordre, la charge de départ, la charge gagnée à chaque étape et la charge à atteindre. Ces valeurs sont des entiers positifs ou nuls, et la charge gagnée à chaque étape est strictement positive. Augmenter la charge jusqu'à atteindre ou dépasser l'objectif, puis renvoyer un tuple contenant le nombre d'étapes et la quantité finale. Si l'objectif est déjà atteint ou dépassé au départ, effectuer zéro étape.
+Recevoir, dans cet ordre, la charge initiale, le gain par étape et la charge à atteindre. Ce sont des entiers positifs ou nuls ; le gain est strictement positif.
+
+Ajouter le gain à chaque étape jusqu'à atteindre ou dépasser l'objectif. Renvoyer un tuple contenant le nombre d'étapes et la charge finale. Si l'objectif est déjà atteint ou dépassé au départ, effectuer zéro étape.
 
 ## Ex. 10 — Déclencher la première alerte
 
 **Nom de la fonction :** `premiere_mesure_superieure`
 
-La station est prête pour sa mission finale : parcourir les mesures et signaler la première alerte. La fonction reçoit une liste de nombres éventuellement vide, puis un seuil. Chercher la première mesure **positive ou nulle** strictement supérieure à ce seuil. Les mesures négatives sont invalides et doivent être ignorées, même si elles dépassent le seuil.
+Recevoir une liste de nombres, éventuellement vide, puis un seuil. Ignorer les mesures négatives et chercher la première mesure positive ou nulle **strictement supérieure** au seuil.
 
 Renvoyer l'indice de cette mesure dans la liste d'origine, ou `-1` si aucune mesure ne convient. La recherche doit s'arrêter dès que la première alerte est trouvée.
-
-Une fois cette fonction validée, Aster sait convertir et structurer ses données, préparer une campagne de mesures, en extraire des informations et détecter une situation anormale : la station est opérationnelle.
