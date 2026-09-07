@@ -33,19 +33,19 @@ commun de 51 cas. Le processus de validation est interrompu après cinq secondes
 pour repérer notamment une boucle qui ne se termine pas.
 
 Les listes et tuples retournés doivent avoir le type et l'ordre demandés.
-Les nombres sont comparés avec une tolérance de 1e-9 (relative ou absolue), sans
-arrondi imposé aux étudiants. Les tests vérifient aussi que les arguments ne
-sont pas modifiés. Les cas n'utilisent que les domaines annoncés dans les énoncés.
+Les nombres sont comparés avec une tolérance de 1e-9 (relative ou absolue).
+Les conversions de distance sont arrondies au dixième et la moyenne au centième,
+conformément aux énoncés. Les tests vérifient aussi que les arguments ne sont pas
+modifiés. Les cas n'utilisent que les domaines annoncés dans les énoncés.
 
 ## Intégration dans Verificator (enseignant)
 
-Le code inspecté dans `C:/Users/Nicolas/Development/verificator` utilise
-`Exercise(id, session, title, function_name, test_module)` et
+Le code du dépôt `Verificator` utilise
+`Exercise(id, session, title, filename, function_name, test_module)` et
 `test_module(module)` ; il ne compare pas des entrées/sorties de console.
-À ce stade, seul `s2-moyenne` est enregistré dans son catalogue.
 
-Le fichier `data/validation/seance2.py` est prêt à être copié dans
-`verificator/exercises/session2.py`. Il expose les dix objets dans
+Le fichier `data/validation/seance2.py` sert de catalogue de référence au fichier
+`verificator/exercises/session2.py`. Ils exposent les dix objets dans
 `EXERCICES_SEANCE2`, ainsi que `moyenne_exercise` et `test_moyenne` pour
 compatibilité avec l'exercice historique. L'identifiant `s2-moyenne` est conservé.
 Dans `verificator/exercises/__init__.py`, remplacer l'enregistrement de la seule
@@ -58,9 +58,8 @@ EXERCISES = {exercice.id: exercice for exercice in EXERCICES_SEANCE2}
 SESSIONS = {"2": "Séance 2"}
 ```
 
-Le dépôt Verificator n'a pas été modifié : ces fichiers constituent le matériel
-prêt à intégrer. Les tests sont du code enseignant et peuvent employer des notions
-qui ne sont pas demandées aux étudiants.
+Les tests sont du code enseignant et peuvent employer des notions qui ne sont pas
+demandées aux étudiants.
 
 ## Ce que les tests ne prouvent pas
 

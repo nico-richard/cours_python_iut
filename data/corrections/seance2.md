@@ -18,11 +18,12 @@ Fichier : `s2_ex2.py`
 ```python
 def convertir_depuis_m(valeur, unite="m"):
     if unite == "cm":
-        return valeur * 100
+        resultat = valeur * 100
     elif unite == "km":
-        return valeur / 1000
+        resultat = valeur / 1000
     else:
-        return valeur
+        resultat = valeur
+    return round(resultat, 1)
 ```
 
 ## Ex. 3 — Positionner un capteur
@@ -41,7 +42,7 @@ Fichier : `s2_ex4.py`
 
 ```python
 def moyenne(valeurs):
-    return sum(valeurs) / len(valeurs)
+    return round(sum(valeurs) / len(valeurs), 2)
 ```
 
 ## Ex. 5 — Lire un message de la station

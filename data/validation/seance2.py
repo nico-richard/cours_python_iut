@@ -13,6 +13,7 @@ class Exercise:
     id: str
     session: str
     title: str
+    filename: str
     function_name: str
     test_module: callable
 
@@ -27,10 +28,10 @@ CAS_EXERCICES = [('s2-convertir-c-en-k',
  ('s2-convertir-depuis-m',
   'Adapter les unités de distance',
   'convertir_depuis_m',
-  [('unité par défaut', (2.5,), 2.5),
-   ('mètres', (3, 'm'), 3),
-   ('centimètres', (2.5, 'cm'), 250.0),
-   ('kilomètres', (500, 'km'), 0.5),
+  [('unité par défaut', (2.56,), 2.6),
+   ('mètres', (3.24, 'm'), 3.2),
+   ('centimètres', (2.567, 'cm'), 256.7),
+   ('kilomètres', (1550, 'km'), 1.6),
    ('zéro', (0, 'cm'), 0)]),
  ('s2-deplacer',
   'Positionner un capteur',
@@ -45,7 +46,7 @@ CAS_EXERCICES = [('s2-convertir-c-en-k',
   [('série simple', ([10, 12, 14],), 12.0),
    ('valeur unique', ([5],), 5.0),
    ('négatifs', ([-8, -4],), -6.0),
-   ('moyenne non entière', ([1, 2, 2],), 1.6666666666666667),
+   ('moyenne non entière', ([1, 2, 2],), 1.67),
    ('décimaux', ([1.5, 2.5],), 2.0)]),
  ('s2-analyser-phrase',
   'Lire un message de la station',
@@ -139,8 +140,16 @@ def creer_test(nom, cas):
 
 
 EXERCICES_SEANCE2 = [
-    Exercise(identifiant, "2", titre, nom, creer_test(nom, cas))
-    for identifiant, titre, nom, cas in CAS_EXERCICES
+    Exercise(
+        identifiant,
+        "2",
+        f"Exercice {numero} — {titre}",
+        f"s2_ex{numero}.py",
+        nom,
+        creer_test(nom, cas),
+    )
+    for numero, (identifiant, titre, nom, cas)
+    in enumerate(CAS_EXERCICES, start=1)
 ]
 # Compatibilité avec l'identifiant et l'import historiques de Verificator.
 moyenne_exercise = next(
