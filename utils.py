@@ -282,6 +282,7 @@ def liste_corrections() -> dict[str, str]:
     return {
         "Séance 2": str(base / "seance2.md"),
         "Séance 3": str(base / "seance3.md"),
+        "Séance 4": str(base / "seance4.md"),
     }
 
 

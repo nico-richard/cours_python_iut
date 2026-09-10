@@ -5,93 +5,93 @@
   "questions": [
     {
       "question": "Quel graphique convient le mieux pour représenter l'évolution d'une tension au cours du temps ?",
-      "choix": ["Une courbe", "Un histogramme", "Un diagramme circulaire", "Un organigramme"],
+      "choix": ["Une courbe", "Un nuage de points sans ordre", "Un histogramme", "Un diagramme en barres"],
       "reponse": 0,
       "explication": "Une courbe relie naturellement une grandeur à une variable continue comme le temps."
     },
     {
       "question": "Quel graphique met le mieux en évidence la relation entre deux séries de mesures ?",
-      "choix": ["Un nuage de points", "Un histogramme", "Une zone de texte", "Une jauge unique"],
+      "choix": ["Un nuage de points", "Une courbe reliant les valeurs dans leur ordre de saisie", "Un histogramme de la première série", "Deux histogrammes superposés"],
       "reponse": 0,
       "explication": "Le nuage de points permet d'observer une relation, une dispersion ou une tendance entre deux variables."
     },
     {
       "question": "À quoi sert principalement un histogramme ?",
-      "choix": ["À étudier la distribution d'une série de valeurs", "À afficher le code source", "À communiquer avec un port série", "À représenter un circuit électrique"],
+      "choix": ["À étudier la distribution d'une série de valeurs", "À étudier la relation entre deux variables", "À montrer une évolution temporelle", "À conserver l'ordre exact des observations"],
       "reponse": 0,
       "explication": "L'histogramme regroupe les valeurs par classes pour montrer leur fréquence de répartition."
     },
     {
       "question": "Pourquoi les axes d'un graphique de mesures doivent-ils indiquer les unités ?",
-      "choix": ["Pour rendre les valeurs interprétables", "Pour augmenter automatiquement la précision", "Pour trier les fichiers", "Pour accélérer NumPy"],
+      "choix": ["Pour rendre les valeurs interprétables", "Pour augmenter la précision des mesures", "Pour imposer la même échelle aux deux axes", "Pour convertir automatiquement les données"],
       "reponse": 0,
       "explication": "Un titre, des axes nommés et des unités permettent de comprendre le graphique sans deviner le contexte."
     },
     {
-      "question": "Dans Matplotlib, quel objet représente la zone sur laquelle les données sont tracées ?",
-      "choix": ["Axes", "Figure uniquement", "Serial", "Socket"],
+      "question": "Un instrument apparaît comme un port série `COM3`, accepte des commandes SCPI et est piloté en Python avec pyserial. Quelle association est correcte ?",
+      "choix": ["`COM3` désigne l'interface, SCPI le protocole et pyserial la bibliothèque", "`COM3` désigne le protocole, SCPI la bibliothèque et pyserial l'interface", "SCPI désigne l'interface, `COM3` la bibliothèque et pyserial le protocole", "pyserial désigne le protocole, SCPI le port et `COM3` la bibliothèque"],
       "reponse": 0,
-      "explication": "La Figure est le support global ; un objet Axes porte les courbes, axes, titres et légendes."
+      "explication": "Le port identifie l'interface de communication, SCPI structure les messages et pyserial permet au programme Python d'accéder à la liaison."
     },
     {
-      "question": "Quelle instruction enregistre une figure Matplotlib avec une bonne résolution ?",
-      "choix": ["fig.savefig(\"mesure.png\", dpi=300)", "fig.write(300)", "np.saveplot(\"mesure.png\")", "plt.input(dpi=300)"],
+      "question": "Quelle instruction enregistre un graphique en demandant explicitement une résolution de 300 dpi ?",
+      "choix": ["`plt.savefig(\"mesure.png\", dpi=300)`", "`plt.savefig(\"mesure.png\", bbox_inches=300)`", "`plt.plot(\"mesure.png\", dpi=300)`", "`plt.show(dpi=300)`"],
       "reponse": 0,
-      "explication": "savefig produit un fichier ; dpi règle notamment la résolution d'une image matricielle."
+      "explication": "`savefig()` produit un fichier ; `dpi` règle notamment la résolution d'une image matricielle."
     },
     {
-      "question": "Dans une chaîne de mesure, quel élément fait le lien entre le programme et la grandeur physique ?",
-      "choix": ["L'instrument ou l'interface d'acquisition", "La f-string", "Le fichier README", "La boucle for seule"],
+      "question": "Dans une chaîne de mesure, quel élément réagit directement à la grandeur physique ?",
+      "choix": ["Le capteur", "L'électronique d'acquisition", "Le protocole de communication", "Le programme Python"],
       "reponse": 0,
-      "explication": "L'instrument acquiert le signal physique et communique les valeurs au programme par une liaison définie."
+      "explication": "Le capteur réagit à la grandeur physique ; l'électronique et la communication transmettent ensuite une donnée exploitable au programme."
     },
     {
-      "question": "Que demande généralement la commande SCPI *IDN? à un instrument ?",
-      "choix": ["Son identification", "Son arrêt immédiat", "La suppression de sa mémoire", "Le tracé d'un histogramme"],
+      "question": "Après `port.readline()`, on obtient `b\"20.5\\r\\n\"`. Quelle succession d'opérations fournit le nombre `20.5` ?",
+      "choix": ["Décoder les octets, retirer la fin de ligne, puis convertir en `float`", "Retirer la fin de ligne des octets, convertir en `float`, puis décoder", "Convertir directement les octets en `float`, puis retirer la fin de ligne", "Encoder de nouveau les octets, puis les convertir en `float`"],
       "reponse": 0,
-      "explication": "*IDN? est une commande de contrôle courante qui renvoie constructeur, modèle et informations d'identification."
+      "explication": "`decode()` produit un texte, `strip()` retire les caractères de fin de ligne et `float()` convertit ensuite ce texte en nombre."
     },
     {
-      "question": "Dans une commande SCPI, que signale généralement le caractère ? final ?",
-      "choix": ["Une requête qui attend une réponse", "Un commentaire Python", "Une affectation", "Une erreur certaine"],
+      "question": "Dans une commande SCPI, que signale généralement le caractère `?` final ?",
+      "choix": ["Une requête qui attend une réponse", "Une commande qui modifie un réglage", "Une commande sans terminaison de ligne", "Une erreur de syntaxe"],
       "reponse": 0,
-      "explication": "Une commande terminée par ? interroge l'instrument ; le programme doit ensuite lire sa réponse."
+      "explication": "Une commande terminée par `?` interroge l'instrument ; le programme doit ensuite lire sa réponse."
     },
     {
-      "question": "Sur une liaison série, que faut-il régler de manière compatible des deux côtés ?",
-      "choix": ["Le débit en bauds et les paramètres de trame", "La couleur du terminal", "Le nom de la variable Python", "La taille du graphique"],
+      "question": "Concernant la transmission série elle-même, quel ensemble de paramètres doit être compatible entre les deux équipements ?",
+      "choix": ["Le débit en bauds, les bits de données, la parité et les bits d'arrêt", "Le débit en bauds, le timeout, l'encodage et la fin de ligne", "L'adresse IP, le port TCP, la parité et les bits d'arrêt", "Le débit en bauds, l'adresse IP, la parité et le port TCP"],
       "reponse": 0,
-      "explication": "L'émetteur et le récepteur doivent partager les paramètres de communication, notamment le débit."
+      "explication": "Les deux équipements doivent employer le même débit et un format de trame compatible pour interpréter correctement les bits transmis."
     },
     {
       "question": "Pourquoi définir un timeout lors d'une communication avec un instrument ?",
-      "choix": ["Pour éviter que le programme attende indéfiniment", "Pour garantir une mesure exacte", "Pour convertir les octets en volt", "Pour installer automatiquement le pilote"],
+      "choix": ["Pour fixer une durée maximale d'attente lors d'une lecture", "Pour garantir qu'une réponse valide sera reçue avant la fin du délai", "Pour adapter automatiquement le débit de l'instrument", "Pour provoquer une nouvelle lecture dès que la réponse est vide"],
       "reponse": 0,
       "explication": "Le délai maximal permet de reprendre la main et de traiter proprement l'absence de réponse."
     },
     {
-      "question": "Pourquoi utilise-t-on encode() avant certains envois série ou réseau ?",
-      "choix": ["Pour convertir du texte en octets", "Pour calculer une moyenne", "Pour ouvrir un fichier CSV", "Pour créer un objet Axes"],
+      "question": "Pourquoi utilise-t-on `encode()` avant certains envois série ou réseau ?",
+      "choix": ["Pour convertir du texte en octets", "Pour convertir des octets en texte", "Pour convertir directement la réponse en nombre", "Pour ajouter automatiquement une fin de ligne"],
       "reponse": 0,
-      "explication": "De nombreuses interfaces transmettent des bytes ; decode réalise l'opération inverse à la réception."
+      "explication": "De nombreuses interfaces transmettent des `bytes` ; `decode()` réalise l'opération inverse à la réception."
     },
     {
-      "question": "Pourquoi une commande envoyée à un instrument se termine-t-elle souvent par \\n ?",
-      "choix": ["Parce que la fin de ligne délimite la commande", "Pour fermer le port série", "Pour augmenter le débit", "Pour convertir la réponse en float"],
+      "question": "Que fait `port.readline()` si aucune fin de ligne n'est reçue ?",
+      "choix": ["Il attend jusqu'à l'expiration du timeout configuré", "Il ajoute lui-même `\\n` aux données reçues", "Il renvoie obligatoirement une mesure complète", "Il ferme le port puis tente de le rouvrir"],
       "reponse": 0,
-      "explication": "De nombreux protocoles textuels attendent un terminateur de ligne avant de traiter la commande reçue."
+      "explication": "`readline()` termine sa lecture lorsqu'une fin de ligne est reçue ou lorsque le délai configuré expire."
     },
     {
       "question": "Quelles informations faut-il connaître pour ouvrir une connexion TCP vers un instrument ?",
-      "choix": ["Son adresse IP et son port", "Uniquement son unité de mesure", "La taille de la RAM du PC", "Le titre du graphique"],
+      "choix": ["Son adresse IP et son port TCP", "Son adresse IP et son débit en bauds", "Son port série et son masque réseau", "Son adresse MAC et son encodage"],
       "reponse": 0,
       "explication": "L'adresse identifie la machine sur le réseau et le numéro de port identifie le service de communication."
     },
     {
-      "question": "Quelle démarche est la plus sûre avant une acquisition longue sur le matériel réel ?",
-      "choix": ["Tester séparément la connexion, une lecture et le format des données", "Lancer directement une boucle infinie", "Désactiver tous les messages d'erreur", "Écrire immédiatement sur le fichier définitif"],
+      "question": "Quel est l'intérêt du bloc `with serial.Serial(...) as port:` ?",
+      "choix": ["Le port est fermé automatiquement lorsque l'exécution quitte le bloc", "Le port est fermé après chaque appel à `readline()` puis rouvert à la lecture suivante", "Le port reste ouvert jusqu'à l'arrêt complet du programme", "Les paramètres série sont détectés sans consulter la documentation"],
       "reponse": 0,
-      "explication": "Des essais courts permettent de valider chaque étape et d'éviter de perdre une longue série de mesures."
+      "explication": "Le gestionnaire de contexte ferme automatiquement le port à la sortie du bloc, sans appel explicite à `close()`."
     }
   ]
 }

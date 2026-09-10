@@ -60,15 +60,16 @@ plt.show()
 
 :::diagram
 Données
-Représentation
+Création du graphique
+Tracé
 Annotations
 Affichage
 :::
 
 :::support
-Le module `matplotlib.pyplot`, généralement importé sous l'alias `plt`, fournit une
-interface simple pour construire une figure. Les deux séries transmises à `plot`
-doivent avoir le même nombre d'éléments : chaque abscisse correspond à une ordonnée.
+Le module `matplotlib.pyplot`, généralement importé sous l'alias `plt`, fournit
+les fonctions nécessaires pour construire le graphique. Les deux séries transmises à `plot` doivent avoir
+le même nombre d'éléments : chaque abscisse correspond à une ordonnée.
 :::
 ---
 ## Représenter une évolution
@@ -111,7 +112,7 @@ Le nuage de points montre la relation entre deux variables mesurées sur les mê
 
 ```python
 temperatures = [20.1, 20.4, 20.9, 21.3, 20.8, 20.5]
-plt.hist(temperatures, bins=10)
+plt.hist(temperatures, bins=4)
 ```
 
 L'histogramme découpe l'étendue des valeurs en intervalles et compte les observations dans chacun d'eux. Le choix de `bins` influence la lecture de la distribution.
@@ -121,6 +122,7 @@ L'histogramme découpe l'étendue des valeurs en intervalles et compte les obser
 Un graphique doit pouvoir être compris sans l'explication orale qui l'accompagne.
 
 ```python
+plt.plot(temps, temperatures, label="Température")
 plt.xlabel("Temps (s)")
 plt.ylabel("Température (°C)")
 plt.title("Évolution de la température")
@@ -136,9 +138,9 @@ grille légère facilite la lecture des valeurs mais ne doit pas dominer les don
 `legend()` utilise les textes fournis avec l'argument `label` des tracés.
 :::
 ---
-## Figure, axes et sous-graphiques
+## Plusieurs sous-graphiques
 
-Matplotlib distingue la **figure**, qui contient l'ensemble du document, et les **axes**, qui sont les zones de tracé.
+Une même fenêtre peut contenir plusieurs sous-graphiques. `plt.subplot()` sélectionne la zone dans laquelle les instructions suivantes vont tracer :
 
 ```python
 import matplotlib.pyplot as plt
@@ -146,35 +148,36 @@ import matplotlib.pyplot as plt
 temps = [0, 1, 2, 3]
 temperatures = [20.1, 20.4, 20.9, 21.3]
 
-fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+plt.subplot(1, 2, 1)
+plt.plot(temps, temperatures)
+plt.title("Évolution")
 
-axes[0].plot(temps, temperatures)
-axes[1].hist(temperatures, bins=10)
+plt.subplot(1, 2, 2)
+plt.hist(temperatures, bins=5)
+plt.title("Répartition")
 
-fig.tight_layout()
+plt.tight_layout()
+plt.show()
 ```
 
-Les sous-graphiques permettent de comparer plusieurs représentations sans les superposer.
+Les trois nombres de `subplot(1, 2, 1)` indiquent : une ligne, deux colonnes et la première zone. `subplot(1, 2, 2)` sélectionne ensuite la seconde zone.
 
 :::support
-Malgré son nom, un objet `Axes` représente une zone complète de tracé avec ses
-deux axes gradués. L'interface orientée objet (`fig`, `axes`) devient plus claire
-que `plt` dès que la figure contient plusieurs graphiques.
+`tight_layout()` ajuste les espacements pour limiter les chevauchements.
 :::
 ---
-## Exporter une figure
+## Exporter un graphique
 
-Une figure peut être enregistrée pour être intégrée dans un rapport. Cet exemple complet crée la figure avant de l'enregistrer :
+Un graphique peut être enregistré pour être intégré dans un rapport :
 
 ```python
 import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots()
-ax.plot([0, 1, 2, 3], [20.1, 20.4, 20.9, 21.3])
-ax.set_xlabel("Temps (s)")
-ax.set_ylabel("Température (°C)")
+plt.plot([0, 1, 2, 3], [20.1, 20.4, 20.9, 21.3])
+plt.xlabel("Temps (s)")
+plt.ylabel("Température (°C)")
 
-fig.savefig(
+plt.savefig(
     "temperature.png",
     dpi=300,
     bbox_inches="tight",
@@ -187,8 +190,7 @@ La sauvegarde est généralement effectuée avant `plt.show()`.
 
 :::support
 Le format PNG convient aux documents courants. Les formats vectoriels comme SVG
-ou PDF restent nets lors d'un agrandissement. Avec l'interface `pyplot`, la fonction
-équivalente est `plt.savefig()`.
+ou PDF restent nets lors d'un agrandissement.
 :::
 ---
 ## Chaîne d'instrumentation
@@ -213,36 +215,38 @@ les valeurs à l'ordinateur, où Python peut automatiser leur stockage, leur ana
 et leur représentation.
 :::
 ---
-## Liaison matérielle et liaison logicielle
+## Les couches de communication
 
-Pour dialoguer avec un instrument, il faut d'abord savoir comment s'y brancher, puis quelles instructions lui envoyer :
+Pour dialoguer avec un instrument, plusieurs éléments complémentaires doivent être identifiés :
 
-| Élément | Question associée | Exemples |
+| Couche | Question associée | Exemples |
 |---|---|---|
-| **liaison matérielle** | quel câble et quel connecteur ? | USB, série, Ethernet, GPIB |
-| **liaison logicielle** | quelles règles et commandes ? | SCPI, VISA, Modbus, protocole constructeur |
+| **interface et transport** | comment les données circulent-elles ? | port série, USB, Ethernet, GPIB |
+| **protocole** | comment les messages sont-ils structurés ? | SCPI, Modbus, protocole constructeur |
+| **bibliothèque logicielle** | comment Python accède-t-il à la liaison ? | pyserial, PyVISA, `socket` |
 
 Deux appareils équipés du même connecteur USB ou Ethernet ne parlent pas forcément le même langage.
 
 :::support
-La liaison matérielle décrit le transport. La liaison logicielle définit la
-structure, l'ordre et la signification des messages. Avant tout achat ou essai,
-il faut donc vérifier les deux dans la documentation technique.
+Le connecteur visible ne suffit pas à déterminer le protocole. Certains appareils
+USB apparaissent par exemple comme un port série virtuel, tandis que d'autres
+nécessitent un pilote ou une bibliothèque du constructeur. La documentation doit
+préciser l'ensemble des couches nécessaires.
 :::
 ---
 ## Commandes SCPI
 
-SCPI (*Standard Commands for Programmable Instruments*) définit une syntaxe textuelle utilisée par de nombreux instruments de laboratoire.
+SCPI (*Standard Commands for Programmable Instruments*) définit une syntaxe textuelle utilisée par de nombreux instruments de laboratoire. Les commandes disponibles dépendent de chaque appareil.
 
 ```text
 *IDN?
 MEAS:TEMP?
-TEMP:UNIT DEG
+*CLS
 ```
 
 - `*IDN?` demande l'identification de l'instrument ;
 - `MEAS:TEMP?` demande une mesure de température ;
-- `TEMP:UNIT DEG` règle un paramètre sans attendre nécessairement de réponse ;
+- `*CLS` efface les informations d'état sans renvoyer de réponse ;
 - le point d'interrogation signale une requête qui attend une réponse.
 
 Dans tous les cas, seule la documentation de l'instrument fait foi.
@@ -255,7 +259,7 @@ commandes sont généralement terminées par un caractère de fin de ligne.
 ---
 ## Paramètres d'une liaison série
 
-Une liaison série transmet une suite d'octets. Les deux équipements doivent utiliser des paramètres compatibles.
+Sur une liaison série, les bits sont transmis successivement. Du point de vue du programme, pyserial permet de lire et d'écrire des suites d'octets. Les deux équipements doivent utiliser des paramètres compatibles.
 
 | Paramètre | Rôle |
 |---|---|
@@ -315,6 +319,28 @@ sont insuffisants. Une lecture peut être vide après un timeout et une réponse
 leur conversion.
 :::
 ---
+## Lire plusieurs mesures
+
+Une boucle permet de répéter la même chaîne de conversion :
+
+```python
+def lire_mesures(port, nombre):
+    mesures = []
+    for _ in range(nombre):
+        ligne = port.readline()
+        texte = ligne.decode("utf-8").strip()
+        mesures.append(float(texte))
+    return mesures
+```
+
+La fonction reçoit un port déjà ouvert. Elle peut ainsi être utilisée avec une véritable liaison série ou testée avec une source simulée qui fournit aussi une méthode `readline()`.
+
+:::support
+Le nom `_` est utilisé lorsque la valeur produite par `range()` n'est pas nécessaire.
+Une application réelle doit aussi décider quoi faire lorsqu'une lecture est vide
+ou qu'une réponse ne peut pas être convertie.
+:::
+---
 ## Envoyer une commande
 
 Une commande textuelle doit être encodée avant son envoi :
@@ -344,14 +370,14 @@ attendent une fin de ligne avant de traiter le message. La terminaison exacte do
 ---
 ## Communiquer par le réseau
 
-Un instrument Ethernet est généralement identifié par deux informations :
+Pour une communication directe en TCP, l'instrument est identifié par deux informations :
 
 | Information | Rôle | Exemple |
 |---|---|---|
 | **adresse IP** | identifier l'instrument sur le réseau | `192.168.0.26` |
 | **port TCP** | identifier le service qui reçoit les commandes | `8000` |
 
-Le dialogue suit ensuite les mêmes étapes qu'avec une liaison série :
+Avec un protocole textuel, le dialogue suit ensuite des étapes comparables à celles d'une liaison série :
 
 :::diagram
 Connexion à l'adresse et au port
