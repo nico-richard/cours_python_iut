@@ -7,7 +7,7 @@ Les dix énoncés sont dans `data/exercices/seance3.md` et les dix solutions dan
 contenant une fonction, sans saisie, affichage ou appel au chargement.
 
 La progression couvre l'import d'un module, la lecture et l'écriture de fichiers
-texte, le module `csv`, puis la création, l'indexation, la vectorisation et les
+texte, le découpage d'un CSV simple avec `split`, puis la création, l'indexation, la vectorisation et les
 calculs suivant un axe avec NumPy. Les fichiers temporaires nécessaires aux tests
 sont créés par le correcteur : aucun fichier de données n'est à déposer dans
 Verificator avec la solution.

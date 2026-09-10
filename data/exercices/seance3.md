@@ -31,7 +31,7 @@ Le fichier est encodé en UTF-8 et ne contient pas de ligne vide.
 
 Le journal de plongée est un fichier CSV encodé en UTF-8. Sa première ligne contient l'en-tête `temps;temperature` ; les lignes suivantes contiennent deux nombres séparés par `;`.
 
-Recevoir le chemin du fichier et renvoyer un tuple contenant la liste des temps puis la liste des températures. Toutes les valeurs doivent être converties en `float`. Utiliser le module `csv` et ignorer l'en-tête.
+Recevoir le chemin du fichier et renvoyer un tuple contenant la liste des temps puis la liste des températures. Toutes les valeurs doivent être converties en `float`. Ignorer l'en-tête et séparer chaque ligne avec `split(";")`.
 
 ## Ex. 4 — Rédiger le bilan de plongée
 

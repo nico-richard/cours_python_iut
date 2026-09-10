@@ -32,18 +32,15 @@ def lire_valeurs(chemin):
 Fichier : `s3_ex3.py`
 
 ```python
-import csv
-
-
 def lire_mesures_csv(chemin):
     temps = []
     temperatures = []
-    with open(chemin, newline="", encoding="utf-8") as fichier:
-        lecteur = csv.reader(fichier, delimiter=";")
-        next(lecteur)
-        for ligne in lecteur:
-            temps.append(float(ligne[0]))
-            temperatures.append(float(ligne[1]))
+    with open(chemin, "r", encoding="utf-8") as fichier:
+        fichier.readline()
+        for ligne in fichier:
+            cellules = ligne.strip().split(";")
+            temps.append(float(cellules[0]))
+            temperatures.append(float(cellules[1]))
     return (temps, temperatures)
 ```
 
