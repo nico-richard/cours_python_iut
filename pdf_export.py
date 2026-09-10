@@ -30,8 +30,8 @@ CSS_IMPRESSION = """
     }
     body { font-family: Helvetica, Arial, sans-serif; font-size: 10.5pt; line-height: 1.4; color: #1a1a1a; }
     h1 { font-size: 20pt; color: #1e3a5f; border-bottom: 2px solid #1e3a5f; padding-bottom: 6px; }
-    h2 { font-size: 15pt; color: #1e3a5f; margin-top: 18px; }
-    h3 { font-size: 12.5pt; color: #2a4d75; margin-top: 14px; }
+    h2 { font-size: 15pt; color: #1e3a5f; margin-top: 18px; -pdf-keep-with-next: true; }
+    h3 { font-size: 12.5pt; color: #2a4d75; margin-top: 14px; -pdf-keep-with-next: true; }
     p, li { text-align: justify; }
     code {
         font-family: Courier, monospace; background-color: #f0f0f0;
@@ -40,7 +40,7 @@ CSS_IMPRESSION = """
     pre {
         font-family: Courier, monospace; background-color: #f5f5f5;
         border: 0.5px solid #ccc; padding: 8px; font-size: 9pt;
-        line-height: 1.3; white-space: pre-wrap;
+        line-height: 1.3; white-space: pre-wrap; -pdf-keep-with-next: true;
     }
     pre code { background-color: transparent; padding: 0; }
     blockquote {
@@ -61,6 +61,7 @@ CSS_IMPRESSION = """
     .diagram-wrapper-vertical-pdf { width: 100%; margin: 12px 0; }
     table.diagram-step-vertical-pdf {
         width: 70%; margin-left: 15%; border-spacing: 0;
+        -pdf-keep-with-next: true;
     }
     table.diagram-step-vertical-pdf td.diagram-node-vertical-pdf {
         width: 100%; padding: 8px; border: 1.5px solid #2a6f9e;
