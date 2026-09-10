@@ -340,336 +340,336 @@
     "titre": "QCM — Séance 2 : Fonctions, objets et boucles",
     "A": [
       {
-        "question": "Que fait la méthode strip() appliquée à une chaîne ?",
+        "question": "Quelle succession d'opérations prépare correctement une ligne comme `\"  temperature;20.5\\n\"` avant de convertir la valeur ?",
         "choix": [
-          "Elle découpe tous les mots",
-          "Elle met le texte en majuscules",
-          "Elle retire les espaces et fins de ligne aux extrémités",
-          "Elle convertit le texte en nombre"
-        ],
-        "reponse": 2,
-        "explication": "strip() est utile pour nettoyer une ligne lue dans un fichier ou reçue d'un instrument."
-      },
-      {
-        "question": "Quel mot-clé quitte immédiatement une boucle ?",
-        "choix": [
-          "continue",
-          "returning",
-          "break",
-          "stop"
-        ],
-        "reponse": 2,
-        "explication": "break interrompt la boucle ; continue passe directement à l'itération suivante."
-      },
-      {
-        "question": "Que renvoie \"12.4;18.7\".split(\";\") ?",
-        "choix": [
-          "La liste [\"12.4\", \"18.7\"]",
-          "Le nombre 31.1",
-          "Le tuple (12.4, 18.7)",
-          "Une erreur obligatoire"
-        ],
-        "reponse": 0,
-        "explication": "split sépare une chaîne autour du délimiteur et renvoie une liste de chaînes."
-      },
-      {
-        "question": "Quelle propriété caractérise un tuple ?",
-        "choix": [
-          "Il est obligatoirement vide",
-          "Il commence toujours à l'indice 1",
-          "Il ne contient que des nombres",
-          "Il est non modifiable après sa création"
-        ],
-        "reponse": 3,
-        "explication": "Le tuple est une séquence ordonnée mais immuable, pratique pour représenter un groupe fixe de valeurs."
-      },
-      {
-        "question": "Une variable créée à l'intérieur d'une fonction est généralement…",
-        "choix": [
-          "locale à cette fonction",
-          "forcément une chaîne",
-          "visible partout sans restriction",
-          "automatiquement enregistrée"
-        ],
-        "reponse": 0,
-        "explication": "La portée locale limite la variable au corps de la fonction, sauf mécanisme explicitement prévu."
-      },
-      {
-        "question": "Que sélectionne valeurs[1:4] ?",
-        "choix": [
-          "Les éléments d'indices 1, 2 et 3",
-          "Les éléments d'indices 1 à 4 inclus",
-          "Uniquement l'élément 4",
-          "Les quatre premiers éléments"
-        ],
-        "reponse": 0,
-        "explication": "Dans une tranche, la borne de début est incluse et la borne de fin est exclue."
-      },
-      {
-        "question": "Que permet un paramètre avec une valeur par défaut ?",
-        "choix": [
-          "D'appeler la fonction sans fournir systématiquement cet argument",
-          "De rendre la fonction infinie",
-          "De supprimer return",
-          "D'interdire les autres arguments"
-        ],
-        "reponse": 0,
-        "explication": "La valeur par défaut est utilisée lorsque l'appel ne fournit pas l'argument correspondant."
-      },
-      {
-        "question": "Quelle boucle convient pour parcourir directement tous les éléments d'une liste ?",
-        "choix": [
-          "for",
-          "def",
-          "if",
-          "import"
-        ],
-        "reponse": 0,
-        "explication": "La boucle for parcourt naturellement les éléments d'une séquence ou de tout objet itérable."
-      },
-      {
-        "question": "Quel mot-clé introduit la définition d'une fonction ?",
-        "choix": [
-          "return",
-          "def",
-          "func",
-          "class"
+          "Convertir toute la ligne avec `float()` avant de la découper",
+          "Nettoyer les extrémités avec `strip()`, découper avec `split(\";\")`, puis convertir le champ numérique",
+          "Utiliser `join()` pour séparer les deux champs, puis `strip()`",
+          "Modifier directement chaque caractère de la chaîne"
         ],
         "reponse": 1,
-        "explication": "Une fonction se définit avec def, puis son nom, ses paramètres et un bloc indenté."
+        "explication": "strip() retire les caractères aux extrémités, split() produit les champs textuels, puis float() peut convertir le champ numérique."
       },
       {
-        "question": "Comment appelle-t-on une méthode sur un objet nommé texte ?",
+        "question": "Quelle affirmation distingue correctement `break` et `continue` ?",
         "choix": [
-          "texte.methode()",
-          "objet(texte.methode)",
-          "methode.texte()",
-          "texte = methode"
+          "`continue` arrête la boucle ; `break` reprend au début",
+          "Les deux instructions quittent toujours la fonction",
+          "Les deux instructions sont réservées aux boucles `while`",
+          "`break` arrête la boucle ; `continue` passe directement à l'itération suivante"
+        ],
+        "reponse": 3,
+        "explication": "break interrompt immédiatement la boucle. continue ignore la fin de l'itération courante et poursuit avec la suivante."
+      },
+      {
+        "question": "Quelle relation entre `split()` et `join()` est correcte ?",
+        "choix": [
+          "Les deux méthodes convertissent automatiquement du texte en nombres",
+          "`split()` modifie la chaîne d'origine ; `join()` modifie la liste d'origine",
+          "`split()` découpe une chaîne en liste ; `join()` réunit une séquence de chaînes",
+          "Les deux méthodes effectuent exactement la même opération"
+        ],
+        "reponse": 2,
+        "explication": "split() sépare un texte autour d'un délimiteur. join() effectue l'opération complémentaire en insérant un séparateur."
+      },
+      {
+        "question": "Dans quel cas un tuple est-il généralement plus adapté qu'une liste ?",
+        "choix": [
+          "Pour regrouper un ensemble fixe de valeurs qui ne doit pas être modifié",
+          "Pour ajouter régulièrement de nouvelles mesures avec `append()`",
+          "Pour remplacer fréquemment des éléments par leur index",
+          "Pour stocker uniquement des chaînes de caractères"
         ],
         "reponse": 0,
-        "explication": "La notation pointée demande à l'objet d'exécuter l'une des méthodes définies par son type."
+        "explication": "Un tuple est une séquence ordonnée et immuable. Une liste convient mieux à une série dont le contenu doit évoluer."
       },
       {
-        "question": "Deux capteurs sont instanciés à partir de la même classe. Que se passe-t-il si l'attribut valeur du premier est modifié ?",
+        "question": "Pourquoi conseille-t-on de transmettre les données par les paramètres plutôt que de dépendre de variables globales ?",
         "choix": [
-          "Tous les attributs deviennent des méthodes",
-          "Les deux objets sont toujours modifiés",
-          "La classe entière est supprimée",
-          "Seul le premier objet est modifié"
+          "Les paramètres rendent automatiquement toutes les variables permanentes",
+          "Une fonction utilisant des paramètres ne peut jamais produire d'erreur",
+          "Les dépendances de la fonction deviennent plus visibles et son traitement est plus facile à réutiliser",
+          "Les variables globales sont toujours interdites par Python"
+        ],
+        "reponse": 2,
+        "explication": "Des paramètres explicites rendent les entrées de la fonction identifiables. Une variable créée dans la fonction reste généralement locale."
+      },
+      {
+        "question": "Que sélectionne l'expression `[10, 20, 30, 40, 50][1:5:2]` ?",
+        "choix": [
+          "Les valeurs 10, 30 et 50",
+          "Les valeurs 20 et 40",
+          "Les valeurs 20, 30, 40 et 50",
+          "Les valeurs 20, 40 et 50"
+        ],
+        "reponse": 1,
+        "explication": "Le slicing commence à l'indice 1, s'arrête avant 5 et avance avec un pas de 2 : il sélectionne donc 20 puis 40."
+      },
+      {
+        "question": "Quelle affirmation distingue correctement un paramètre d'un argument ?",
+        "choix": [
+          "Le paramètre est toujours un nombre ; l'argument est toujours une chaîne",
+          "Le paramètre appartient à l'appel ; l'argument appartient à la définition",
+          "Ils désignent uniquement les valeurs par défaut",
+          "Le paramètre apparaît dans la définition ; l'argument est une valeur fournie lors de l'appel"
+        ],
+        "reponse": 3,
+        "explication": "Le paramètre est le nom utilisé par la fonction. L'argument est la valeur associée à ce paramètre lors d'un appel."
+      },
+      {
+        "question": "Quand une boucle `for` est-elle généralement préférable à une boucle `while` ?",
+        "choix": [
+          "Lorsque la répétition dépend d'une condition dont on ignore l'évolution",
+          "Lorsque l'on veut parcourir directement les éléments d'une séquence",
+          "Lorsque la condition doit rester vraie indéfiniment",
+          "Lorsque le programme ne manipule aucune donnée"
+        ],
+        "reponse": 1,
+        "explication": "for parcourt naturellement une séquence. while convient lorsque la répétition doit continuer tant qu'une condition reste vraie."
+      },
+      {
+        "question": "Quelle affirmation distingue correctement la définition et l'appel d'une fonction ?",
+        "choix": [
+          "La définition enregistre le traitement ; l'appel déclenche son exécution",
+          "La définition exécute le traitement une fois ; l'appel ne fait que l'afficher",
+          "La définition fournit les arguments ; l'appel crée les paramètres",
+          "La définition et l'appel produisent toujours exactement le même effet"
+        ],
+        "reponse": 0,
+        "explication": "def enregistre le traitement sous un nom ; le corps de la fonction est exécuté seulement lors d'un appel."
+      },
+      {
+        "question": "Dans la programmation orientée objet, quelle distinction décrit correctement un attribut et une méthode ?",
+        "choix": [
+          "Un attribut agit sur l'objet ; une méthode mémorise uniquement une valeur",
+          "Un attribut appartient à la classe, tandis qu'une méthode appartient toujours au programme principal",
+          "Un attribut représente une donnée de l'objet ; une méthode décrit une opération qu'il peut effectuer",
+          "Un attribut et une méthode sont deux noms différents pour une même variable"
+        ],
+        "reponse": 2,
+        "explication": "Les attributs décrivent l'état d'un objet. Les méthodes représentent les comportements disponibles sur cet objet."
+      },
+      {
+        "question": "Deux objets sont créés à partir de la même classe. Quelle affirmation est correcte ?",
+        "choix": [
+          "Ils partagent obligatoirement toutes les valeurs de leurs attributs",
+          "Modifier l'un remplace automatiquement l'autre",
+          "Ils ne peuvent pas utiliser les mêmes méthodes",
+          "Ils suivent la même structure, mais peuvent conserver des états différents"
         ],
         "reponse": 3,
         "explication": "Chaque instance possède son propre état : modifier un attribut du premier capteur ne change pas celui du second."
       },
       {
-        "question": "Quelles valeurs produit range(5) ?",
+        "question": "Quelle affirmation décrit correctement `range(debut, fin, pas)` ?",
         "choix": [
-          "0, 1, 2, 3, 4",
-          "Uniquement 5",
-          "0, 1, 2, 3, 4, 5",
-          "1, 2, 3, 4, 5"
+          "Les deux bornes sont toujours incluses et le pas indique le nombre de valeurs",
+          "La borne de début est incluse, la borne de fin est exclue et le pas règle l'écart",
+          "La borne de début est exclue et la borne de fin est incluse",
+          "range() produit directement une liste modifiable"
+        ],
+        "reponse": 1,
+        "explication": "Comme pour le slicing, la borne de fin de range() est exclue. Le troisième argument indique le pas."
+      },
+      {
+        "question": "Pourquoi préfère-t-on généralement `return` à `print()` pour fournir le résultat d'un calcul ?",
+        "choix": [
+          "Une valeur renvoyée peut être mémorisée, comparée ou utilisée dans un autre calcul",
+          "Une valeur affichée est automatiquement transmise à toutes les fonctions",
+          "return transforme toujours le résultat en chaîne de caractères",
+          "print interrompt nécessairement la fonction"
         ],
         "reponse": 0,
-        "explication": "range(5) commence à zéro et s'arrête avant la borne 5."
+        "explication": "return fournit une valeur au code appelant. print() produit seulement un affichage et ne remplace pas une valeur de retour."
       },
       {
-        "question": "Quelle différence essentielle y a-t-il entre return et print ?",
+        "question": "On ne connaît pas le nom exact des méthodes d'un objet. Quelle démarche est la plus adaptée ?",
         "choix": [
-          "return écrit dans un fichier",
-          "print arrête la fonction",
-          "Ils sont toujours équivalents",
-          "return fournit une valeur au code appelant ; print l'affiche"
+          "Modifier plusieurs attributs au hasard jusqu'à obtenir un résultat",
+          "Utiliser uniquement `type(objet)` pour obtenir le détail de tous les paramètres",
+          "Utiliser `dir(objet)` pour repérer un nom, puis `help()` ou la documentation pour comprendre son usage",
+          "Créer une nouvelle méthode directement sur l'objet"
+        ],
+        "reponse": 2,
+        "explication": "dir() aide à repérer les noms disponibles ; help() ou la documentation précise ensuite leurs paramètres et leurs effets."
+      },
+      {
+        "question": "Quelle affirmation distingue correctement une classe d'une instance ?",
+        "choix": [
+          "Une classe contient les valeurs particulières d'un seul objet ; une instance décrit tous les objets",
+          "Une instance sert uniquement à définir de nouvelles méthodes",
+          "Classe et instance sont toujours interchangeables",
+          "Une classe décrit une structure commune ; une instance est un objet particulier créé à partir de cette classe"
         ],
         "reponse": 3,
-        "explication": "Une valeur renvoyée peut être stockée ou utilisée dans un calcul, alors qu'un affichage sert surtout à communiquer avec l'utilisateur."
-      },
-      {
-        "question": "Quel est l'indice du premier élément d'une liste Python ?",
-        "choix": [
-          "Il n'a pas d'indice",
-          "0",
-          "1",
-          "-1"
-        ],
-        "reponse": 1,
-        "explication": "Les séquences Python sont indexées à partir de zéro ; l'indice -1 désigne le dernier élément."
-      },
-      {
-        "question": "Quelle collection peut être modifiée après sa création ?",
-        "choix": [
-          "Un tuple",
-          "Une liste",
-          "Aucune collection",
-          "Une chaîne de caractères"
-        ],
-        "reponse": 1,
-        "explication": "Une liste est mutable : on peut notamment ajouter, retirer ou remplacer ses éléments."
+        "explication": "Une classe décrit une organisation commune ; chaque instanciation crée un objet qui possède son propre état."
       }
     ],
     "B": [
       {
-        "question": "Quelle boucle convient pour parcourir directement tous les éléments d'une liste ?",
+        "question": "Quand une boucle `for` est-elle généralement préférable à une boucle `while` ?",
         "choix": [
-          "for",
-          "def",
-          "if",
-          "import"
+          "Lorsque la répétition dépend d'une condition dont on ignore l'évolution",
+          "Lorsque la condition doit rester vraie indéfiniment",
+          "Lorsque l'on veut parcourir directement les éléments d'une séquence",
+          "Lorsque le programme ne manipule aucune donnée"
+        ],
+        "reponse": 2,
+        "explication": "for parcourt naturellement une séquence. while convient lorsque la répétition doit continuer tant qu'une condition reste vraie."
+      },
+      {
+        "question": "Quelle affirmation distingue correctement la définition et l'appel d'une fonction ?",
+        "choix": [
+          "La définition enregistre le traitement ; l'appel déclenche son exécution",
+          "La définition exécute le traitement une fois ; l'appel ne fait que l'afficher",
+          "La définition fournit les arguments ; l'appel crée les paramètres",
+          "La définition et l'appel produisent toujours exactement le même effet"
         ],
         "reponse": 0,
-        "explication": "La boucle for parcourt naturellement les éléments d'une séquence ou de tout objet itérable."
+        "explication": "def enregistre le traitement sous un nom ; le corps de la fonction est exécuté seulement lors d'un appel."
       },
       {
-        "question": "Quel mot-clé introduit la définition d'une fonction ?",
+        "question": "Dans la programmation orientée objet, quelle distinction décrit correctement un attribut et une méthode ?",
         "choix": [
-          "return",
-          "def",
-          "func",
-          "class"
-        ],
-        "reponse": 1,
-        "explication": "Une fonction se définit avec def, puis son nom, ses paramètres et un bloc indenté."
-      },
-      {
-        "question": "Comment appelle-t-on une méthode sur un objet nommé texte ?",
-        "choix": [
-          "texte.methode()",
-          "objet(texte.methode)",
-          "methode.texte()",
-          "texte = methode"
-        ],
-        "reponse": 0,
-        "explication": "La notation pointée demande à l'objet d'exécuter l'une des méthodes définies par son type."
-      },
-      {
-        "question": "Deux capteurs sont instanciés à partir de la même classe. Que se passe-t-il si l'attribut valeur du premier est modifié ?",
-        "choix": [
-          "Tous les attributs deviennent des méthodes",
-          "Les deux objets sont toujours modifiés",
-          "La classe entière est supprimée",
-          "Seul le premier objet est modifié"
+          "Un attribut agit sur l'objet ; une méthode mémorise uniquement une valeur",
+          "Un attribut appartient à la classe, tandis qu'une méthode appartient toujours au programme principal",
+          "Un attribut et une méthode sont deux noms différents pour une même variable",
+          "Un attribut représente une donnée de l'objet ; une méthode décrit une opération qu'il peut effectuer"
         ],
         "reponse": 3,
+        "explication": "Les attributs décrivent l'état d'un objet. Les méthodes représentent les comportements disponibles sur cet objet."
+      },
+      {
+        "question": "Deux objets sont créés à partir de la même classe. Quelle affirmation est correcte ?",
+        "choix": [
+          "Ils partagent obligatoirement toutes les valeurs de leurs attributs",
+          "Ils suivent la même structure, mais peuvent conserver des états différents",
+          "Modifier l'un remplace automatiquement l'autre",
+          "Ils ne peuvent pas utiliser les mêmes méthodes"
+        ],
+        "reponse": 1,
         "explication": "Chaque instance possède son propre état : modifier un attribut du premier capteur ne change pas celui du second."
       },
       {
-        "question": "Quelles valeurs produit range(5) ?",
+        "question": "Quelle affirmation décrit correctement `range(debut, fin, pas)` ?",
         "choix": [
-          "0, 1, 2, 3, 4",
-          "Uniquement 5",
-          "0, 1, 2, 3, 4, 5",
-          "1, 2, 3, 4, 5"
-        ],
-        "reponse": 0,
-        "explication": "range(5) commence à zéro et s'arrête avant la borne 5."
-      },
-      {
-        "question": "Quelle différence essentielle y a-t-il entre return et print ?",
-        "choix": [
-          "return écrit dans un fichier",
-          "print arrête la fonction",
-          "Ils sont toujours équivalents",
-          "return fournit une valeur au code appelant ; print l'affiche"
+          "Les deux bornes sont toujours incluses et le pas indique le nombre de valeurs",
+          "La borne de début est exclue et la borne de fin est incluse",
+          "range() produit directement une liste modifiable",
+          "La borne de début est incluse, la borne de fin est exclue et le pas règle l'écart"
         ],
         "reponse": 3,
-        "explication": "Une valeur renvoyée peut être stockée ou utilisée dans un calcul, alors qu'un affichage sert surtout à communiquer avec l'utilisateur."
+        "explication": "Comme pour le slicing, la borne de fin de range() est exclue. Le troisième argument indique le pas."
       },
       {
-        "question": "Quel est l'indice du premier élément d'une liste Python ?",
+        "question": "Pourquoi préfère-t-on généralement `return` à `print()` pour fournir le résultat d'un calcul ?",
         "choix": [
-          "Il n'a pas d'indice",
-          "0",
-          "1",
-          "-1"
-        ],
-        "reponse": 1,
-        "explication": "Les séquences Python sont indexées à partir de zéro ; l'indice -1 désigne le dernier élément."
-      },
-      {
-        "question": "Quelle collection peut être modifiée après sa création ?",
-        "choix": [
-          "Un tuple",
-          "Une liste",
-          "Aucune collection",
-          "Une chaîne de caractères"
-        ],
-        "reponse": 1,
-        "explication": "Une liste est mutable : on peut notamment ajouter, retirer ou remplacer ses éléments."
-      },
-      {
-        "question": "Que fait la méthode strip() appliquée à une chaîne ?",
-        "choix": [
-          "Elle découpe tous les mots",
-          "Elle met le texte en majuscules",
-          "Elle retire les espaces et fins de ligne aux extrémités",
-          "Elle convertit le texte en nombre"
+          "Une valeur affichée est automatiquement transmise à toutes les fonctions",
+          "return transforme toujours le résultat en chaîne de caractères",
+          "Une valeur renvoyée peut être mémorisée, comparée ou utilisée dans un autre calcul",
+          "print interrompt nécessairement la fonction"
         ],
         "reponse": 2,
-        "explication": "strip() est utile pour nettoyer une ligne lue dans un fichier ou reçue d'un instrument."
+        "explication": "return fournit une valeur au code appelant. print() produit seulement un affichage et ne remplace pas une valeur de retour."
       },
       {
-        "question": "Quel mot-clé quitte immédiatement une boucle ?",
+        "question": "On ne connaît pas le nom exact des méthodes d'un objet. Quelle démarche est la plus adaptée ?",
         "choix": [
-          "continue",
-          "returning",
-          "break",
-          "stop"
-        ],
-        "reponse": 2,
-        "explication": "break interrompt la boucle ; continue passe directement à l'itération suivante."
-      },
-      {
-        "question": "Que renvoie \"12.4;18.7\".split(\";\") ?",
-        "choix": [
-          "La liste [\"12.4\", \"18.7\"]",
-          "Le nombre 31.1",
-          "Le tuple (12.4, 18.7)",
-          "Une erreur obligatoire"
+          "Utiliser `dir(objet)` pour repérer un nom, puis `help()` ou la documentation pour comprendre son usage",
+          "Modifier plusieurs attributs au hasard jusqu'à obtenir un résultat",
+          "Utiliser uniquement `type(objet)` pour obtenir le détail de tous les paramètres",
+          "Créer une nouvelle méthode directement sur l'objet"
         ],
         "reponse": 0,
-        "explication": "split sépare une chaîne autour du délimiteur et renvoie une liste de chaînes."
+        "explication": "dir() aide à repérer les noms disponibles ; help() ou la documentation précise ensuite leurs paramètres et leurs effets."
       },
       {
-        "question": "Quelle propriété caractérise un tuple ?",
+        "question": "Quelle affirmation distingue correctement une classe d'une instance ?",
         "choix": [
-          "Il est obligatoirement vide",
-          "Il commence toujours à l'indice 1",
-          "Il ne contient que des nombres",
-          "Il est non modifiable après sa création"
+          "Une classe contient les valeurs particulières d'un seul objet ; une instance décrit tous les objets",
+          "Une instance sert uniquement à définir de nouvelles méthodes",
+          "Une classe décrit une structure commune ; une instance est un objet particulier créé à partir de cette classe",
+          "Classe et instance sont toujours interchangeables"
+        ],
+        "reponse": 2,
+        "explication": "Une classe décrit une organisation commune ; chaque instanciation crée un objet qui possède son propre état."
+      },
+      {
+        "question": "Quelle succession d'opérations prépare correctement une ligne comme `\"  temperature;20.5\\n\"` avant de convertir la valeur ?",
+        "choix": [
+          "Convertir toute la ligne avec `float()` avant de la découper",
+          "Nettoyer les extrémités avec `strip()`, découper avec `split(\";\")`, puis convertir le champ numérique",
+          "Utiliser `join()` pour séparer les deux champs, puis `strip()`",
+          "Modifier directement chaque caractère de la chaîne"
+        ],
+        "reponse": 1,
+        "explication": "strip() retire les caractères aux extrémités, split() produit les champs textuels, puis float() peut convertir le champ numérique."
+      },
+      {
+        "question": "Quelle affirmation distingue correctement `break` et `continue` ?",
+        "choix": [
+          "`continue` arrête la boucle ; `break` reprend au début",
+          "Les deux instructions quittent toujours la fonction",
+          "Les deux instructions sont réservées aux boucles `while`",
+          "`break` arrête la boucle ; `continue` passe directement à l'itération suivante"
         ],
         "reponse": 3,
-        "explication": "Le tuple est une séquence ordonnée mais immuable, pratique pour représenter un groupe fixe de valeurs."
+        "explication": "break interrompt immédiatement la boucle. continue ignore la fin de l'itération courante et poursuit avec la suivante."
       },
       {
-        "question": "Une variable créée à l'intérieur d'une fonction est généralement…",
+        "question": "Quelle relation entre `split()` et `join()` est correcte ?",
         "choix": [
-          "locale à cette fonction",
-          "forcément une chaîne",
-          "visible partout sans restriction",
-          "automatiquement enregistrée"
+          "`split()` découpe une chaîne en liste ; `join()` réunit une séquence de chaînes",
+          "Les deux méthodes convertissent automatiquement du texte en nombres",
+          "`split()` modifie la chaîne d'origine ; `join()` modifie la liste d'origine",
+          "Les deux méthodes effectuent exactement la même opération"
         ],
         "reponse": 0,
-        "explication": "La portée locale limite la variable au corps de la fonction, sauf mécanisme explicitement prévu."
+        "explication": "split() sépare un texte autour d'un délimiteur. join() effectue l'opération complémentaire en insérant un séparateur."
       },
       {
-        "question": "Que sélectionne valeurs[1:4] ?",
+        "question": "Dans quel cas un tuple est-il généralement plus adapté qu'une liste ?",
         "choix": [
-          "Les éléments d'indices 1, 2 et 3",
-          "Les éléments d'indices 1 à 4 inclus",
-          "Uniquement l'élément 4",
-          "Les quatre premiers éléments"
+          "Pour ajouter régulièrement de nouvelles mesures avec `append()`",
+          "Pour remplacer fréquemment des éléments par leur index",
+          "Pour regrouper un ensemble fixe de valeurs qui ne doit pas être modifié",
+          "Pour stocker uniquement des chaînes de caractères"
         ],
-        "reponse": 0,
-        "explication": "Dans une tranche, la borne de début est incluse et la borne de fin est exclue."
+        "reponse": 2,
+        "explication": "Un tuple est une séquence ordonnée et immuable. Une liste convient mieux à une série dont le contenu doit évoluer."
       },
       {
-        "question": "Que permet un paramètre avec une valeur par défaut ?",
+        "question": "Pourquoi conseille-t-on de transmettre les données par les paramètres plutôt que de dépendre de variables globales ?",
         "choix": [
-          "D'appeler la fonction sans fournir systématiquement cet argument",
-          "De rendre la fonction infinie",
-          "De supprimer return",
-          "D'interdire les autres arguments"
+          "Les paramètres rendent automatiquement toutes les variables permanentes",
+          "Les dépendances de la fonction deviennent plus visibles et son traitement est plus facile à réutiliser",
+          "Une fonction utilisant des paramètres ne peut jamais produire d'erreur",
+          "Les variables globales sont toujours interdites par Python"
+        ],
+        "reponse": 1,
+        "explication": "Des paramètres explicites rendent les entrées de la fonction identifiables. Une variable créée dans la fonction reste généralement locale."
+      },
+      {
+        "question": "Que sélectionne l'expression `[10, 20, 30, 40, 50][1:5:2]` ?",
+        "choix": [
+          "Les valeurs 10, 30 et 50",
+          "Les valeurs 20, 30, 40 et 50",
+          "Les valeurs 20, 40 et 50",
+          "Les valeurs 20 et 40"
+        ],
+        "reponse": 3,
+        "explication": "Le slicing commence à l'indice 1, s'arrête avant 5 et avance avec un pas de 2 : il sélectionne donc 20 puis 40."
+      },
+      {
+        "question": "Quelle affirmation distingue correctement un paramètre d'un argument ?",
+        "choix": [
+          "Le paramètre apparaît dans la définition ; l'argument est une valeur fournie lors de l'appel",
+          "Le paramètre est toujours un nombre ; l'argument est toujours une chaîne",
+          "Le paramètre appartient à l'appel ; l'argument appartient à la définition",
+          "Ils désignent uniquement les valeurs par défaut"
         ],
         "reponse": 0,
-        "explication": "La valeur par défaut est utilisée lorsque l'appel ne fournit pas l'argument correspondant."
+        "explication": "Le paramètre est le nom utilisé par la fonction. L'argument est la valeur associée à ce paramètre lors d'un appel."
       }
     ]
   },
@@ -677,26 +677,26 @@
     "titre": "QCM — Séance 3 : Fichiers et calcul scientifique",
     "A": [
       {
-        "question": "Quelle différence y a-t-il entre la bibliothèque standard et une bibliothèque externe ?",
+        "question": "Pourquoi enregistre-t-on des mesures dans un fichier ?",
         "choix": [
-          "La bibliothèque externe doit généralement être installée séparément",
-          "Une bibliothèque externe ne peut pas être importée",
-          "Il n'y a jamais de différence",
-          "La bibliothèque standard ne contient aucune fonction"
+          "Pour les conserver après l'arrêt du programme",
+          "Pour les laisser uniquement dans la mémoire vive",
+          "Pour remplacer automatiquement Python",
+          "Pour empêcher tout calcul sur les mesures"
         ],
         "reponse": 0,
-        "explication": "Les modules de la bibliothèque standard accompagnent Python ; un paquet comme NumPy est installé séparément."
+        "explication": "Les variables sont temporaires : un fichier permet de conserver, transmettre et analyser de nouveau les mesures."
       },
       {
-        "question": "Dans quel cas ouvre-t-on typiquement un fichier en mode binaire ?",
+        "question": "Quelle solution est adaptée pour traiter progressivement un fichier contenant beaucoup de lignes ?",
         "choix": [
-          "Pour écrire uniquement des nombres entiers",
-          "Pour manipuler des octets, par exemple une image",
-          "Pour afficher une f-string",
-          "Pour lire un fichier CSV ordinaire"
+          "Charger obligatoirement toutes les lignes avec readlines()",
+          "Parcourir directement le fichier avec une boucle for",
+          "Convertir l'objet fichier avec float()",
+          "Changer son extension en .csv"
         ],
         "reponse": 1,
-        "explication": "Le mode b manipule des bytes sans décodage de texte ; il convient aux images et formats binaires."
+        "explication": "Une boucle for sur l'objet fichier traite les lignes une à une sans construire une chaîne ou une liste contenant tout le fichier."
       },
       {
         "question": "Dans un fichier CSV utilisant le point-virgule, à quoi sert ce caractère ?",
@@ -721,15 +721,15 @@
         "explication": "Il faut convertir explicitement les champs textuels en int ou float lorsque l'on veut calculer."
       },
       {
-        "question": "Quelle affirmation distingue correctement installation et import ?",
+        "question": "Quelle méthode renvoie une liste contenant toutes les lignes restantes d'un fichier ?",
         "choix": [
-          "import installe toujours le paquet",
-          "pip ne sert qu'à lancer Python",
-          "Les deux commandes suppriment le paquet",
-          "pip installe le paquet ; import le rend disponible dans le programme"
+          "readline()",
+          "write()",
+          "read()",
+          "readlines()"
         ],
         "reponse": 3,
-        "explication": "L'installation se fait dans l'environnement Python, tandis que l'import a lieu dans le code qui utilise la bibliothèque."
+        "explication": "readlines() renvoie une liste de lignes ; readline() lit une seule ligne et read() renvoie le texte restant dans une chaîne."
       },
       {
         "question": "La méthode write() ajoute-t-elle automatiquement un retour à la ligne ?",
@@ -754,7 +754,7 @@
         "explication": "Pour un tableau de 100 lignes et 3 colonnes, shape vaut (100, 3)."
       },
       {
-        "question": "Dans np.mean(tableau, axis=0), sur quoi porte le résultat pour un tableau 2D ?",
+        "question": "Dans tableau.mean(axis=0), sur quoi porte le résultat pour un tableau 2D ?",
         "choix": [
           "Uniquement la première case",
           "Une moyenne par ligne",
@@ -798,15 +798,15 @@
         "explication": "Les opérations vectorisées évitent souvent une boucle Python explicite et rendent le calcul plus lisible."
       },
       {
-        "question": "Quelle fonction calcule la moyenne d'un tableau NumPy nommé mesures ?",
+        "question": "Quelle expression calcule la moyenne d'un tableau NumPy nommé mesures comme dans le cours ?",
         "choix": [
           "print.mean(mesures)",
-          "np.mean(mesures)",
+          "mesures.mean()",
           "np.open(mesures)",
           "mesures.split()"
         ],
         "reponse": 1,
-        "explication": "np.mean calcule la moyenne ; np.std permet notamment de calculer l'écart-type."
+        "explication": "La méthode mesures.mean() calcule la moyenne des éléments ; mesures.std() calcule leur écart-type."
       },
       {
         "question": "Quels paramètres sont utiles pour charger un fichier de mesures avec en-tête et séparateur point-virgule via np.loadtxt ?",
@@ -844,7 +844,7 @@
     ],
     "B": [
       {
-        "question": "Dans np.mean(tableau, axis=0), sur quoi porte le résultat pour un tableau 2D ?",
+        "question": "Dans tableau.mean(axis=0), sur quoi porte le résultat pour un tableau 2D ?",
         "choix": [
           "Uniquement la première case",
           "Une moyenne par ligne",
@@ -888,15 +888,15 @@
         "explication": "Les opérations vectorisées évitent souvent une boucle Python explicite et rendent le calcul plus lisible."
       },
       {
-        "question": "Quelle fonction calcule la moyenne d'un tableau NumPy nommé mesures ?",
+        "question": "Quelle expression calcule la moyenne d'un tableau NumPy nommé mesures comme dans le cours ?",
         "choix": [
           "print.mean(mesures)",
-          "np.mean(mesures)",
+          "mesures.mean()",
           "np.open(mesures)",
           "mesures.split()"
         ],
         "reponse": 1,
-        "explication": "np.mean calcule la moyenne ; np.std permet notamment de calculer l'écart-type."
+        "explication": "La méthode mesures.mean() calcule la moyenne des éléments ; mesures.std() calcule leur écart-type."
       },
       {
         "question": "Quels paramètres sont utiles pour charger un fichier de mesures avec en-tête et séparateur point-virgule via np.loadtxt ?",
@@ -932,26 +932,26 @@
         "explication": "Le deux-points sélectionne toutes les lignes et 0 désigne la première colonne."
       },
       {
-        "question": "Quelle différence y a-t-il entre la bibliothèque standard et une bibliothèque externe ?",
+        "question": "Pourquoi enregistre-t-on des mesures dans un fichier ?",
         "choix": [
-          "La bibliothèque externe doit généralement être installée séparément",
-          "Une bibliothèque externe ne peut pas être importée",
-          "Il n'y a jamais de différence",
-          "La bibliothèque standard ne contient aucune fonction"
+          "Pour les conserver après l'arrêt du programme",
+          "Pour les laisser uniquement dans la mémoire vive",
+          "Pour remplacer automatiquement Python",
+          "Pour empêcher tout calcul sur les mesures"
         ],
         "reponse": 0,
-        "explication": "Les modules de la bibliothèque standard accompagnent Python ; un paquet comme NumPy est installé séparément."
+        "explication": "Les variables sont temporaires : un fichier permet de conserver, transmettre et analyser de nouveau les mesures."
       },
       {
-        "question": "Dans quel cas ouvre-t-on typiquement un fichier en mode binaire ?",
+        "question": "Quelle solution est adaptée pour traiter progressivement un fichier contenant beaucoup de lignes ?",
         "choix": [
-          "Pour écrire uniquement des nombres entiers",
-          "Pour manipuler des octets, par exemple une image",
-          "Pour afficher une f-string",
-          "Pour lire un fichier CSV ordinaire"
+          "Charger obligatoirement toutes les lignes avec readlines()",
+          "Parcourir directement le fichier avec une boucle for",
+          "Convertir l'objet fichier avec float()",
+          "Changer son extension en .csv"
         ],
         "reponse": 1,
-        "explication": "Le mode b manipule des bytes sans décodage de texte ; il convient aux images et formats binaires."
+        "explication": "Une boucle for sur l'objet fichier traite les lignes une à une sans construire une chaîne ou une liste contenant tout le fichier."
       },
       {
         "question": "Dans un fichier CSV utilisant le point-virgule, à quoi sert ce caractère ?",
@@ -976,15 +976,15 @@
         "explication": "Il faut convertir explicitement les champs textuels en int ou float lorsque l'on veut calculer."
       },
       {
-        "question": "Quelle affirmation distingue correctement installation et import ?",
+        "question": "Quelle méthode renvoie une liste contenant toutes les lignes restantes d'un fichier ?",
         "choix": [
-          "import installe toujours le paquet",
-          "pip ne sert qu'à lancer Python",
-          "Les deux commandes suppriment le paquet",
-          "pip installe le paquet ; import le rend disponible dans le programme"
+          "readline()",
+          "write()",
+          "read()",
+          "readlines()"
         ],
         "reponse": 3,
-        "explication": "L'installation se fait dans l'environnement Python, tandis que l'import a lieu dans le code qui utilise la bibliothèque."
+        "explication": "readlines() renvoie une liste de lignes ; readline() lit une seule ligne et read() renvoie le texte restant dans une chaîne."
       },
       {
         "question": "La méthode write() ajoute-t-elle automatiquement un retour à la ligne ?",

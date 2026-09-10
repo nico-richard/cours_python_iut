@@ -1,19 +1,19 @@
 {
   "titre": "QCM — Séance 3 : Fichiers et calcul scientifique",
-  "description": "Modules, lecture et écriture de fichiers, données tabulaires et tableaux NumPy.",
+  "description": "Formats de fichiers, lecture et écriture de données, CSV simples et tableaux NumPy.",
   "diagnostic": false,
   "questions": [
     {
-      "question": "Quelle différence y a-t-il entre la bibliothèque standard et une bibliothèque externe ?",
-      "choix": ["La bibliothèque externe doit généralement être installée séparément", "La bibliothèque standard ne contient aucune fonction", "Une bibliothèque externe ne peut pas être importée", "Il n'y a jamais de différence"],
+      "question": "Pourquoi enregistre-t-on des mesures dans un fichier ?",
+      "choix": ["Pour les conserver après l'arrêt du programme", "Pour empêcher tout calcul sur les mesures", "Pour les laisser uniquement dans la mémoire vive", "Pour remplacer automatiquement Python"],
       "reponse": 0,
-      "explication": "Les modules de la bibliothèque standard accompagnent Python ; un paquet comme NumPy est installé séparément."
+      "explication": "Les variables sont temporaires : un fichier permet de conserver, transmettre et analyser de nouveau les mesures."
     },
     {
-      "question": "Quelle affirmation distingue correctement installation et import ?",
-      "choix": ["pip installe le paquet ; import le rend disponible dans le programme", "import installe toujours le paquet", "pip ne sert qu'à lancer Python", "Les deux commandes suppriment le paquet"],
+      "question": "Quelle méthode renvoie une liste contenant toutes les lignes restantes d'un fichier ?",
+      "choix": ["readlines()", "readline()", "read()", "write()"],
       "reponse": 0,
-      "explication": "L'installation se fait dans l'environnement Python, tandis que l'import a lieu dans le code qui utilise la bibliothèque."
+      "explication": "readlines() renvoie une liste de lignes ; readline() lit une seule ligne et read() renvoie le texte restant dans une chaîne."
     },
     {
       "question": "Pourquoi utilise-t-on with open(...) as fichier ?",
@@ -28,10 +28,10 @@
       "explication": "Le mode w écrit depuis le début et tronque un fichier existant ; le mode a ajoute à la fin."
     },
     {
-      "question": "Dans quel cas ouvre-t-on typiquement un fichier en mode binaire ?",
-      "choix": ["Pour manipuler des octets, par exemple une image", "Pour lire un fichier CSV ordinaire", "Pour écrire uniquement des nombres entiers", "Pour afficher une f-string"],
+      "question": "Quelle solution est adaptée pour traiter progressivement un fichier contenant beaucoup de lignes ?",
+      "choix": ["Parcourir directement le fichier avec une boucle for", "Charger obligatoirement toutes les lignes avec readlines()", "Changer son extension en .csv", "Convertir l'objet fichier avec float()"],
       "reponse": 0,
-      "explication": "Le mode b manipule des bytes sans décodage de texte ; il convient aux images et formats binaires."
+      "explication": "Une boucle for sur l'objet fichier traite les lignes une à une sans construire une chaîne ou une liste contenant tout le fichier."
     },
     {
       "question": "Dans un fichier CSV utilisant le point-virgule, à quoi sert ce caractère ?",
@@ -76,13 +76,13 @@
       "explication": "Les opérations vectorisées évitent souvent une boucle Python explicite et rendent le calcul plus lisible."
     },
     {
-      "question": "Quelle fonction calcule la moyenne d'un tableau NumPy nommé mesures ?",
-      "choix": ["np.mean(mesures)", "np.open(mesures)", "mesures.split()", "print.mean(mesures)"],
+      "question": "Quelle expression calcule la moyenne d'un tableau NumPy nommé mesures comme dans le cours ?",
+      "choix": ["mesures.mean()", "np.open(mesures)", "mesures.split()", "print.mean(mesures)"],
       "reponse": 0,
-      "explication": "np.mean calcule la moyenne ; np.std permet notamment de calculer l'écart-type."
+      "explication": "La méthode mesures.mean() calcule la moyenne des éléments ; mesures.std() calcule leur écart-type."
     },
     {
-      "question": "Dans np.mean(tableau, axis=0), sur quoi porte le résultat pour un tableau 2D ?",
+      "question": "Dans tableau.mean(axis=0), sur quoi porte le résultat pour un tableau 2D ?",
       "choix": ["Une moyenne par colonne", "Une moyenne par ligne", "Uniquement la première case", "Aucune moyenne"],
       "reponse": 0,
       "explication": "Réduire selon l'axe 0 agrège les lignes et conserve une valeur par colonne."
