@@ -22,6 +22,7 @@ cours_python_iut/
 │   ├── cours.py                 # Diaporama de projection + mode Lecture
 │   ├── bac_a_sable.py           # Exécution de code Python en direct
 │   ├── exercices.py             # Affichage des exercices
+│   ├── examen.py                # Projection des énoncés d'examen
 │   ├── corrections.py           # Affichage des corrections
 │   ├── qcm.py                   # QCM avec correction immédiate
 │   └── imprimer.py              # Génération de PDF imprimables
@@ -29,6 +30,7 @@ cours_python_iut/
     ├── sessions/seanceN.md      # Séance 0 d'introduction puis 4 séances de cours
     ├── sessions/images/         # Images utilisées dans les diapositives
     ├── exercices/seanceN.md     # Installation (séance 0) puis exercices 1 à 4
+    ├── examens/seanceN.md       # Énoncés des évaluations à projeter
     ├── corrections/seanceN.md   # Corrections proposées aux étudiants
     ├── qcm/*.json               # QCM des 4 séances
     └── donnees/                 # Fichiers utilisés pendant les TP

@@ -276,6 +276,14 @@ def liste_exercices() -> dict[str, str]:
     }
 
 
+def liste_examens() -> dict[str, str]:
+    """Associe le nom affiché de chaque examen à son fichier d'énoncé."""
+    base = Path(__file__).parent / "data" / "examens"
+    return {
+        "Séance 4 — Moyenne des mesures valides": str(base / "seance4.md"),
+    }
+
+
 def liste_corrections() -> dict[str, str]:
     """Associe le nom affiché de chaque séance à son fichier de corrections."""
     base = Path(__file__).parent / "data" / "corrections"
