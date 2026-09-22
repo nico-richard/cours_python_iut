@@ -699,17 +699,6 @@
         "explication": "Une boucle for sur l'objet fichier traite les lignes une à une sans construire une chaîne ou une liste contenant tout le fichier."
       },
       {
-        "question": "Dans un fichier CSV utilisant le point-virgule, à quoi sert ce caractère ?",
-        "choix": [
-          "À représenter une décimale",
-          "À séparer les champs d'une ligne",
-          "À commenter la ligne",
-          "À terminer le fichier"
-        ],
-        "reponse": 1,
-        "explication": "Le délimiteur sépare les colonnes ; il faut choisir celui réellement utilisé par le fichier."
-      },
-      {
         "question": "Après une lecture de CSV, sous quelle forme les champs sont-ils généralement obtenus avant conversion ?",
         "choix": [
           "Sous forme de chaînes de caractères",
@@ -721,28 +710,6 @@
         "explication": "Il faut convertir explicitement les champs textuels en int ou float lorsque l'on veut calculer."
       },
       {
-        "question": "Quelle méthode renvoie une liste contenant toutes les lignes restantes d'un fichier ?",
-        "choix": [
-          "readline()",
-          "write()",
-          "read()",
-          "readlines()"
-        ],
-        "reponse": 3,
-        "explication": "readlines() renvoie une liste de lignes ; readline() lit une seule ligne et read() renvoie le texte restant dans une chaîne."
-      },
-      {
-        "question": "La méthode write() ajoute-t-elle automatiquement un retour à la ligne ?",
-        "choix": [
-          "Seulement pour les nombres",
-          "Oui, toujours",
-          "Non, il faut écrire \\n si nécessaire",
-          "Seulement dans un CSV"
-        ],
-        "reponse": 2,
-        "explication": "write écrit exactement la chaîne fournie ; le caractère de fin de ligne doit être inclus explicitement."
-      },
-      {
         "question": "Que renseigne l'attribut shape d'un tableau NumPy ?",
         "choix": [
           "La moyenne des valeurs",
@@ -752,17 +719,6 @@
         ],
         "reponse": 2,
         "explication": "Pour un tableau de 100 lignes et 3 colonnes, shape vaut (100, 3)."
-      },
-      {
-        "question": "Dans tableau.mean(axis=0), sur quoi porte le résultat pour un tableau 2D ?",
-        "choix": [
-          "Uniquement la première case",
-          "Une moyenne par ligne",
-          "Une moyenne par colonne",
-          "Aucune moyenne"
-        ],
-        "reponse": 2,
-        "explication": "Réduire selon l'axe 0 agrège les lignes et conserve une valeur par colonne."
       },
       {
         "question": "Pourquoi utilise-t-on with open(...) as fichier ?",
@@ -780,11 +736,11 @@
         "choix": [
           "Il est toujours enregistré dans un fichier",
           "Il ne peut contenir qu'une valeur",
-          "Ses éléments ont généralement un même type numérique",
+          "Ses éléments partagent un même type (dtype)",
           "Il n'a pas de dimensions"
         ],
         "reponse": 2,
-        "explication": "Le stockage homogène permet des opérations numériques compactes et efficaces."
+        "explication": "Un ndarray possède un type commun, appelé dtype, ce qui permet notamment des opérations numériques compactes et efficaces."
       },
       {
         "question": "Que signifie vectoriser un calcul avec NumPy ?",
@@ -796,17 +752,6 @@
         ],
         "reponse": 2,
         "explication": "Les opérations vectorisées évitent souvent une boucle Python explicite et rendent le calcul plus lisible."
-      },
-      {
-        "question": "Quelle expression calcule la moyenne d'un tableau NumPy nommé mesures comme dans le cours ?",
-        "choix": [
-          "print.mean(mesures)",
-          "mesures.mean()",
-          "np.open(mesures)",
-          "mesures.split()"
-        ],
-        "reponse": 1,
-        "explication": "La méthode mesures.mean() calcule la moyenne des éléments ; mesures.std() calcule leur écart-type."
       },
       {
         "question": "Quels paramètres sont utiles pour charger un fichier de mesures avec en-tête et séparateur point-virgule via np.loadtxt ?",
@@ -844,17 +789,6 @@
     ],
     "B": [
       {
-        "question": "Dans tableau.mean(axis=0), sur quoi porte le résultat pour un tableau 2D ?",
-        "choix": [
-          "Uniquement la première case",
-          "Une moyenne par ligne",
-          "Une moyenne par colonne",
-          "Aucune moyenne"
-        ],
-        "reponse": 2,
-        "explication": "Réduire selon l'axe 0 agrège les lignes et conserve une valeur par colonne."
-      },
-      {
         "question": "Pourquoi utilise-t-on with open(...) as fichier ?",
         "choix": [
           "Pour convertir automatiquement toutes les données",
@@ -870,11 +804,11 @@
         "choix": [
           "Il est toujours enregistré dans un fichier",
           "Il ne peut contenir qu'une valeur",
-          "Ses éléments ont généralement un même type numérique",
+          "Ses éléments partagent un même type (dtype)",
           "Il n'a pas de dimensions"
         ],
         "reponse": 2,
-        "explication": "Le stockage homogène permet des opérations numériques compactes et efficaces."
+        "explication": "Un ndarray possède un type commun, appelé dtype, ce qui permet notamment des opérations numériques compactes et efficaces."
       },
       {
         "question": "Que signifie vectoriser un calcul avec NumPy ?",
@@ -886,17 +820,6 @@
         ],
         "reponse": 2,
         "explication": "Les opérations vectorisées évitent souvent une boucle Python explicite et rendent le calcul plus lisible."
-      },
-      {
-        "question": "Quelle expression calcule la moyenne d'un tableau NumPy nommé mesures comme dans le cours ?",
-        "choix": [
-          "print.mean(mesures)",
-          "mesures.mean()",
-          "np.open(mesures)",
-          "mesures.split()"
-        ],
-        "reponse": 1,
-        "explication": "La méthode mesures.mean() calcule la moyenne des éléments ; mesures.std() calcule leur écart-type."
       },
       {
         "question": "Quels paramètres sont utiles pour charger un fichier de mesures avec en-tête et séparateur point-virgule via np.loadtxt ?",
@@ -954,17 +877,6 @@
         "explication": "Une boucle for sur l'objet fichier traite les lignes une à une sans construire une chaîne ou une liste contenant tout le fichier."
       },
       {
-        "question": "Dans un fichier CSV utilisant le point-virgule, à quoi sert ce caractère ?",
-        "choix": [
-          "À représenter une décimale",
-          "À séparer les champs d'une ligne",
-          "À commenter la ligne",
-          "À terminer le fichier"
-        ],
-        "reponse": 1,
-        "explication": "Le délimiteur sépare les colonnes ; il faut choisir celui réellement utilisé par le fichier."
-      },
-      {
         "question": "Après une lecture de CSV, sous quelle forme les champs sont-ils généralement obtenus avant conversion ?",
         "choix": [
           "Sous forme de chaînes de caractères",
@@ -974,28 +886,6 @@
         ],
         "reponse": 0,
         "explication": "Il faut convertir explicitement les champs textuels en int ou float lorsque l'on veut calculer."
-      },
-      {
-        "question": "Quelle méthode renvoie une liste contenant toutes les lignes restantes d'un fichier ?",
-        "choix": [
-          "readline()",
-          "write()",
-          "read()",
-          "readlines()"
-        ],
-        "reponse": 3,
-        "explication": "readlines() renvoie une liste de lignes ; readline() lit une seule ligne et read() renvoie le texte restant dans une chaîne."
-      },
-      {
-        "question": "La méthode write() ajoute-t-elle automatiquement un retour à la ligne ?",
-        "choix": [
-          "Seulement pour les nombres",
-          "Oui, toujours",
-          "Non, il faut écrire \\n si nécessaire",
-          "Seulement dans un CSV"
-        ],
-        "reponse": 2,
-        "explication": "write écrit exactement la chaîne fournie ; le caractère de fin de ligne doit être inclus explicitement."
       },
       {
         "question": "Que renseigne l'attribut shape d'un tableau NumPy ?",

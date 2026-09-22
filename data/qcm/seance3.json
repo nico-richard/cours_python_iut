@@ -10,12 +10,6 @@
       "explication": "Les variables sont temporaires : un fichier permet de conserver, transmettre et analyser de nouveau les mesures."
     },
     {
-      "question": "Quelle méthode renvoie une liste contenant toutes les lignes restantes d'un fichier ?",
-      "choix": ["readlines()", "readline()", "read()", "write()"],
-      "reponse": 0,
-      "explication": "readlines() renvoie une liste de lignes ; readline() lit une seule ligne et read() renvoie le texte restant dans une chaîne."
-    },
-    {
       "question": "Pourquoi utilise-t-on with open(...) as fichier ?",
       "choix": ["Pour fermer correctement le fichier à la fin du bloc", "Pour convertir automatiquement toutes les données", "Pour créer un tableau NumPy", "Pour empêcher toute erreur de lecture"],
       "reponse": 0,
@@ -34,28 +28,16 @@
       "explication": "Une boucle for sur l'objet fichier traite les lignes une à une sans construire une chaîne ou une liste contenant tout le fichier."
     },
     {
-      "question": "Dans un fichier CSV utilisant le point-virgule, à quoi sert ce caractère ?",
-      "choix": ["À séparer les champs d'une ligne", "À terminer le fichier", "À représenter une décimale", "À commenter la ligne"],
-      "reponse": 0,
-      "explication": "Le délimiteur sépare les colonnes ; il faut choisir celui réellement utilisé par le fichier."
-    },
-    {
       "question": "Après une lecture de CSV, sous quelle forme les champs sont-ils généralement obtenus avant conversion ?",
       "choix": ["Sous forme de chaînes de caractères", "Toujours sous forme de float", "Toujours sous forme de booléens", "Sous forme d'images"],
       "reponse": 0,
       "explication": "Il faut convertir explicitement les champs textuels en int ou float lorsque l'on veut calculer."
     },
     {
-      "question": "La méthode write() ajoute-t-elle automatiquement un retour à la ligne ?",
-      "choix": ["Non, il faut écrire \\n si nécessaire", "Oui, toujours", "Seulement pour les nombres", "Seulement dans un CSV"],
-      "reponse": 0,
-      "explication": "write écrit exactement la chaîne fournie ; le caractère de fin de ligne doit être inclus explicitement."
-    },
-    {
       "question": "Quelle caractéristique distingue principalement un tableau NumPy d'une liste Python ?",
-      "choix": ["Ses éléments ont généralement un même type numérique", "Il ne peut contenir qu'une valeur", "Il n'a pas de dimensions", "Il est toujours enregistré dans un fichier"],
+      "choix": ["Ses éléments partagent un même type (dtype)", "Il ne peut contenir qu'une valeur", "Il n'a pas de dimensions", "Il est toujours enregistré dans un fichier"],
       "reponse": 0,
-      "explication": "Le stockage homogène permet des opérations numériques compactes et efficaces."
+      "explication": "Un ndarray possède un type commun, appelé dtype, ce qui permet notamment des opérations numériques compactes et efficaces."
     },
     {
       "question": "Que renseigne l'attribut shape d'un tableau NumPy ?",
@@ -74,18 +56,6 @@
       "choix": ["Appliquer une opération directement à un tableau entier", "Transformer chaque nombre en texte", "Écrire obligatoirement une boucle while", "Dessiner une flèche"],
       "reponse": 0,
       "explication": "Les opérations vectorisées évitent souvent une boucle Python explicite et rendent le calcul plus lisible."
-    },
-    {
-      "question": "Quelle expression calcule la moyenne d'un tableau NumPy nommé mesures comme dans le cours ?",
-      "choix": ["mesures.mean()", "np.open(mesures)", "mesures.split()", "print.mean(mesures)"],
-      "reponse": 0,
-      "explication": "La méthode mesures.mean() calcule la moyenne des éléments ; mesures.std() calcule leur écart-type."
-    },
-    {
-      "question": "Dans tableau.mean(axis=0), sur quoi porte le résultat pour un tableau 2D ?",
-      "choix": ["Une moyenne par colonne", "Une moyenne par ligne", "Uniquement la première case", "Aucune moyenne"],
-      "reponse": 0,
-      "explication": "Réduire selon l'axe 0 agrège les lignes et conserve une valeur par colonne."
     },
     {
       "question": "Quels paramètres sont utiles pour charger un fichier de mesures avec en-tête et séparateur point-virgule via np.loadtxt ?",
