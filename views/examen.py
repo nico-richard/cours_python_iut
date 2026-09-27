@@ -27,6 +27,10 @@ CSS_EXAMEN = """
     max-width: 1200px;
     padding-top: 3rem;
 }
+[data-testid="stMain"] [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:first-child {
+    border-right: 2px solid rgba(128, 128, 128, 0.35);
+    padding-right: 2rem;
+}
 </style>
 """
 
@@ -41,6 +45,16 @@ def page_examen() -> None:
     chemin = Path(examens[nom])
 
     if chemin.exists():
-        st.markdown(chemin.read_text(encoding="utf-8"))
+        contenu = chemin.read_text(encoding="utf-8")
+        sections = contenu.split("<!-- colonne -->")
+        if len(sections) == 3:
+            st.markdown(sections[0])
+            colonne_gauche, colonne_droite = st.columns(2, gap="large")
+            with colonne_gauche:
+                st.markdown(sections[1])
+            with colonne_droite:
+                st.markdown(sections[2])
+        else:
+            st.markdown(contenu)
     else:
         st.warning("Énoncé non encore renseigné pour cette évaluation.")

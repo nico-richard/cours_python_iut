@@ -38,13 +38,30 @@ La fonction ne renvoie rien.
 
 **Nom de la fonction :** `tracer_nuage`
 
-Recevoir deux séquences de même longueur : les tensions puis les courants correspondants. Créer un nuage de points avec `plt.scatter()`. La fonction ne renvoie rien.
+On relève la tension aux bornes d'une résistance et le courant qui la traverse. Le fichier CSV fourni contient l'en-tête `tension;courant`, puis une paire de mesures par ligne. La tension est exprimée en volts et le courant en milliampères.
+
+Recevoir deux séquences de même longueur : les tensions puis les courants correspondants. Créer avec `plt.scatter()` le nuage représentant le courant en fonction de la tension. La fonction ne renvoie rien.
+
+**Fichier fourni :** `exercice_3_caracteristique_dipole.csv`
+
+Pour essayer la fonction, charger le fichier avec `np.loadtxt()` en utilisant `delimiter=";"` et `skiprows=1`, puis lui transmettre les deux colonnes. À partir du graphique et d'un point éloigné de l'origine, approximer la résistance avec `R = U / I`. Attention : convertir les milliampères en ampères pour obtenir une résistance en ohms.
 
 ## Ex. 4 — Observer une distribution
 
 **Nom de la fonction :** `tracer_histogramme`
 
-Recevoir une séquence de mesures et un nombre de classes. Utiliser `5` comme nombre de classes par défaut. Créer l'histogramme avec `plt.hist()`. La fonction ne renvoie rien.
+Le fichier fourni contient 120 mesures répétées d'une résistance nominale de 220 Ω, à raison d'une valeur en ohms par ligne.
+
+Recevoir une séquence de mesures. Créer deux sous-graphiques côte à côte avec `plt.subplot()` :
+
+- à gauche, un histogramme avec `5` classes ;
+- à droite, un histogramme avec `10` classes.
+
+Ajuster les espacements avec `plt.tight_layout()`. La fonction ne renvoie rien.
+
+**Fichier fourni :** `exercice_4_mesures_resistance.txt`
+
+Pour essayer la fonction, charger les valeurs avec `np.loadtxt()`. Comparer les deux représentations : laquelle permet le mieux d'observer la répartition des mesures autour de 220 Ω ?
 
 ## Ex. 5 — Comparer deux représentations
 

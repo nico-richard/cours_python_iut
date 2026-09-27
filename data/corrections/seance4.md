@@ -49,6 +49,8 @@ def tracer_nuage(tensions, courants):
     plt.scatter(tensions, courants)
 ```
 
+L'exploitation du fichier fourni conduit à une résistance voisine de 220 Ω. Par exemple, pour environ 10 V et 45,5 mA : `R = 10 / 0.0455`, soit environ 220 Ω.
+
 ## Ex. 4 — Observer une distribution
 
 Fichier : `s4_ex4.py`
@@ -57,8 +59,12 @@ Fichier : `s4_ex4.py`
 import matplotlib.pyplot as plt
 
 
-def tracer_histogramme(mesures, nombre_classes=5):
-    plt.hist(mesures, bins=nombre_classes)
+def tracer_histogramme(mesures):
+    plt.subplot(1, 2, 1)
+    plt.hist(mesures, bins=5)
+    plt.subplot(1, 2, 2)
+    plt.hist(mesures, bins=10)
+    plt.tight_layout()
 ```
 
 ## Ex. 5 — Comparer deux représentations

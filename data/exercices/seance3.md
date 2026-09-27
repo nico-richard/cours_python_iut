@@ -25,6 +25,8 @@ Un fichier texte contient une valeur numérique par ligne. Recevoir son chemin, 
 
 Le fichier est encodé en UTF-8 et ne contient pas de ligne vide.
 
+**Fichier fourni :** `exercice_2_relire_les_profondeurs.txt`
+
 ## Ex. 3 — Décoder le journal CSV
 
 **Nom de la fonction :** `lire_mesures_csv`
@@ -32,6 +34,8 @@ Le fichier est encodé en UTF-8 et ne contient pas de ligne vide.
 Le journal de plongée est un fichier CSV encodé en UTF-8. Sa première ligne contient l'en-tête `temps;temperature` ; les lignes suivantes contiennent deux nombres séparés par `;`.
 
 Recevoir le chemin du fichier et renvoyer un tuple contenant la liste des temps puis la liste des températures. Toutes les valeurs doivent être converties en `float`. Ignorer l'en-tête et séparer chaque ligne avec `split(";")`.
+
+**Fichier fourni :** `exercice_3_decoder_le_journal_csv.csv`
 
 ## Ex. 4 — Rédiger le bilan de plongée
 
@@ -64,6 +68,8 @@ Recevoir une durée positive ou nulle et un nombre de mesures supérieur ou éga
 **Nom de la fonction :** `charger_mesures_numpy`
 
 Recevoir le chemin d'un fichier ayant la même structure que dans l'exercice 3. Le charger avec `np.loadtxt`, puis renvoyer un tuple contenant la colonne des temps et la colonne des températures sous forme de deux `ndarray` à une dimension.
+
+**Fichier fourni :** `exercice_7_charger_les_colonnes_avec_numpy.csv`
 
 ## Ex. 8 — Corriger l'étalonnage
 
