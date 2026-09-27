@@ -959,15 +959,15 @@
         "explication": "Le port identifie l'interface de communication, SCPI structure les messages et pyserial permet au programme Python d'accéder à la liaison."
       },
       {
-        "question": "Quelle instruction enregistre un graphique en demandant explicitement une résolution de 300 dpi ?",
+        "question": "Pourquoi représenter une même série de mesures avec une courbe et un histogramme ?",
         "choix": [
-          "`plt.savefig(\"mesure.png\", bbox_inches=300)`",
-          "`plt.plot(\"mesure.png\", dpi=300)`",
-          "`plt.savefig(\"mesure.png\", dpi=300)`",
-          "`plt.show(dpi=300)`"
+          "Les deux graphiques montrent exactement la même information",
+          "L'histogramme montre l'ordre chronologique, la courbe les fréquences",
+          "La courbe montre l'évolution, l'histogramme la répartition des valeurs",
+          "La courbe sert uniquement aux mesures sans unité"
         ],
         "reponse": 2,
-        "explication": "`savefig()` produit un fichier ; `dpi` règle notamment la résolution d'une image matricielle."
+        "explication": "La courbe rend visible l'évolution des mesures ; l'histogramme montre comment leurs valeurs se répartissent."
       },
       {
         "question": "Dans une chaîne de mesure, quel élément réagit directement à la grandeur physique ?",
@@ -992,15 +992,15 @@
         "explication": "`decode()` produit un texte, `strip()` retire les caractères de fin de ligne et `float()` convertit ensuite ce texte en nombre."
       },
       {
-        "question": "Dans une commande SCPI, que signale généralement le caractère `?` final ?",
+        "question": "Avant d'envoyer des commandes à un instrument, pourquoi consulter sa documentation ?",
         "choix": [
-          "Une requête qui attend une réponse",
-          "Une commande sans terminaison de ligne",
-          "Une commande qui modifie un réglage",
-          "Une erreur de syntaxe"
+          "Pour connaître l'interface, les commandes reconnues et le format des échanges",
+          "Pour éviter de convertir les mesures reçues",
+          "Pour garantir que tous les instruments utilisent les mêmes commandes",
+          "Pour remplacer la configuration de la liaison par des valeurs au hasard"
         ],
         "reponse": 0,
-        "explication": "Une commande terminée par `?` interroge l'instrument ; le programme doit ensuite lire sa réponse."
+        "explication": "La documentation précise les paramètres de communication, les commandes disponibles et la forme des réponses."
       },
       {
         "question": "Concernant la transmission série elle-même, quel ensemble de paramètres doit être compatible entre les deux équipements ?",
@@ -1025,26 +1025,26 @@
         "explication": "Le délai maximal permet de reprendre la main et de traiter proprement l'absence de réponse."
       },
       {
-        "question": "Pourquoi utilise-t-on `encode()` avant certains envois série ou réseau ?",
+        "question": "Pour tracer une grandeur en fonction d'une autre avec `plt.plot()` ou `plt.scatter()`, quelle condition doivent respecter les deux séquences ?",
         "choix": [
-          "Pour ajouter automatiquement une fin de ligne",
-          "Pour convertir directement la réponse en nombre",
-          "Pour convertir des octets en texte",
-          "Pour convertir du texte en octets"
+          "Elles doivent contenir uniquement des nombres entiers",
+          "Elles doivent être triées dans l'ordre croissant",
+          "Elles doivent obligatoirement être des tableaux NumPy",
+          "Elles doivent avoir la même longueur afin d'associer chaque abscisse à une ordonnée"
         ],
         "reponse": 3,
-        "explication": "De nombreuses interfaces transmettent des `bytes` ; `decode()` réalise l'opération inverse à la réception."
+        "explication": "Chaque point du graphique associe une valeur d'abscisse à une valeur d'ordonnée ; les deux séquences doivent donc avoir le même nombre d'éléments."
       },
       {
-        "question": "Que fait `port.readline()` si aucune fin de ligne n'est reçue ?",
+        "question": "Pourquoi utiliser `plt.subplot()` dans une figure Matplotlib ?",
         "choix": [
-          "Il ferme le port puis tente de le rouvrir",
-          "Il attend jusqu'à l'expiration du timeout configuré",
-          "Il ajoute lui-même `\\n` aux données reçues",
-          "Il renvoie obligatoirement une mesure complète"
+          "Pour convertir automatiquement les données en nombres",
+          "Pour organiser plusieurs graphiques dans une même figure et faciliter leur comparaison",
+          "Pour remplacer les titres et les légendes",
+          "Pour enregistrer chaque mesure dans un fichier"
         ],
         "reponse": 1,
-        "explication": "`readline()` termine sa lecture lorsqu'une fin de ligne est reçue ou lorsque le délai configuré expire."
+        "explication": "`plt.subplot()` découpe la figure en zones afin d'y présenter plusieurs graphiques, par exemple une courbe et un histogramme."
       },
       {
         "question": "Quelles informations faut-il connaître pour ouvrir une connexion TCP vers un instrument ?",
@@ -1082,15 +1082,15 @@
         "explication": "`decode()` produit un texte, `strip()` retire les caractères de fin de ligne et `float()` convertit ensuite ce texte en nombre."
       },
       {
-        "question": "Dans une commande SCPI, que signale généralement le caractère `?` final ?",
+        "question": "Avant d'envoyer des commandes à un instrument, pourquoi consulter sa documentation ?",
         "choix": [
-          "Une requête qui attend une réponse",
-          "Une commande sans terminaison de ligne",
-          "Une commande qui modifie un réglage",
-          "Une erreur de syntaxe"
+          "Pour connaître l'interface, les commandes reconnues et le format des échanges",
+          "Pour éviter de convertir les mesures reçues",
+          "Pour garantir que tous les instruments utilisent les mêmes commandes",
+          "Pour remplacer la configuration de la liaison par des valeurs au hasard"
         ],
         "reponse": 0,
-        "explication": "Une commande terminée par `?` interroge l'instrument ; le programme doit ensuite lire sa réponse."
+        "explication": "La documentation précise les paramètres de communication, les commandes disponibles et la forme des réponses."
       },
       {
         "question": "Concernant la transmission série elle-même, quel ensemble de paramètres doit être compatible entre les deux équipements ?",
@@ -1115,26 +1115,26 @@
         "explication": "Le délai maximal permet de reprendre la main et de traiter proprement l'absence de réponse."
       },
       {
-        "question": "Pourquoi utilise-t-on `encode()` avant certains envois série ou réseau ?",
+        "question": "Pour tracer une grandeur en fonction d'une autre avec `plt.plot()` ou `plt.scatter()`, quelle condition doivent respecter les deux séquences ?",
         "choix": [
-          "Pour ajouter automatiquement une fin de ligne",
-          "Pour convertir directement la réponse en nombre",
-          "Pour convertir des octets en texte",
-          "Pour convertir du texte en octets"
+          "Elles doivent contenir uniquement des nombres entiers",
+          "Elles doivent être triées dans l'ordre croissant",
+          "Elles doivent obligatoirement être des tableaux NumPy",
+          "Elles doivent avoir la même longueur afin d'associer chaque abscisse à une ordonnée"
         ],
         "reponse": 3,
-        "explication": "De nombreuses interfaces transmettent des `bytes` ; `decode()` réalise l'opération inverse à la réception."
+        "explication": "Chaque point du graphique associe une valeur d'abscisse à une valeur d'ordonnée ; les deux séquences doivent donc avoir le même nombre d'éléments."
       },
       {
-        "question": "Que fait `port.readline()` si aucune fin de ligne n'est reçue ?",
+        "question": "Pourquoi utiliser `plt.subplot()` dans une figure Matplotlib ?",
         "choix": [
-          "Il ferme le port puis tente de le rouvrir",
-          "Il attend jusqu'à l'expiration du timeout configuré",
-          "Il ajoute lui-même `\\n` aux données reçues",
-          "Il renvoie obligatoirement une mesure complète"
+          "Pour convertir automatiquement les données en nombres",
+          "Pour organiser plusieurs graphiques dans une même figure et faciliter leur comparaison",
+          "Pour remplacer les titres et les légendes",
+          "Pour enregistrer chaque mesure dans un fichier"
         ],
         "reponse": 1,
-        "explication": "`readline()` termine sa lecture lorsqu'une fin de ligne est reçue ou lorsque le délai configuré expire."
+        "explication": "`plt.subplot()` découpe la figure en zones afin d'y présenter plusieurs graphiques, par exemple une courbe et un histogramme."
       },
       {
         "question": "Quelles informations faut-il connaître pour ouvrir une connexion TCP vers un instrument ?",
@@ -1214,15 +1214,15 @@
         "explication": "Le port identifie l'interface de communication, SCPI structure les messages et pyserial permet au programme Python d'accéder à la liaison."
       },
       {
-        "question": "Quelle instruction enregistre un graphique en demandant explicitement une résolution de 300 dpi ?",
+        "question": "Pourquoi représenter une même série de mesures avec une courbe et un histogramme ?",
         "choix": [
-          "`plt.savefig(\"mesure.png\", bbox_inches=300)`",
-          "`plt.plot(\"mesure.png\", dpi=300)`",
-          "`plt.savefig(\"mesure.png\", dpi=300)`",
-          "`plt.show(dpi=300)`"
+          "Les deux graphiques montrent exactement la même information",
+          "L'histogramme montre l'ordre chronologique, la courbe les fréquences",
+          "La courbe montre l'évolution, l'histogramme la répartition des valeurs",
+          "La courbe sert uniquement aux mesures sans unité"
         ],
         "reponse": 2,
-        "explication": "`savefig()` produit un fichier ; `dpi` règle notamment la résolution d'une image matricielle."
+        "explication": "La courbe rend visible l'évolution des mesures ; l'histogramme montre comment leurs valeurs se répartissent."
       },
       {
         "question": "Dans une chaîne de mesure, quel élément réagit directement à la grandeur physique ?",

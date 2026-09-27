@@ -130,12 +130,14 @@ def controle_nuage(obtenu, arguments):
 
 
 def controle_histogramme(obtenu, arguments):
-    axes, erreur = verifier_graphique(obtenu)
+    axes, erreur = verifier_graphique(obtenu, nombre_zones=2)
     if erreur:
         return False, erreur
-    nombre_classes = arguments[1] if len(arguments) == 2 else 5
-    correct = len(axes[0].patches) == nombre_classes
-    return correct, "Nombre de classes incorrect." if not correct else "Réponse correcte."
+    correct = (
+        len(axes[0].patches) == 5
+        and len(axes[1].patches) == 10
+    )
+    return correct, "Histogrammes ou nombres de classes incorrects." if not correct else "Réponse correcte."
 
 
 def controle_comparaison(obtenu, arguments):
@@ -190,10 +192,7 @@ def test_tracer_histogramme(module):
         module,
         "tracer_histogramme",
         controle_histogramme,
-        [
-            ("nombre par défaut", ([1, 2, 2, 3, 4],)),
-            ("trois classes", ([0, 1, 2, 3], 3)),
-        ],
+        [("deux histogrammes", ([218, 219, 220, 220, 221, 222],))],
     )
 
 
